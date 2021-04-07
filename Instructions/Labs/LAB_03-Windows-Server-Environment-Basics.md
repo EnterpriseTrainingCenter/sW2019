@@ -57,9 +57,7 @@ Perform these steps on DC1.
 1. In **New Object - Organizational Unit**, in **Name**, enter **Server2019** ([figure 1]) and click **OK**.
 1. Select the new OU and try to delete it.
 
-   > Can you delete the OU?
-
-   > Why? (Hint: see [figure 1])
+   > Can you delete the OU? Why? (Hint: see [figure 1])
 
 1. From the context menu of the new OU, select **New, User**.
 1. Create a new user using your your personal first and last name. For the user logon name use the following format: **firstname.lastname**. For the password use **Pa$$w0rd** and deactivate **User must change password at next logon**.
