@@ -209,6 +209,7 @@ Perform these steps on WS2019.
 1. Hyper-V Console is a part of the Remote Server Administration Tools (RSAT) – so we must filter our output to only get those RSAT features. Enter the following command to list all available Windows features with a name that begins with **RSAT**.
 
    ````powershell
+   # ? is an alias for Where-Object
    Get-WindowsFeature | ? Name -like 'RSAT*'
    ````
 
