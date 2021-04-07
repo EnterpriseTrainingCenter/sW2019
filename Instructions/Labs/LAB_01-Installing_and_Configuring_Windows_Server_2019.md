@@ -24,7 +24,8 @@ Perform these steps on **HV1**.
 1. On the **Specify a location** page, click on **Next**.
 1. On the **Windows Kits privacy** page, click on **Next**.
 1. Click on **Accept**.
-1. On the **Select the features you want to install** page, clear the checkboxes beside all components. Select the checkbox beside **Deployment tools**. ![Clear the checkboxes beside all components. Select the checkbox beside **Deployment tools**.][Select the features you want to install]
+1. On the **Select the features you want to install** page, clear the checkboxes beside all components. Select the checkbox beside **Deployment tools**.
+![Clear the checkboxes beside all components. Select the checkbox beside **Deployment tools**.][Select the features you want to install]
 1. Click on **Install** and wait for the install to complete. Then, click on **Close**.
 
-[Select the features you want to install]Instructions\Labs\images\figure01.png
+[Select the features you want to install]: Instructions\Labs\images\figure01.png
