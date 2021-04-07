@@ -1,18 +1,18 @@
 # Lab 1: Installing and Configuring Windows Server 2019
 
-Required VMs
+## Required VMs
 
 * DC1
 * DHCP
 * HV1
 * Router
 
-Exercises
+## Exercises
 
-1. [Authoring an Unattend.xml file](#exercise-1--authoring-an-unattend-xml-file)
-1. Building a new Windows Server DVD
-1. Installing Windows Server 2019 unattended
-1. [Install windows features using Server Manager](#exercise-4--install-windows-features-using-server-manager-and-windows-powershell)
+1. [Authoring an Unattend.xml file](#exercise-1-authoring-an-unattendxml-file)
+1. [Building a new Windows Server DVD](#exercise-2-building-a-new-windows-server-dvd)
+1. [Installing Windows Server 2019 unattended](#exercise-3-installing-windows-server-2019-unattended)
+1. [Install windows features using Server Manager](#exercise-4-install-windows-features-using-server-manager-and-windows-powershell)
 
 ## Exercise 1: Authoring an Unattend.xml File
 
@@ -22,12 +22,12 @@ In this exercise, you prepare an Unattend.xml file to automate the deployment of
 
 ### Tasks
 
-1. Install Windows System Image Manager
-1. Author an Unattend.xml file using Windows System Image Manager
+1. [Install Windows System Image Manager](#task-1-install-windows-system-image-manager)
+1. [Author an Unattend.xml file using Windows System Image Manager](#task-2-author-an-unattendxml-file-using-windows-system-image-manager)
 
 ### Detailed Instructions
 
-#### Task 1:  Install Windows System Image Manager
+#### Task 1: Install Windows System Image Manager
 
 Perform these steps on **HV1**.
 
@@ -84,12 +84,12 @@ In this exercise, you will build a new Windows Server 2019 DVD that contains you
 
 ### Tasks
 
-1. Inject the Unattend.xml file into the original Install.wim file
-1. Build a new ISO file which contains the modified Install.wim file
+1. [Inject the Unattend.xml file into the original Install.wim file](#task-1-inject-the-unattendxml-file-into-the-original-installwim-file)
+1. [Build a new ISO file which contains the modified Install.wim file](#task-2-build-a-new-iso-file-which-contains-the-modified-installwim-file)
 
 ### Detailed Instructions
 
-#### Task 1:  Inject the Unattend.xml file into the original Install.wim file
+#### Task 1: Inject the Unattend.xml file into the original Install.wim file
 
 Perform these steps on HV1.
 
@@ -109,7 +109,7 @@ Perform these steps on HV1.
 
 1. Leave the command prompt open for the next task.
 
-#### Task 2:  Build a new ISO file which contains the modified Install.wim file
+#### Task 2: Build a new ISO file which contains the modified Install.wim file
 
 Perform these steps on HV1.
 
@@ -127,7 +127,7 @@ In this exercise, you will use the Unattend.xml file from exercise 1 to install 
 
 ### Tasks
 
-1. Install Windows Server 2019 unattended
+1. [Install Windows Server 2019 unattended](#task-1-install-windows-server-2019-unattended)
 
 ### Detailed Instructions
 
@@ -177,8 +177,8 @@ In this exercise, you will install the Telnet Client feature by using Server Man
 
 ### Tasks
 
-1. Install the Telnet Client by using Server Manager
-1. Install the Hyper-V Management Console from the RSAT Tools using PowerShell
+1. [Install the Telnet Client by using Server Manager](#task-1-install-the-telnet-client-by-using-server-manager)
+1. [Install the Hyper-V Management Console from the RSAT Tools using PowerShell](#task-2-install-the-hyper-v-management-console-from-the-rsat-tools-using-powershell)
 
 ### Detailed Instructions
 
