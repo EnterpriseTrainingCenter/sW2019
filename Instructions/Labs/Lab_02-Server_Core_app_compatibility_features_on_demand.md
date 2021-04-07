@@ -152,6 +152,8 @@ Perform these steps on SRV2.
 
 #### Task 2:  Use Internet explorer
 
+Perform these steps on SRV2.
+
 1. Start Internet Explorer.
 
    ````shell
