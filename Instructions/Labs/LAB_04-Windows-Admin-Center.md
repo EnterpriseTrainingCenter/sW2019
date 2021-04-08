@@ -233,8 +233,9 @@ Perform these steps on DC1.
 1. Open the **Active Directory Users and Computers** console.
 1. Create two domain-local groups in the **Users** container.
 
-   * DL WAC-Admins
-   * DL WAC-Users
+   * DL_WAC-Admins
+   * DL_WAC-Users
+
 1. Add **smart\user1** as a member of the **WAC-Admins** group.
 1. Add **smart\user2** as a member of the **WAC-Users** group.
 
