@@ -213,7 +213,7 @@ Perform these steps on CL1.
 
 ### Introduction
 
-In this exercise, you will make yourself familiar with Windows Admin Center.
+In this exercise you will configure access permissions to Windows Admin Center and activate role-based-access control for a single server.
 
 ### Tasks
 
