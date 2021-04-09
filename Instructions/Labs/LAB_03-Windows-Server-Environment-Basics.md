@@ -131,7 +131,8 @@ Perform these steps on HV1.
 1. Use the AD PowerShell to display properties of the user, you created in exercise 1. You do not need to type the line after the hash character. The hash character precedes a comment.
 
    ````powershell
-   # Replace <firstname>.<lastname> with the name of the user, you created in exercise 1
+   # Replace <firstname>.<lastname> with the name of the user, 
+   # you created in exercise 1
    Get-ADUser <firstname>.<lastname>  
    ````
 
@@ -149,7 +150,8 @@ Perform these steps on HV1.
 1. Display the type and the members of the object stored in $user:
 
    ````powershell
-   # The pipe symbol (|) sends the output from the left-hand command as input to the right-hand command. This is called a "pipeline".
+   # The pipe symbol (|) sends the output from the left-hand command as input 
+   # to the right-hand command. This is called a "pipeline".
    $user | Get-Member
    ````
 
@@ -177,8 +179,10 @@ Perform these steps on HV1.
 1. Use the Alias for Format-Table.
 
    ````powershell
-   # Very often, you will encounter the aliases of Format-Table and Format-List: ft and fl
-   # CAUTION: Although aliases save some typing effort in the conole or terminal, it is considered bad style to use the in scripts.
+   # Very often, you will encounter the aliases of Format-Table and Format-List:
+   # ft and fl
+   # CAUTION: Although aliases save some typing effort in the conole 
+   # or terminal, it is considered bad style to use the in scripts.
    Get-ADUser -Filter * | ft
    ````
 
