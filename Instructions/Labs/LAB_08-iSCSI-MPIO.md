@@ -6,6 +6,7 @@
 * DC1
 * DHCP
 * Router
+* HV1
 * FS on HV1
 * WS2019 on HV1
 
