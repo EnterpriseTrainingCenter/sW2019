@@ -147,7 +147,7 @@ Perform these steps on FS.
 
 ### Introduction
 
-In this exercise, you will deduplicate some ISO files to demonstrate deduplication efficiency.
+In this exercise, you will deduplicate some files to demonstrate deduplication efficiency.
 
 ### Tasks
 
