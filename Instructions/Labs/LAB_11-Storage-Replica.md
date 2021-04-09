@@ -160,46 +160,19 @@ Perform these steps on SR1.
    Set-ClusterQuorum -Cluster $cluster -FileShareWitness '\\Dhcp\SR-fsw'
    ````
 
-1. Configure stretched cluster site awareness using PowerShell. Create a fault domain Primary and associate SR1 with it. Create a fault domain Secondary and associate SR2 with it.
+1. Configure stretched cluster site awareness using PowerShell. Create two sites: primary and secondary.
 
    ````powershell
-   # Create an array of hash tables
-   # Arrays can be indicated by the @() syntax
-   $clusterFaultDomains = @(
-       # A hash table (indicated by the @{} syntax) can store key-value-pairs
-       # This is similar to JSON files.
-       # In this case the Name key contains the name of the fault domain.
-       # Nodes contains a string array of nodes 
-       # to be assigned to the fault domain.
-       @{
-           Name = 'Primary'
-           Nodes = 'SR1'
-       },
-       @{
-           Name = 'Secondary'
-           Nodes = 'SR2'
-       }
-   )
+   New-ClusterFaultDomain -Name Primary -Type Site
+   New-ClusterFaultDomain -Name Secondary -Type Site
+   ````
 
-   # Iterate through $clusterFaultDomainNames
-   # The pipe symbol (|) sends the output from the left-hand command as input 
-   # to the right-hand command. This is called a "pipeline".
+1. Add the nodes to their sites.
 
-   $clusterFaultDomains | ForEach-Object {
-
-       # You have to save the fault domain name in a variable for later use
-       # First, create the fault domain
-       # $PSItem (equivalent to $_) contains the single cluster fault domain.
-       # The .Name syntax returns the value associated with the key 'Name'.
-       $clusterFaultDomainName = $PSItem.Name
-
-       New-ClusterFaultDomain -Name $clusterFaultDomainName -Type Site
-
-       # Then, iterate through the nodes and set the fault domains for the nodes
-       $PSItem.Nodes | ForEach-Object {
-           Set-ClusterFaultDomain -Name $PSItem -Parent $clusterFaultDomainName
-       }
-   }
+   ````powershell
+   Set-ClusterFaultDomain -Name SR1 -Parent Primary
+   Set-ClusterFaultDomain -Name SR2 -Parent Secondary
+   ````
 
 1. Set the preferred site to the first domain.
 
@@ -214,8 +187,7 @@ Perform these steps on SR1.
    Because Get-Cluster must be executed before you can access the properties of
    the returned object, you have to put it into braces.
    #>
-   # To access the first element of an array, you can use the [0] syntax.
-   (Get-Cluster).PreferredSite = $clusterFaultDomains[0]
+   (Get-Cluster).PreferredSite = 'Primary'
    ````
 
 1. Set the cluster resiliency period to 10 seconds.
