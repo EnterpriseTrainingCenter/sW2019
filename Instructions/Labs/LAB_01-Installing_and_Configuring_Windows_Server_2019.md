@@ -9,7 +9,7 @@
 
 ## Exercises
 
-1. [Authoring an Unattend.xml file](#exercise-1-authoring-an-unattendxml-file)
+1. [ ] [Authoring an Unattend.xml file](#exercise-1-authoring-an-unattendxml-file)
 1. [Building a new Windows Server DVD](#exercise-2-building-a-new-windows-server-dvd)
 1. [Installing Windows Server 2019 unattended](#exercise-3-installing-windows-server-2019-unattended)
 1. [Install windows features using Server Manager](#exercise-4-install-windows-features-using-server-manager-and-windows-powershell)
