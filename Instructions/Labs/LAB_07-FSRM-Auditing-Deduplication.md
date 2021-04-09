@@ -188,7 +188,7 @@ Perform these steps on FS.
 1. Create a new schedule that automatically deduplicates your D: drive at night.
 
    ````powershell
-   # The back tick ` allows to split long command into multiple lines
+   # The back tick ` allows to split long commands into multiple lines
    New-DedupSchedule `
        –Name 'DedupLabfiles' `
        –Type Optimization `
