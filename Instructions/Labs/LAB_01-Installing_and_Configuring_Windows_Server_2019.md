@@ -12,7 +12,8 @@
 1. [Authoring an Unattend.xml file](#exercise-1-authoring-an-unattendxml-file)
 1. [Building a new Windows Server DVD](#exercise-2-building-a-new-windows-server-dvd)
 1. [Installing Windows Server 2019 unattended](#exercise-3-installing-windows-server-2019-unattended)
-1. [Install windows features using Server Manager](#exercise-4-install-windows-features-using-server-manager-and-windows-powershell)
+1. [Configuring Windows Server](#exercise-4-configuring-windows-server)
+1. [Install windows features using Server Manager](#exercise-5-install-windows-features-using-server-manager-and-windows-powershell)
 
 ## Exercise 1: Authoring an Unattend.xml File
 
@@ -169,7 +170,54 @@ Perform these steps on HV1.
    * Your time zone
    * Your regional settings
 
-## Exercise 4: Install windows features using Server Manager and Windows PowerShell
+## Exercise 4: Configuring Windows Server
+
+### Introduction
+
+In this exercise, you will configure the network settings and join the server to the domain.
+
+### Tasks
+
+1. [Change network settings](#task-1-change-network-settings)
+2. [Join the computer to the domain](#task-2-join-the-computer-to-the-domain)
+
+#### Task 1: Change networking settings
+
+Perform these steps on WS2019.
+
+1. Logon as **.\Administrator**.
+1. Open **Network and Sharing Center**.
+1. From the context menu of the network interface card (NIC) **Ethernet…**, select **Rename**.
+1. Rename the NIC to **Datacenter1**
+1. Open the properties of the NIC **Datacenter1**.
+1. Open the properties of **Internet Protocol Version 4**.
+1. Configure the following settings:
+
+   * **IP Address:** 10.1.1.32
+   * **Subnet Mask:** 255.255.255.0
+   * **Default Gateway:** 10.1.1.254
+   * **Preferred DNS Server:** 10.1.1.1
+
+1. Click on **OK** twice to commit the changes.
+
+#### Task 2: Join the computer to the domain
+
+Perform these steps on WS2019.
+
+1. If not opened already, start **Server Manager**.
+2. In **Server Manager**, in the left pane, click on **Local Server**.
+3. In the middle pane, click on the **Workgroup** name.
+4. In **System Properties**, click on **Change**.
+5. Activate **Domain**, and in **Domain Name**, enter **smart.etc**.
+6. Click on **OK**, and use the **smart\Administrator** credentials to join the computer to the domain.
+7. Click on **OK** twice, and restart the computer.
+8. Logon as **smart\user1**.
+
+   > Can you logon? Why?
+
+9. Logoff.
+
+## Exercise 5: Install windows features using Server Manager and Windows PowerShell
 
 ### Introduction
 
@@ -252,3 +300,4 @@ Perform these steps on WS2019.
 [figure 21]: images/Lab01/figure21.png
 [figure 22]: images/Lab01/figure22.png
 [figure 23]: images/Lab01/figure23.png
+

@@ -17,67 +17,40 @@
 
 ### Introduction
 
-In this exercise, you will create an Organizational Unit and a personalized Active Directory User Account Additionally, you join a computer into the Domain smart.etc.
+In this exercise, you will create an Organizational Unit and a personalized Active Directory user account.
 
 ### Tasks
 
-1. [Change networking settings](#task-1-change-networking-settings)
-1. [Create a new Organizational Unit and a new AD User](#task-2-create-a-new-organizational-unit-and-a-new-ad-user)
-1. [Join the computer to the domain](#task-3-join-the-computer-to-the-domain)
+1. [Create a new Organizational Unit and a new AD User](#task-1-create-a-new-organizational-unit-and-a-new-ad-user)
+1. [Create a new AD user](#task-2-create-a-new-ad-user)
 
 ### Detailed Instructions
 
-#### Task 1: Change networking settings
-
-Perform these steps on WS2019.
-
-1. Logon as **.\Administrator**.
-1. Open **Network and Sharing Center**.
-1. From the context menu of the network interface card (NIC) **Ethernet…**, select **Rename**.
-1. Rename the NIC to **Datacenter1**
-1. Open the properties of the NIC **Datacenter1**.
-1. Open the properties of **Internet Protocol Version 4**.
-1. Configure the following settings:
-
-   * **IP Address:** 10.1.1.32
-   * **Subnet Mask:** 255.255.255.0
-   * **Default Gateway:** 10.1.1.254
-   * **Preferred DNS Server:** 10.1.1.1
-
-1. Click on **OK** twice to commit the changes.
-
-#### Task 2: Create a new Organizational Unit and a new AD User
+#### Task 1: Create a new Organizational Unit and a new AD user
 
 Perform these steps on DC1.
 
 1. Logon as **smart\Administrator**.
 1. Start **Server Manager**
 1. In **Server Manager**, from the menu bar select **Tools, Active Directory Users and Computers**.
-1. In **Active Directory Users and Computer**, in the context menu of the top node **smart.etc**, select **New, Organizational Unit**
+1. In **Active Directory Users and Computers**, in the context menu of the top node **smart.etc**, select **New, Organizational Unit**
 1. In **New Object - Organizational Unit**, in **Name**, enter **Server2019** ([figure 1]) and click **OK**.
 1. Select the new OU and try to delete it.
 
    > Can you delete the OU? Why? (Hint: see [figure 1])
 
-1. From the context menu of the new OU, select **New, User**.
+1. Leave **Active Directory Users and Computers** open for the next task.
+
+#### Task 2: Create a new AD user
+
+Perform these steps on DC1.
+
+1. In **Active Directory Users and Computers**, from the context menu of the new OU, select **New, User**.
 1. Create a new user using your your personal first and last name. For the user logon name use the following format: **firstname.lastname**. For the password use **Pa$$w0rd** and deactivate **User must change password at next logon**.
 1. Double-click the new user to open its properties.
 1. Click on the tab **Member Of**.
 
    > Which groups is the new user member of?
-
-#### Task 3: Join the computer to the domain
-
-Perform these steps on WS2019.
-
-1. If not opened already, start **Server Manager**.
-2. In **Server Manager**, in the left pane, click on **Local Server**.
-3. In the middle pane, click on the **Workgroup** name.
-4. In **System Properties**, click on **Change**.
-5. Activate **Domain**, and in **Domain Name**, enter **smart.etc**.
-6. Click on **OK**, and use the **smart\Administrator** credentials to join the computer to the domain.
-7. Click on **OK** twice, and restart the computer.
-8. Use the user account you created in task 2 to logon to the computer.
 
 ## Exercise 2: PowerShell Basics
 
