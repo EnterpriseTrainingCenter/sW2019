@@ -146,6 +146,7 @@ Set-FileStorageTier `
 ````
 
 Note that there are scheduled tasks for **Storage Tier Management**.
+
 ![Scheduled tasks for storage Tiers Management: Storage Tiers Management Initialization, Storage Tiers Optimization][figure 9]
 
 [figure 1]: images/Lab09/figure01.png
