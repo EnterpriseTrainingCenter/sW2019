@@ -39,19 +39,19 @@ In this exercise, you will deploy a Docker host and start standard containers.
 
 Perform these steps on the host computer.
 
-1. In **Hyper-V Manager**, make sure the VM **Docker** is not running.
+1. In **Hyper-V Manager**, make sure the VM **DOCKER** is not running.
 1. Run **Windows PowerShell** as Administrator.
-1. Enable Nested Virtualization for the VM Docker.
+1. Enable Nested Virtualization for the VM DOCKER.
 
    ````powershell
-   C:\HostFiles\Enable-NestedVM.ps1 Docker
+   C:\HostFiles\Enable-NestedVM.ps1 DOCKER
    ````
 
-1. In **Hyper-V Manager**, start the VM **Docker**.
+1. In **Hyper-V Manager**, start the VM **DOCKER**.
 
 #### Task 2: Install Docker
 
-Perform these steps on Docker.
+Perform these steps on DOCKER.
 
 1. Logon as Administrator
 1. Run **Windows PowerShell as Administrator**.
@@ -84,7 +84,7 @@ Perform these steps on Docker.
 
 #### Task 3: Prepare docker images and networking
 
-Perform these steps on Docker.
+Perform these steps on DOCKER.
 
 1. Run **Command Prompt** as Administrator.
 1. Display the current Docker version.
@@ -268,7 +268,7 @@ Perform these steps on DC1.
 
 #### Task 7: Deploy a web site in the container
 
-Perform these steps on Docker.
+Perform these steps on DOCKER.
 
 1. In the running container, create a new default HTML page.
 
@@ -286,7 +286,7 @@ Perform these steps on DC1.
 
 #### Task 9: Save the custom container as new image to the repository
 
-Perform these steps on Docker.
+Perform these steps on DOCKER.
 
 1. Press CTRL+P, CTRL+Q to exit the container.
 1. List the running containers, take note of the **CONTAINER ID** and stop the container.
@@ -342,7 +342,7 @@ In this exercise, you will deploy a container using Dockerfile.
 
 #### Task 1: Use dockerfile to create an image
 
-Perform these steps on Docker.
+Perform these steps on DOCKER.
 
 1. Create a new folder **C:\Build**.
 
@@ -408,7 +408,7 @@ Perform these steps on DC1.
 
 #### Task 3: Stop the container
 
-Perform these steps on Docker.
+Perform these steps on DOCKER.
 
 1. Find the **CONTAINER ID** of the running container and take a note of it.
 
@@ -437,7 +437,7 @@ In this exercise, you will deploy a Linux Container.
 
 #### Task 1: Activate and run a Linux Container
 
-Perform these steps on Docker.
+Perform these steps on DOCKER.
 
 1. In **Windows PowerShell**, activate Linux Container support.
 
@@ -465,7 +465,7 @@ Figure 5
 
 #### Task 2: Coexistence between Windows and Linux containers
 
-Perform these steps on Docker.
+Perform these steps on DOCKER.
 
 1. In **Windows PowerShell**, remove the environment variable from the previous task.
 
