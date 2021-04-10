@@ -85,6 +85,7 @@ In this exercise, you will inventory the source server and start the transfer. A
 1. [Create an inventory](#task-1-create-an-inventory)
 1. [Transfer data](#task-2-transfer-data)
 1. [Cutover services](#task-3-cutover-services)
+1. [Validate migration](#task-4-validate-migration)
 
 ### Detailed Instructions
 
