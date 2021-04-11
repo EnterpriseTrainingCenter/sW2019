@@ -128,11 +128,12 @@ In this exercise, you will use the Unattend.xml file from exercise 1 to install 
 
 ### Tasks
 
-1. [Install Windows Server 2019 unattended](#task-1-install-windows-server-2019-unattended)
+1. [Create a VM for Windows Server 2019](#task-1-create-a-vm-for-windows-server-2019)
+1. [Install Windows Server 2019 unattended](#task-2-install-windows-server-2019-unattended)
 
 ### Detailed Instructions
 
-#### Task 1: Install Windows Server 2019 unattended
+#### Task 1: Create a VM for Windows Server 2019
 
 Perform these steps on HV1.
 
@@ -155,6 +156,11 @@ Perform these steps on HV1.
 1. Click **OK** to commit the changes.
 1. Double-Click on the VM to open the VM Console window.
 1. Click on **Start** to start WS2019
+
+#### Task 2: Install Windows Server 2019 unattended
+
+Perform these steps on WS2019.
+
 1. Select your time and currency format and keyboard layout and click on **Next**
 1. Click on **Install now**
 1. Open the file **L:\Deployment\Key.txt** and copy the product key.
