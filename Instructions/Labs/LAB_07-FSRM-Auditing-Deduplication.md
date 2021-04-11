@@ -1,4 +1,4 @@
-1. Lab 7: FSRM, Auditing & Deduplication
+# Lab 7: FSRM, Auditing & Deduplication
 
 ## Required VMs
 
