@@ -128,11 +128,12 @@ In this exercise, you will use the Unattend.xml file from exercise 1 to install 
 
 ### Tasks
 
-1. [Install Windows Server 2019 unattended](#task-1-install-windows-server-2019-unattended)
+1. [Create a VM for Windows Server 2019](#task-1-create-a-vm-for-windows-server-2019)
+1. [Install Windows Server 2019 unattended](#task-2-install-windows-server-2019-unattended)
 
 ### Detailed Instructions
 
-#### Task 1: Install Windows Server 2019 unattended
+#### Task 1: Create a VM for Windows Server 2019
 
 Perform these steps on HV1.
 
@@ -155,6 +156,11 @@ Perform these steps on HV1.
 1. Click **OK** to commit the changes.
 1. Double-Click on the VM to open the VM Console window.
 1. Click on **Start** to start WS2019
+
+#### Task 2: Install Windows Server 2019 unattended
+
+Perform these steps on WS2019.
+
 1. Select your time and currency format and keyboard layout and click on **Next**
 1. Click on **Install now**
 1. Open the file **L:\Deployment\Key.txt** and copy the product key.
@@ -179,7 +185,7 @@ In this exercise, you will configure the network settings and join the server to
 ### Tasks
 
 1. [Change network settings](#task-1-change-network-settings)
-2. [Join the computer to the domain](#task-2-join-the-computer-to-the-domain)
+1. [Join the computer to the domain](#task-2-join-the-computer-to-the-domain)
 
 #### Task 1: Change networking settings
 
@@ -205,17 +211,17 @@ Perform these steps on WS2019.
 Perform these steps on WS2019.
 
 1. If not opened already, start **Server Manager**.
-2. In **Server Manager**, in the left pane, click on **Local Server**.
-3. In the middle pane, click on the **Workgroup** name.
-4. In **System Properties**, click on **Change**.
-5. Activate **Domain**, and in **Domain Name**, enter **smart.etc**.
-6. Click on **OK**, and use the **smart\Administrator** credentials to join the computer to the domain.
-7. Click on **OK** twice, and restart the computer.
-8. Logon as **smart\user1**.
+1. In **Server Manager**, in the left pane, click on **Local Server**.
+1. In the middle pane, click on the **Workgroup** name.
+1. In **System Properties**, click on **Change**.
+1. Activate **Domain**, and in **Domain Name**, enter **smart.etc**.
+1. Click on **OK**, and use the **smart\Administrator** credentials to join the computer to the domain.
+1. Click on **OK** twice, and restart the computer.
+1. Logon as **smart\user1**.
 
    > Can you logon? Why?
 
-9. Logoff.
+1. Logoff.
 
 ## Exercise 5: Install windows features using Server Manager and Windows PowerShell
 
@@ -300,4 +306,3 @@ Perform these steps on WS2019.
 [figure 21]: images/Lab01/figure21.png
 [figure 22]: images/Lab01/figure22.png
 [figure 23]: images/Lab01/figure23.png
-
