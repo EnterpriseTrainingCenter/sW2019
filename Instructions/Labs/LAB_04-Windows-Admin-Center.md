@@ -317,7 +317,7 @@ Perform these steps on CL1.
 
    > Is the connection successful? Why?
 
-   > What features can you administer as user1? Which are not available?
+   > What features can you administer as user2? Which are not available?
 
    > Is there any indication of limited access (hint: [figure 9])?
 
