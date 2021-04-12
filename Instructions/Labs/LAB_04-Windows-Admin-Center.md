@@ -97,12 +97,6 @@ Perform these steps on SRV2.
    msiexec /i $path /qb+ /L*v $logPath CHK_REDIRECT_PORT_80=1 SME_PORT=443 SSL_CERTIFICATE_OPTION=installed SME_THUMBPRINT=$thumbprint
    ````
 
-1. After successful installation, restart SRV2.
-
-   ````powershell
-   Restart-Computer
-   ````
-
 #### Task 3: Configure Kerberos Constrained Delegation and DNS
 
 Perform these steps on DC1.
