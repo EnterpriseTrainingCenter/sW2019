@@ -236,8 +236,8 @@ Perform these steps on DC1.
    * DL_WAC-Admins
    * DL_WAC-Users
 
-1. Add **smart\user1** as a member of the **WAC-Admins** group.
-1. Add **smart\user2** as a member of the **WAC-Users** group.
+1. Add **smart\user1** as a member of the **DL_WAC-Admins** group.
+1. Add **smart\user2** as a member of the **DL_WAC-Users** group.
 
 #### Task 2: Configure allowed groups in Windows Admin Center
 
