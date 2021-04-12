@@ -54,7 +54,7 @@ Perform these steps on SRV2.
    
    # Expressions in double-quoted strings are indicated by $()
    # [0] is the first element of the string array
-   $subjectName = "CN=$($dnsName[0]"
+   $subjectName = "CN=$($dnsName[0])"
    
    # WebServer10Years is a custom template, we created for you
    $template = 'WebServer10Years'
@@ -83,7 +83,7 @@ Perform these steps on SRV2.
 
    ````powershell
    $source = 'https://aka.ms/WACDownload'
-   $path = 'L:\WindowsAdminCenter\WindowsAdminCenter.msi'
+   $path = 'C:\WindowsAdminCenter.msi'
    Start-BitsTransfer -Source $source -Destination $path
    ````
 
@@ -95,12 +95,6 @@ Perform these steps on SRV2.
    # PowerShell variables can be used when executing external commands
    # They are expanded automatically
    msiexec /i $path /qb+ /L*v $logPath CHK_REDIRECT_PORT_80=1 SME_PORT=443 SSL_CERTIFICATE_OPTION=installed SME_THUMBPRINT=$thumbprint
-   ````
-
-1. After successful installation, restart SRV2.
-
-   ````powershell
-   Restart-Computer
    ````
 
 #### Task 3: Configure Kerberos Constrained Delegation and DNS
@@ -236,8 +230,8 @@ Perform these steps on DC1.
    * DL_WAC-Admins
    * DL_WAC-Users
 
-1. Add **smart\user1** as a member of the **WAC-Admins** group.
-1. Add **smart\user2** as a member of the **WAC-Users** group.
+1. Add **smart\user1** as a member of the **DL_WAC-Admins** group.
+1. Add **smart\user2** as a member of the **DL_WAC-Users** group.
 
 #### Task 2: Configure allowed groups in Windows Admin Center
 
@@ -247,8 +241,9 @@ Perform these steps on CL1.
 1. Click on the gear icon to open admin center settings.
 1. On the left, click on the tab **Access**.
 1. In the **Allowed groups** sections click on the **Add** button.
-1. Add the **smart\wac-users** group as **Gateway users** group ([figure 6]).
-1. Add the **smart\wac-admins** group as **Gateway administrators**
+1. Add the **smart\DL_WAC-Users** group as **Gateway users** group ([figure 6]).
+1. Add the **smart\DL_WAC-Admins** group as **Gateway administrators**
+1. Delete the **BUILTIN\Users** group.
 1. Logoff from CL1.
 
 #### Task 3: Test Windows Admin Center access permissions
@@ -262,7 +257,7 @@ Peform these steps on CL1.
 
 1. Click on the gear icon to open admin center settings.
 1. Click on **Extensions**.
-1. Install the **Windows Defender** extension.
+1. Install the **DNS (Preview)** extension.
 
    > Can you install the extension? Why?
 
@@ -322,7 +317,7 @@ Perform these steps on CL1.
 
    > Is the connection successful? Why?
 
-   > What features can you administer as user1? Which are not available?
+   > What features can you administer as user2? Which are not available?
 
    > Is there any indication of limited access (hint: [figure 9])?
 

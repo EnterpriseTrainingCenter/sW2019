@@ -6,7 +6,6 @@
 * Router
 * DHCP
 * HV1
-* WS2019
 
 ## Exercises
 

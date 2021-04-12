@@ -5,7 +5,7 @@
 * DC1
 * DHCP
 * Router
-* HV1 (FS)
+* FS on HV1
 * PKI
 * CL1
 
@@ -85,8 +85,8 @@ Perform these steps on DC1.
 1. Open **Active Directory Administrative Center**.
 1. Create the following **Domain Local** **Security** groups in the **Users** container ([figure 3]).
 
-   * DL_TrainingData
-   * DL_SalesData
+   * DL_Training
+   * DL_Presentations
 
 1. Create a **Global** group **G_Training** and add it as a member of group **DL_Training** ([figure 4]).
 1. Add **User2** as a member to the **G_Training** global group.
@@ -123,7 +123,7 @@ Perform these steps on FS.
 1. Modify Share Permissions to **Everyone:** **Change**.
 1. Click **OK** to commit the changes.
 1. Click **Next** and then create to create the share.
-1. Create another share with the name **Presentations** with the path **D:\Presentations**. The group **DL_Presentaions** must have **Modify** permissions (**SYSTEM** and **Administrators** must have **Full Control**).
+1. Create another share with the name **Presentations** with the path **D:\Presentations**. The group **DL_Presentations** must have **Modify** permissions (**SYSTEM** and **Administrators** must have **Full Control**).
 
 #### Task 3: Test file shares
 
