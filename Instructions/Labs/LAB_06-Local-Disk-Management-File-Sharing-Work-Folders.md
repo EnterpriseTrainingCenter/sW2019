@@ -5,7 +5,7 @@
 * DC1
 * DHCP
 * Router
-* HV1 (FS)
+* FS on HV1
 * PKI
 * CL1
 
