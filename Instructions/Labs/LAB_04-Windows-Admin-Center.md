@@ -241,8 +241,8 @@ Perform these steps on CL1.
 1. Click on the gear icon to open admin center settings.
 1. On the left, click on the tab **Access**.
 1. In the **Allowed groups** sections click on the **Add** button.
-1. Add the **smart\wac-users** group as **Gateway users** group ([figure 6]).
-1. Add the **smart\wac-admins** group as **Gateway administrators**
+1. Add the **smart\DL_WAC-Users** group as **Gateway users** group ([figure 6]).
+1. Add the **smart\DL_WAC-Admins** group as **Gateway administrators**
 1. Logoff from CL1.
 
 #### Task 3: Test Windows Admin Center access permissions
