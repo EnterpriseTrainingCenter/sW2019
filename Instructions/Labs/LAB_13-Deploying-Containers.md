@@ -515,6 +515,7 @@ Perform these steps on DOCKER.
 ## Exercise 4: Kubernetes
 
 ### Introduction
+
 In this exercise you will use a Kubernetes cluster to deploy two replicas of a pod. In the first task you will use imperative commands and in the second task you will use a yml-file to see a declarative management.
 
 Since the setup of a Kubernetes cluster is not as easy as a Windows administrator would expect, the cluster is already set up for you. The master must run on Linux (here Ubuntu 18.04) and the single node is running on Windows Server 2019. In Microsoft's documentation you can find more information how to configure a Kubernetes cluster with Windows Server 2019 nodes/agents (<https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/getting-started-kubernetes-windows>).
@@ -625,7 +626,7 @@ Perform these steps on K8SMaster.
 
 1. Open a web browser.
 1. In the web browser, navigate <http://10.1.1.96:xyz>, where xyz is the port number you took note of in the previous step, and 10.1.1.96 is the IP address of your node. You should see the default page of IIS.
-1. Open a new tab in the browser an navigate to http://<Endpoints-IP>, you noted in the previous step. Again, you should see the default page of IIS.
+1. Open a new tab in the browser an navigate to http://\<Endpoints-IP\>, you noted in the previous step. Again, you should see the default page of IIS.
 1. Clean up your environment.
 
    ````shell
