@@ -257,7 +257,7 @@ Peform these steps on CL1.
 
 1. Click on the gear icon to open admin center settings.
 1. Click on **Extensions**.
-1. Install the **Windows Defender** extension.
+1. Install the **DNS (Preview)** extension.
 
    > Can you install the extension? Why?
 
