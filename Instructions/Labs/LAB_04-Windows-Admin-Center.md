@@ -54,7 +54,7 @@ Perform these steps on SRV2.
    
    # Expressions in double-quoted strings are indicated by $()
    # [0] is the first element of the string array
-   $subjectName = "CN=$($dnsName[0]"
+   $subjectName = "CN=$($dnsName[0])"
    
    # WebServer10Years is a custom template, we created for you
    $template = 'WebServer10Years'
@@ -83,7 +83,7 @@ Perform these steps on SRV2.
 
    ````powershell
    $source = 'https://aka.ms/WACDownload'
-   $path = 'L:\WindowsAdminCenter\WindowsAdminCenter.msi'
+   $path = 'C:\WindowsAdminCenter.msi'
    Start-BitsTransfer -Source $source -Destination $path
    ````
 
