@@ -160,53 +160,21 @@ In this exercise, you will deduplicate some files to demonstrate deduplication e
 
 Perform these steps on FS.
 
-1. Run **PowerShell** as Administrator
-1. Install the deduplication feature.
-
-   ````powershell
-   Install-WindowsFeature 'FS-Data-Deduplication' –IncludeManagementTools
-   ````
-
-1. Enable Deduplication on Volume D.
-
-   ````powershell
-   Enable-DedupVolume -Volume D:
-   ````
-
-1. Change the minimum file age of deduplicated files to zero.
-
-   ````powershell
-   Set-DedupVolume –Volume D: –MinimumFileAgeDays 0
-   ````
-
-1. Check and take a note of the current savings rate on drive **D:**.
-
-   ````powershell
-   Get-DedupVolume
-   ````
-
-1. Create a new schedule that automatically deduplicates your D: drive at night.
-
-   ````powershell
-   # The back tick ` allows to split long commands into multiple lines
-   New-DedupSchedule `
-       –Name 'DedupLabfiles' `
-       –Type Optimization `
-       -Days Mon, Tues, Wed, Thurs, Fri `
-       –Start 01:00 `
-       –DurationHours 6
-   ````
-
-1. Review the schedule
-
-   ````powershell
-   Get-DedupSchedule
-   ````
+1. In **Server Manager**, start the **Add Role and Features Wizard**.
+1. On page **Server roles**, under **File and Storage Services**, **File and iSCSI Services**, install **Data Deduplication**.
+1. In **Server Manager**, on the left, click **Disks** or **Volumes**.
+1. From the context menu of Volume **D:**, select **Configure Data Deduplication...** to enable data deduplication.
+   * **Data deduplication:** **General purpose file server**
+   * **Deduplicate files older than (in days):** 0
+   * Configure a deduduplication schedule for throughput optimization to run Monday to Friday at 1:00 am for a duration of 6 hours.
+1. Open **Task Scheduler**.
+1. Review the tasks under **Microsoft**, **Windows**, **Deduplication**
 
 #### Task 2: Test deduplication
 
 Perform these steps on FS.
 
+1. Run **Windows PowerShell** as Administrator.
 1. Start the deduplication process now.
 
    ````powershell
