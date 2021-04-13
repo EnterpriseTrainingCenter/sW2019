@@ -131,7 +131,7 @@ Perform these steps on FS.
 
 Perform these steps on CL1.
 
-1. Log on as user **User1**
+1. Log on as user **User2**
 1. Delete a file from the **\\\FS\Training** share.
 
 #### Task 3: Review audit logs
