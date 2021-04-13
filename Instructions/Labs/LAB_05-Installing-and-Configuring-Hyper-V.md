@@ -110,6 +110,15 @@ Perform these steps on HV2. Since the IP configuration has changed, use a Hyper-
 1. Click on **Cancel** and then **Close**.
 1. Close the Hyper-V Console Window. You can use RDP Manager for the next task again.
 
+#### Task 3: Change the dynamic MAC address range
+
+Perform these steps on HV2.
+
+1. Switch back to **Virtual Switch Manager**.
+2. Click on **MAC Address Range**.
+3. Change the second octet of the minimum and maximum range to **17** ([figure 12]).
+4. Click on **OK** to commit the changes
+
 #### Task 2:  Create internal and private switches
 
 Perform these steps on HV2.
@@ -128,15 +137,6 @@ Perform these steps on HV2.
 1. Switch to **Network and Sharing Center**.
 
    > Why is there no new network adapter shown?
-
-#### Task 3: Change the dynamic MAC address range
-
-Perform these steps on HV2.
-
-1. Switch back to **Virtual Switch Manager**.
-2. Click on **MAC Address Range**.
-3. Change the second octet of the minimum and maximum range to **17** ([figure 12]).
-4. Click on **OK** to commit the changes
 
 ## Exercise 3: Managing virtual hard disks
 
