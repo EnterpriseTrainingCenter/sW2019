@@ -53,8 +53,8 @@ In this exercise, you will create and manage virtual networks.
 ### Tasks
 
 1. [Examine the switch that was created during installation](#task-1-examine-the-switch-that-was-created-during-installation)
-2. [Create internal and private switches](#task-2-create-internal-and-private-switches)
-3. [Change the dynamic MAC Address Range](#task-3-change-the-dynamic-mac-address-range)
+1. [Change the dynamic MAC Address Range](#task-2-change-the-dynamic-mac-address-range)
+1. [Create internal and private switches](#task-3-create-internal-and-private-switches)
 
 ### Detailed Instructions
 
