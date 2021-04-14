@@ -127,7 +127,7 @@ Perform these steps on CL1.
 1. If offered, use stored credentials, otherwise enter the **smart\administrator** credentials.
 1. On the page **Configure cutover from…**, configure settings for the cutover ([figure 9]).
    * Enable the checkbox **Use DHCP**.
-   * Select the network adapter **Datacenter1** on the destination server.
+   * Select the network adapter **Ethernet** on the destination server.
    * Rename the source server to **SRV2008R2-OLD** after the cutover.
 1. On the page **Adjust cutover settings**, leave the defaults.
 1. On the **Validate source and destination devices** page click **Validate**.
