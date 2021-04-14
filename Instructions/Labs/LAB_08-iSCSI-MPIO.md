@@ -115,7 +115,7 @@ Perform these steps on WS2019.
 Perform these steps on HV1.
 
 1. On HV1 open File Explorer
-1. Start a copy process from **D:\ISO\WS2016.iso** to **\\\WS2019\E$**. If the copy process finishes during the next steps. Start it again.
+1. Start a copy process from **D:\ISO\WS2016_RTM.iso** to **\\\WS2019\E$**. If the copy process finishes during the next steps. Start it again.
 1. While the copy process is running, disconnect one NIC.
 
    > Does the copy process continue?
