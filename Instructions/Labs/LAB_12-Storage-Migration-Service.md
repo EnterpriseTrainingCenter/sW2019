@@ -14,6 +14,7 @@
 ## Exercises
 
 1. [Configure Prerequisites](#exercise-1-configure-prerequisites)
+1. [Perform a migration](#exercise-2-perform-a-migration)]
 
 ## Exercise 1: Configure Prerequisites
 
