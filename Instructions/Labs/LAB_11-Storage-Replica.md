@@ -59,7 +59,6 @@ Perform these steps on CL1.
 1. In the list of roles and features, scroll down, and select
    * **Failover Clustering**
    * **Storage Replica**
-   * **Remote Server Administration Tools**, **Role Administration Tools**, **AD DS**
    * **Remote Server Administration Tools**, **Role Administration Tools**, **AD DS**, **AD LDS Tools**, **Active Directory module for Windows PowerShell**
 1. Click on the **+ Install** button.
 1. Activate the checkbox **Reboot the server automatically, if required**
