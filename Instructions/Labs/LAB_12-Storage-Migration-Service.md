@@ -109,7 +109,7 @@ Perform these steps on CL1.
 
 1. If offered, use stored credentials, otherwise enter the credentials for **smart\administrator**.
 1. As destination device, add **SRV1903.smart.etc**, and click **Scan**.
-1. On the page **Add a destination device and mappings for srv2008r2.smart.etc**, section **Volume**, from the dropdown, select **D:** as destination volume for the migration ([figure 5]).
+1. On the page **Add a destination device and mappings for srv2008r2.smart.etc**, section **Volume**, from the dropdown, select **C:** as destination volume for the migration ([figure 5]).
 1. On the page **Adjust transfer settings**, in **Validation method (checksum) for transmitted files**, select **CRC64** ([figure 6]).
 1. In the section **Migrate users and groups** section, select **Don't transfer users and groups**.
 1. On the page **Validate source and destination devices**, click **Validate**.
