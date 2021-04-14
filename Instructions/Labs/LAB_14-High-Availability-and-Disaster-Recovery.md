@@ -110,9 +110,9 @@ Perform these steps on Node1.
 
 1. From the start menu, open **iSCSI Initiator**.
 1. When asked to start the service automatically, click on **Yes** .
-1. In iSCSI Initiator Properties, in **Target:** enter **10.1.9.10** and click **Quick Connect...** ([figure 7]).
+1. In iSCSI Initiator Properties, in **Target:** enter **10.1.9.10** and click **Quick Connect...** ([figure 6]).
 1. Run **certlm.msc**.
-1. Navigate to **Personal**, **Certificates**. Verify that a certificate **CLIUSR** exists ([figure 8]). This certificate is used for authentication between cluster nodes.
+1. Navigate to **Personal**, **Certificates**. Verify that a certificate **CLIUSR** exists ([figure 7]). This certificate is used for authentication between cluster nodes.
 
 #### Task 6: Add node to cluster
 
