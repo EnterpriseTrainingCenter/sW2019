@@ -145,11 +145,12 @@ Perform these steps on SRV1903 (now SRV2008R2).
 
 1. Logon as **smart\administrator**.
 1. Open **File Explorer**.
+
+   ````
+   explorer
+   ````
 1. On folder **D:\Data\HR**, open the properties.
-1. Make sure it is shared as **HR** and that share and NTFS permissions exist.
-   * **Perm_HR_FC**: Full Control
-   * **Perm_HR_M**: Modify
-   * **Perm_HR_R**: Read and Execute
+1. Make sure it is shared as **HR**.
 
 [figure 1]: images/Lab12/figure01.png
 [figure 2]: images/Lab12/figure02.png
