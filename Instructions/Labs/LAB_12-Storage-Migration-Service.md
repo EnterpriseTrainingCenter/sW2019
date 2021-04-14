@@ -116,7 +116,7 @@ Perform these steps on CL1.
 1. Make sure the validation passed, then click on **Pass** ([figure 7]) to show the result of the validation check ([figure 8]).
 1. Close the result screen, and click **Next**.
 1. On the page **Start the transfer**, click on **Start Transfer**. This should only take a few minutes.
-1. After the transfer finished, click on **Succeede** to open the details section at the bottom.
+1. After the transfer finished, click on **Succeeded** to open the details section at the bottom.
 1. Click on **Transfer log**, and then click **Open** to open logfile in Excel.
 
 #### Task 3: Cutover services
