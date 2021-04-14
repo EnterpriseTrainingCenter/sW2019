@@ -118,7 +118,7 @@ Perform these steps on CL1.
 1. On the page **Start the transfer**, click on **Start Transfer**. This should only take a few minutes.
 1. After the transfer finished, click on **Succeeded** to open the details section at the bottom.
 1. At the bottom pane, click **Transfer detail**.
-1. Click on **Transfer log**, and then click **Open** to open logfile in Excel.
+1. Click on **Transfer log**, and open the logfile in Excel.
 
 #### Task 3: Cutover services
 
