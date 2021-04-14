@@ -71,7 +71,7 @@ Perform these steps on CL1.
 1. In the tree on the left, click **Firewall**.
 1. On the tab **Incoming rules**, make sure, that the **File and Printer Sharing (SMB-In)** rule is enabled
 1. In the tree click **Storage Migration Service**.
-1. Click **Install** to install the storage migration service components on SRV1903.
+1. Click **Install** to install the storage migration service components.
 1. After installation finished, activate checkbox **Don’t show this again**, and click **Close**.
 
 ## Exercise 2: Perform a migration
