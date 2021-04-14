@@ -44,7 +44,7 @@ Perform these steps on SRV2008R2.
    * Windows Management Instrumentation (WMI-In)
    * Windows Management Instrumentation (DCOM-In)
 
-#### Task 3: Configure prerequisites on the destination server
+#### Task 2: Configure prerequisites on the destination server
 
 Perform these steps on CL1.
 
@@ -62,7 +62,7 @@ Perform these steps on CL1.
    * Windows Management Instrumentation (WMI-In)
    * Windows Management Instrumentation (DCOM-In)
 
-#### Task 4: Configure the orchestrator server
+#### Task 3: Configure the orchestrator server
 
 Perform these steps on CL1.
 
