@@ -134,7 +134,11 @@ Perform these steps on FS.
 
 1. Create a standard volume using the default settings.
 
-As our HDDs are simulated, we will not see any acceleration in this lab. Note that you can assign files permanently to the SSD tier, for example:
+   ````powershell
+   New-Volume -DiskUniqueId $VirtualDisk.UniqueId -FriendlyName Volume
+   ````
+
+As our HDDs are simulated, we will not see any acceleration in this lab. Note that you could assign files permanently to the SSD tier, for example:
 
 ````powershell
 $filePath = 'G:\VM1\Virtual hard Disks\VM1.vhdx'
