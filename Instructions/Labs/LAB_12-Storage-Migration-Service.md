@@ -24,7 +24,7 @@ In this exercise, you will prepare all systems for storage migration.
 
 ### Tasks
 
-1. [Prepare for the lab](#)
+1. [Prepare for the lab](#task-1-configure-prerequisites-on-the-source-server)
 1. [Configure prerequisites on the source server](#task-1-configure-prerequisites-on-the-source-server)
 1. [Configure prerequisites on the destination server](#task-2-configure-prerequisites-on-the-destination-server)
 1. [Configure the orchestrator server](#task-3-configure-the-orchestrator-server)
@@ -94,7 +94,7 @@ In this exercise, you will inventory the source server and start the transfer. A
 
 Perform these steps on CL1.
 
-1. In **Windows Admin Center**, connect to **SRV1903.smart.etc**.
+1. In **Windows Admin Center**, connect to **fs.smart.etc**.
 1. Click on **Storage Migration Service**.
 1. Click **New Job**.
 1. In **Job name**, type **SRV2008R2Migration**, and click on **OK**.
