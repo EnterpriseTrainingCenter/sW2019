@@ -110,7 +110,7 @@ Perform these steps on CL1.
 
 #### Task 3: Create storage pools and virtual disks
 
-Peform these steps on CL2.
+Peform these steps on CL1.
 
 1. Click on **Drives**, **Inventory**. You should see 12 drives from 4 Servers
 1. Click on **Volumes**, **Inventory**. Notice the **ClusterPerformanceHistory** volume.
