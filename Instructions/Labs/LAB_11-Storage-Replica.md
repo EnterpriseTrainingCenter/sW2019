@@ -343,7 +343,7 @@ Perform these steps on SR2.
    Mount-SRDestination `
        -ComputerName $computername `
        -Name $name `
-       -TemporaryPath D:\ `
+       -TemporaryPath T:\ `
        -Force
 
 1. List the contents of the mounted volume. It should be completely identical to the source volume on SR1.
