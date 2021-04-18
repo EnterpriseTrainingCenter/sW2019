@@ -60,7 +60,7 @@ Perform these steps on **HV1**.
 
 1. In the **Windows Image** section, add the component **amd64_Microsoft-Windows-Shell-Setup…** to pass 4 specialize.
 1. Expand the component in the answer file
-1. Delete all sub nodes (you can also use the DEL key) ([figure 8]). The resulting settings node should look like [figure 9][figure 9].
+1. Delete all sub nodes (you can also use the DEL key) ([figure 8]). The resulting settings node should look like [figure 9].
 1. In the **Microsoft-Windows-Shell-Setup** component, in  the setting **ComputerName**, type **WS2019** ([figure 10]).
 1. Open a command prompt
 1. List the name of your current time zone
