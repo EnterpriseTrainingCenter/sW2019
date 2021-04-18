@@ -40,12 +40,6 @@ Perform these steps on SRV2.
    powershell
    ````
 
-1. Install Storage Replica Admin Tools which will be needed later in the course.
-
-   ````powershell
-   Install-WindowsFeature 'RSAT-Storage-Replica', 'RSAT-Hyper-V-Tools', 'RSAT-Clustering'
-   ````
-
 1. Request a certificate and store the result in a variable.
 
    ````powershell
