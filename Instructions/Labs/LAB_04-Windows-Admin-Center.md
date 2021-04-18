@@ -168,23 +168,18 @@ Perform these steps on CL1.
 
 Perform these steps on CL1.
 
-1. Open the CSV connections file **L:\WindowsAdminCenter\SharedConnections.txt** and examine its content.
-1. Run Windows PowerShell as Administrator.
-1. Import the WAC connections PowerShell Module.
+1. Open **Notepad** and create a text file, writing each server name on its own line.
 
-   ````powershell
-   Import-Module L:\WindowsAdminCenter\ConnectionTools\ConnectionTools.psm1
+   ````
+   hv1.smart.etc
+   hv2.smart.etc
    ````
 
-1. Import connections for servers HV1 and HV2 for all users:
-
-   ````powershell
-   Import-Connection `
-       -GatewayEndpoint https://admincenter.smart.etc `
-       -FileName L:\WindowsAdminCenter\SharedConnections.txt
-   ````
-
-1. Switch to **Windows Admin Center** and refresh the connections view. You should see two new shared connections for HV1 and HV2.
+1. Save the file with the name **connections.txt** to the **Documents** folder.
+1. In **Windows Admin Center**, click **Add**.
+1. Under **Servers**, click **Add**.
+1. Click the tab **Import a list**.
+1. Select the file you created earlier in this task, and click **Add**. You should see two new shared connections for HV1 and HV2.
 1. Leave **Windows Admin Center** open for the next task.
 
 #### Task 4: Use Windows Admin Center Tools
