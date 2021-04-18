@@ -94,7 +94,21 @@ Perform these steps on DC1.
 
 1. Logon as **smart\Administrator**.
 1. Open **Windows PowerShell ISE**.
-1. In **Windows PowerShell ISE**, open the file **L:\WindowsAdminCenter\KCD.ps1**
+1. In **Windows PowerShell ISE**, open the file **L:\WindowsAdminCenter\KCD.ps1**.
+1. Review the script, add the following server names to the first line.
+
+   * Docker
+   * Node1
+   * Node2
+   * WS2019
+
+   The first line should look like this:
+
+   ````powershell
+   $nodes=("dc1","fs","HV1","HV2","sr1","sr2","S2D","S2D1","S2D2","S2D3","S2D4","SRV1903", "Docker", "Node1", "Node2", "PKI", "SR1", "SR2", "WS2019")
+   ````
+
+1. Save the file to the folder Documents\WindowsPowerShell\Scripts. You might have to create that folder.
 1. Run the script by pressing F5. The script configures Kerberos Contrained Delegation by granting SRV2 the permission to request tickets for various servers.
 1. Open the DNS Management Console.
 1. Create the following record in zone **smart.etc**.
