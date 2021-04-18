@@ -76,19 +76,16 @@ Perform these steps on SRV2.
 1. Download the current version of Windows Admin Center using BITS.
 
    ````powershell
-   $source = 'https://aka.ms/WACDownload'
    $path = 'C:\WindowsAdminCenter.msi'
-   Start-BitsTransfer -Source $source -Destination $path
+   Start-BitsTransfer -Source 'https://aka.ms/WACDownload' -Destination $path
    ````
 
 1. Execute the following commands to install Windows Admin Center binaries
 
    ````powershell
-   $logPath = 'C:\WAC-install.log'
-
    # PowerShell variables can be used when executing external commands
    # They are expanded automatically
-   msiexec /i $path /qb+ /L*v $logPath CHK_REDIRECT_PORT_80=1 SME_PORT=443 SSL_CERTIFICATE_OPTION=installed SME_THUMBPRINT=$thumbprint
+   msiexec /i $path /qb+ /L*v 'C:\WAC-install.log' CHK_REDIRECT_PORT_80=1 SME_PORT=443 SSL_CERTIFICATE_OPTION=installed SME_THUMBPRINT=$thumbprint
    ````
 
 #### Task 3: Configure Kerberos Constrained Delegation and DNS
