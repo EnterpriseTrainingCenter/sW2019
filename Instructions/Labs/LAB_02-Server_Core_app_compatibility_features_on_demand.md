@@ -76,8 +76,7 @@ Perform these steps on SRV2.
 1. Query the install status of the FOD package.
 
    ````powershell
-   Get-WindowsCapability -Online -Name Servercore* |
-   Add-WindowsCapability -LimitAccess -Source E: -Online 
+   Get-WindowsCapability -Online -Name Servercore*
    ````
 
 #### Task 2: Install the Internet Explorer FOD package
