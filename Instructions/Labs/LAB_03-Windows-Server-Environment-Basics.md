@@ -94,6 +94,8 @@ Perform these steps on HV1.
    Get-Help Get-WindowsFeature -Examples
    ````
 
+   > Can you see a difference in the output of the last two commands? Why or why not?
+
 1. Install the RSAT-AD-PowerShell feature.
 
    ````powershell
