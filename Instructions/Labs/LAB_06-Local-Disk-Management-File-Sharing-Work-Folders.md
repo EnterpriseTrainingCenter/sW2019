@@ -161,10 +161,9 @@ In this exercise, you will install and configure the Work Folders feature and tr
 ### Tasks
 
 1. [Configure DNS](#task-1-configure-dns)
-1. [Prepare a certificate template](#task-2-prepare-a-certificate-template)
-1. [Enroll a certificate](#task-3-enroll-a-certificate)
-1. [Install and Configure Work Folders](#task-4-install-and-configure-work-folders)
-1. [Test Work Folder access](#task-5-test-work-folder-access)
+1. [Enroll a certificate](#task-2-enroll-a-certificate)
+1. [Install and Configure Work Folders](#task-3-install-and-configure-work-folders)
+1. [Test Work Folder access](#task-4-test-work-folder-access)
 
 ### Detailed Instructions
 
@@ -175,22 +174,7 @@ Perform these steps on DC1.
 1. Open the **DNS** Management console
 1. In the **smart.etc** zone, create a new A - Record **Workfolders** with IP Address **10.1.1.42**.
 
-#### Task 2: Prepare a certificate template
-
-Perform these steps on PKI.
-
-1. On PKI open the **Enterprise PKI** console from the desktop.
-1. Click on the **Certificate templates** snap-in.
-1. From the context menu of the **Web Server** template, select **Duplicate**.
-1. On the tab **General**, rename the new template to **Web Server 2016**.
-1. On the tab **Security**, add **FS** and grant the permissions **Read** and **Enroll** ([figure 11]).
-1. Click **OK** to create the new template
-1. Click on the **Certification authority** snap-in.
-1. Expand the tree.
-1. From the context menu of **Certificate Templates**, select **New**, **Certificate template to issue**
-1. Select the **Web Server 2016** template and click **Ok**.
-
-#### Task 3: Enroll a certificate
+#### Task 2: Enroll a certificate
 
 Perform these steps on FS.
 
@@ -204,7 +188,7 @@ Perform these steps on FS.
 1. Repeat the previous step to add an alternative DNS name with a value of **fs.smart.etc** ([figure 13]).
 1. Complete the wizard to request and install the certificate.
 
-#### Task 4:  Install and Configure Work Folders
+#### Task 3:  Install and Configure Work Folders
 
 Perform these steps on FS.
 
@@ -228,7 +212,7 @@ Perform these steps on FS.
    * Deactivate **Automatically lock screen, and require password** feature.
 1. Check if **User2** has access to the sync share ([figure 16]).
 
-#### Task 5: Test Work Folder access
+#### Task 4: Test Work Folder access
 
 Perform these steps on CL1.
 
