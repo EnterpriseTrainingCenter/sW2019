@@ -294,8 +294,8 @@ Perform these steps on CL1.
 1. On the left, click on **Local Users & Groups**.
 1. Click on **Groups**.
 1. Scroll to the bottom of the list - RBAC should have created three additional groups ([figure 8]).
-1. Double-click on the **Windows Admin Center Administrators** group and add **smart\user1** as a member.
-1. Double-click on the **Windows Admin Center Readers** group and add **smart\user2** as a member.
+1. Click on the **Windows Admin Center Administrators** group and add **smart\user1** as a member.
+1. Click on the **Windows Admin Center Readers** group and add **smart\user2** as a member.
 1. Logoff.
 
 #### Task 5: Test role-based access control for Windows Admin Center
