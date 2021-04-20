@@ -7,7 +7,6 @@
 * Router
 * HV1
 * HV2
-* SRV2
 
 ## Exercises
 
