@@ -182,7 +182,7 @@ Perform these steps on FS.
 1. Type **certlm.msc** and press ENTER.
 1. From the context menu of **Personal**, select **All Tasks**, **Request New Certificate…**.
 1. Click **Next** until you reach the page **Request Certificates** .
-1. Select the **Web Server 2016** template and click on the embedded link to configure the certificate ([figure 12]).
+1. Select the **WebServer10Years** template and click on the embedded link to configure the certificate ([figure 12]).
 1. Under **Subject name**, in **Type** select **Common name**, in **Value**, type **workfolders.smart.etc**, and click **Add >** ([figure 13]).
 1. Under **Alternative name**, in **Type**, select **DNS**, in **Value**, type **workfolders.smart.etc** and click **Add >** ([figure 13]).
 1. Repeat the previous step to add an alternative DNS name with a value of **fs.smart.etc** ([figure 13]).
