@@ -237,7 +237,7 @@ Perform these steps on DC1.
 
 Perform these steps on CL1.
 
-1. On CL1 switch to the browser windows with **Windows Admin Center**.
+1. On CL1 switch to the browser window with **Windows Admin Center**.
 1. Click on the gear icon to open admin center settings.
 1. On the left, click on the tab **Access**.
 1. In the **Allowed groups** sections click on the **Add** button.
