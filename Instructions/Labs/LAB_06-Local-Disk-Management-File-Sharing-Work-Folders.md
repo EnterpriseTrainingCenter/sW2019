@@ -200,20 +200,16 @@ Perform these steps on FS.
 1. Click **Next** until you reach the page **Request Certificates** .
 1. Select the **Web Server 2016** template and click on the embedded link to configure the certificate ([figure 12]).
 1. Under **Subject name**, in **Type** select **Common name**, in **Value**, type **workfolders.smart.etc**, and click **Add >** ([figure 13]).
-1. Under **Alternative name**, in **Type**, select **DNS**, in **Value**, type **fs.smart.etc** and click **Add >** ([figure 13]).
+1. Under **Alternative name**, in **Type**, select **DNS**, in **Value**, type **workfolders.smart.etc** and click **Add >** ([figure 13]).
+1. Repeat the previous step to add an alternative DNS name with a value of **fs.smart.etc** ([figure 13]).
 1. Complete the wizard to request and install the certificate.
 
 #### Task 4:  Install and Configure Work Folders
 
 Perform these steps on FS.
 
-1. Run **Windows PowerShell** as Administrator
-1. Install the Work Folders role-service.
-
-   ````powershell
-   Install-WindowsFeature 'FS-SyncShareService' -IncludeManagementTools 
-   ````
-
+1. Open **Server Manager**.
+1. Under **File and Storage Services**, **File and iSCSI Services**, install the role service **Work Folders**.
 1. From the start menu, open **Windows PowerShell ISE**.
 1. In **Windows PowerShell ISE**, open **L:\WorkFolders\ConfWorkFolderCert.ps1**. Examine the script.
 1. Press F5 to execute the script. This should create a binding as shown in [figure 14].
@@ -228,7 +224,8 @@ Perform these steps on FS.
    * Structure for user folders: **user alias**
    * Accept default share name
    * Grant access to **G_Training** and disable inherited permissions.
-   * **Encrypt** Work Folders and remove the **Lock Screen** feature.
+   * Activate **Encrypt Work Folders**
+   * Deactivate **Automatically lock screen, and require password** feature.
 1. Check if **User2** has access to the sync share ([figure 16]).
 
 #### Task 5: Test Work Folder access
@@ -237,7 +234,7 @@ Perform these steps on CL1.
 
 1. Logon as User2.
 2. Open **Control Panel** and search for **Work Folders**.
-3. Click on **Setup Work Folders** and enter the UPN of User1: **user1@smart.etc**.
+3. Click on **Setup Work Folders** and enter the UPN of User1: **user2@smart.etc**.
 4. Commit the default Work Folder location inside your user profile, and accept the security policies you have configured before ([figure 17]).
 5. Work Folder Sync is now configured. Copy some files from the Labfiles Share **Sample Documents** folder into the Sync Share and check that the upload to server FS starts immediately ([figure 18], [figure 19]).
 
