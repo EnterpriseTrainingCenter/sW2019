@@ -39,14 +39,11 @@ Perform these steps on HV1.
 1. Open **Hyper-V Manager**.
 1. Open the settings of VM **WS2019**.
 1. Add two additional network interfaces and connect it to the Hyper-V Switches **iSCSI** and **iSCSI2**.
-1. Run **Windows PowerShell** as Administrator.
-1. Retrieve the MAC addresses of the network interfaces.
-
-   ````powershell
-   Get-VMNetworkAdapter -VMName WS2019
-   ````
-
-1. Take a note of the MAC addresses corresponding to the switches **iSCSI** and **iSCSI2**.
+1. Close **Settings for WS2019 on HV1**.
+1. Open the settings of VM **WS2019**.
+1. Expand the **Network Adapter** connected to the switch **iSCSI**.
+1. Click **Advanced Features**. Take a note of the MAC address.
+1. Repeat the previous steps to take a note of the MAC address of the network adapter connected to **iSCSI2**.
 
 #### Task 2: Configure TCP/IP
 
@@ -54,6 +51,7 @@ Perform these steps on WS2019.
 
 1. Logon **smart\administrator**.
 1. Open **Network and Sharing Center**.
+1. In **Network and Sharing Center**, on the left, click **Change adapter settings**.
 1. Open the properties of both additional network interfaces.
 1. Open the details of both additional network interfaces and notice the MAC addresses.
 1. Consult your notes from the previous task and rename the network interfaces according to the virtual switchs, they are connected to (**iSCSI** and **iSCSI2**).
