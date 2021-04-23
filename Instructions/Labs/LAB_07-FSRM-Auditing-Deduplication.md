@@ -114,18 +114,18 @@ In this lab, you will create audit rules to log file access.
 Perform these steps on FS.
 
 1. Run **gpedit.msc** as administrator to open the **Local Group Policy** console.
-1. Navigate to **Computer Configuration**, **Windows Settings**, **Security Settings**, **Advanced Audit Policy**, **System Audit Policies**, **Object Access** ([figure 6]).
-1. Double-click on **Audit File System** and activate **Success Auditing**.
+1. Navigate to **Computer Configuration**, **Windows Settings**, **Security Settings**, **Advanced Audit Policy Configuration**, **System Audit Policies**, **Object Access** ([figure 6]).
+1. Double-click on **Audit File System** and activate **Configure the following audit events** and **Success**.
 1. Switch to **File Explorer**.
 1. Open the properties of **D:\Training**.
 1. On the tab **Security**, click on **Advanced**.
-1. In the dialog **Advanced** select the tab **Auditing**.
+1. In the dialog **Advanced**, select the tab **Auditing**.
 1. In the upper right corner, click **Show advanced permissions**.
 1. Add an auditing entry ([figure 7]):
    * **Principal:** Everyone
    * **Type:** Success
    * **Applies to:** This folder, subfolders and files
-   * **Advanced permissions:** Delete
+   * **Advanced permissions:** Delete (In the upper right corner, click **Show advanced permissions**.)
 
 #### Task 2: Test auditing
 
