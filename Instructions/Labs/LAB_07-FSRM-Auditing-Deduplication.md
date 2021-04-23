@@ -34,12 +34,12 @@ In this exercise, you will create rules for FSRM and test them. You will also cr
 
 Perform these steps on FS.
 
-1. Run **Windows PowerShell** as Administrator
-1. Install the role service **File Server Resource Manager**.
-
-   ````powershell
-   Install-WindowsFeature 'FS-Resource-Manager' –IncludeManagementTools 
-   ````
+1. Logon as **smart\Administrator**.
+1. Open **Server Manager**.
+1. In **Server Manager**, click **Manage**, **Add Roles and Features**.
+1. In **Add Role and Features Wizard**, continue to the page **Select server roles**.
+1. On page **Select server roles**, expand **File and storage Service**, **File and iSCSI Services**, then activate **File Server Resource Manager**.
+1. Continue through the wizard to install File Server Resource Manager.
 
 #### Task 2: Create a quota
 
@@ -87,11 +87,11 @@ Perform these steps on FS.
 
 Perform these steps on FS.
 
-1. Copy the **Sample Documents** folder from **L:\\** to **E:\\** drive.
+1. Copy the **Sample Documents** folder from **L:\\** to **D:\\** drive.
 1. Switch to **File Server Resource Manager** console.
 1. From the context menu of **Storage Reports Management**, select **Generate Report Now**.
 1. On the tab **Settings**, select the report **Duplicate files**.
-1. On the tab **Scope**, add the folder **E:\SampleDocuments**.
+1. On the tab **Scope**, add the folder **D:\SampleDocuments**.
 1. Click on **OK** and wait for the report to be completed.
 1. Open the report after it has been rendered and look for duplicates.
 
@@ -161,37 +161,27 @@ In this exercise, you will deduplicate some files to demonstrate deduplication e
 Perform these steps on FS.
 
 1. In **Server Manager**, start the **Add Role and Features Wizard**.
-1. On page **Server roles**, under **File and Storage Services**, **File and iSCSI Services**, install **Data Deduplication**.
-1. In **Server Manager**, on the left, click **Disks** or **Volumes**.
+1. On page **Select server roles**, under **File and Storage Services**, **File and iSCSI Services**, install **Data Deduplication**.
+1. In **Server Manager**, on the left, click **Volumes**.
 1. From the context menu of Volume **D:**, select **Configure Data Deduplication...** to enable data deduplication.
    * **Data deduplication:** **General purpose file server**
    * **Deduplicate files older than (in days):** 0
    * Configure a deduduplication schedule for throughput optimization to run Monday to Friday at 1:00 am for a duration of 6 hours.
 1. Open **Task Scheduler**.
-1. Review the tasks under **Microsoft**, **Windows**, **Deduplication**
+1. Review the tasks under **Microsoft**, **Windows**, **Deduplication**.
+1. Leave **Task Scheduler** open for the next task.
 
 #### Task 2: Test deduplication
 
 Perform these steps on FS.
 
-1. Run **Windows PowerShell** as Administrator.
-1. Start the deduplication process now.
+1. In **Task Scheduler**, from the context menu of the job **ThroughputOptimization**, click **Run**. **Status** changes to **Running**. 
+1. In pane **Actions**, click refresh until **Status** changes to **Ready**.
+1. Switch to **Server Manager**.
+1. Click the button **Refresh "Volumes**.
+1. In **Volumes**, from the context menu of volume **D:**, click **Properties**.
 
-   ````powershell
-   Start-DedupJob –Volume D: –Type Optimization
-   ````
-
-1. Review the running deduplication process. Repeat until the job completes.
-
-   ````powershell
-   Get-DedupJob
-   ````
-
-1. Compare the savings rate to the previous task.
-
-   ````powershell
-   Get-DedupVolume
-   ````
+   > What are your savings using deduplication?
 
 [figure 1]: images/Lab07/figure01.png
 [figure 2]: images/Lab07/figure02.png
