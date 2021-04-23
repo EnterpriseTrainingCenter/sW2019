@@ -54,7 +54,7 @@ Perform these steps on CL1.
 
 Perform these steps on CL1.
 
-1. In **Windows Admin Center**, select **sr1.smart.etc**.
+1. In **Windows Admin Center**, connect to **sr1.smart.etc**.
 1. Navigate to **Roles & Features**
 1. In the list of roles and features, scroll down, and select
    * **Failover Clustering**
@@ -63,7 +63,7 @@ Perform these steps on CL1.
 1. Click on the **+ Install** button.
 1. Activate the checkbox **Reboot the server automatically, if required**
 1. Click on Yes.
-1. Select server **SR2.smart.etc** and install the same features as on sr1.smart.etc.
+1. Connect to **SR2.smart.etc** and install the same features as on sr1.smart.etc.
 
 #### Task 3: Run the Storage Replica test
 
