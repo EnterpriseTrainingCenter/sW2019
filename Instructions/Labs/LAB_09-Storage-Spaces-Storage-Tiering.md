@@ -114,10 +114,21 @@ Detailed Instructions
 Perform these steps on FS.
 
 1. On FS open Server Manager
-1. Run **Windows PowerShell ISE** as Administrator.
-1. In **Windows PowerShell ISE**, open the script **L:\Storage Spaces Direct\StorageTiering.ps1**.
-1. Press F5 to execute the script - this will create a tiered storage space, where the 50GB vhdx Files simulates SSDs.
-1. Refresh Server Manager, you should see the faked media types ([figure 8]).
+1. Run **Windows PowerShell** as Administrator.
+1. In **Windows PowerShell**, execute:
+
+   ````powershell
+   Get-PhysicalDisk | Where Size -EQ 50GB | Set-PhysicalDisk -MediaType SSD
+   Get-PhysicalDisk | Where Size -EQ 100GB | Set-PhysicalDisk -MediaType HDD
+   ````
+
+   This simulates our virtual disks being SSDs and HDDs.
+
+1. Switch to **Server Manager**.
+1. Click **File and Storage Services**, **Volumes**, **Storage Pools**,
+1. In **Storatge Pools**, refresh Server Manager, you should see the faked media types ([figure 8]).
+1. In the drop-down **Tasks**, click **New Storage Pool...**.
+1. Create a new storage pool with the name **TieredPool1** using all available physical disks
 
 #### Task 2: Creating a tiered virtual disk
 
@@ -127,16 +138,13 @@ Perform these steps on FS.
 1. Create a virtual disk. At the end of the wizard continue with the next wizard.
 
    * **Name:** Tiered Disk 1
+   * **Create storage tiers on this virtual disk**
    * **Storage layout:** **Mirror**
    * **Size:**
      * **Faster tier:** 45 GB
      * **Standard tier:** 240 GB
 
-1. Create a standard volume using the default settings.
-
-   ````powershell
-   New-Volume -DiskUniqueId $VirtualDisk.UniqueId -FriendlyName Volume
-   ````
+1. In the **New Volume Wizard**, create a standard volume with the name **Volume** using the default settings.
 
 As our HDDs are simulated, we will not see any acceleration in this lab. Note that you could assign files permanently to the SSD tier, for example:
 
@@ -149,7 +157,7 @@ Set-FileStorageTier `
     -DesiredStorageTierFriendlyName 'Tiered Disk 1_Microsoft_SSD_Template'
 ````
 
-Note that there are scheduled tasks for **Storage Tier Management**.
+Note the scheduled tasks for **Storage Tier Management**.
 
 ![Scheduled tasks for storage Tiers Management: Storage Tiers Management Initialization, Storage Tiers Optimization][figure 9]
 
