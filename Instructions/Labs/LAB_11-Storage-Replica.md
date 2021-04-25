@@ -129,7 +129,7 @@ In this exercise, you will create a stretched Hyper-V cluster and configure stor
 
 #### Task 1: Create a failover cluster
 
-Perform these steps on SR1.
+Perform these steps on CL1.
 
 1. On SR1 logon as **smart\administrator**
 1. Start Windows PowerShell
@@ -142,18 +142,26 @@ Perform these steps on SR1.
 
    ````powershell
    $cluster = 'SR'
-   New-Cluster `
-       -Name $cluster `
-       -Node SR1 `
-       -StaticAddress 10.1.1.83 `
-       -NoStorage `
-       -AdministrativeAccessPoint ActiveDirectoryAndDns
+   # Variables can store comma-separated lists of values, i. e. arrays
+   $node = 'SR1', 'SR2'
+
+   <#
+   You can access the first element of an array by addressing it with 0 in
+   brackets.
+   #>
+   $cluster = New-Cluster `
+      -Name $clusterName `
+      -Node $node[0] `
+      -StaticAddress 10.1.1.83 `
+      -NoStorage `
+      -AdministrativeAccessPoint ActiveDirectoryAndDns
    ````
 
 1. Add SR2 as the second node of the cluster.
 
    ````powershell
-   Add-ClusterNode -Cluster $cluster -Name SR2 -NoStorage
+   # The second element in an array has the index number 1
+   $cluster | Add-ClusterNode -Name $node[1] -NoStorage
    ````
 
 1. Configure the cluster quorum settings to use a file share witness using \\dhcp\SR-fsw.
@@ -165,15 +173,24 @@ Perform these steps on SR1.
 1. Configure stretched cluster site awareness using PowerShell. Create two sites: primary and secondary.
 
    ````powershell
-   New-ClusterFaultDomain -Name Primary -Type Site
-   New-ClusterFaultDomain -Name Secondary -Type Site
+   # Using CIM sessions, you can run commands using the CIM interface remotely
+   $cimSession = New-CimSession -ComputerName $node
+
+   New-ClusterFaultDomain -CimSession $cimSession[0] -Name Primary -Type Site
+   New-ClusterFaultDomain -CimSession $cimSession[0] -Name Secondary -Type Site
    ````
 
 1. Add the nodes to their sites.
 
    ````powershell
-   Set-ClusterFaultDomain -Name SR1 -Parent Primary
-   Set-ClusterFaultDomain -Name SR2 -Parent Secondary
+   Set-ClusterFaultDomain `
+      -CimSession $cimSession[0] `
+      -Name $node[0] `
+      -Parent Primary
+   Set-ClusterFaultDomain `
+      -CimSession $cimSession[0] `
+      -Name $node[1] `
+      -Parent Secondary
    ````
 
 1. Set the preferred site to the first domain.
@@ -184,18 +201,18 @@ Perform these steps on SR1.
    of the cluster object, that can be set. To see all properties of an object
    and whether they can be set or are read only, you can use the Get-Member
    cmdlet, e. g.
-   Get-Cluster | Get-Member
+   $cluster | Get-Member
 
    Because Get-Cluster must be executed before you can access the properties of
    the returned object, you have to put it into braces.
    #>
-   (Get-Cluster).PreferredSite = 'Primary'
+   $cluster.PreferredSite = 'Primary'
    ````
 
 1. Set the cluster resiliency period to 10 seconds.
 
    ````powershell
-   (Get-Cluster).ResiliencyDefaultPeriod=10
+   $cluster.ResiliencyDefaultPeriod=10
    ````
 
 1. Add all Disks to the cluster.
