@@ -225,7 +225,7 @@ Perform these steps on CL1.
 
    ````powershell
    $gw = Get-ADComputer -Identity "srv2"
-   Set-ADComputer $cluster -PrincipalsAllowedToDelegateToAccount $gw 
+   Set-ADComputer $clusterName -PrincipalsAllowedToDelegateToAccount $gw 
    ````
 
 #### Task 2: Configure storage replica
