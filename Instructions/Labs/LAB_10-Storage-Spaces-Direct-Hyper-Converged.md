@@ -33,7 +33,7 @@ In this exercise, you will create the Hyper-Converged Cluster with two Cluster S
 
 #### Task 1: Enable Storage Spaces Direct
 
-Peform these steps on S2D1.
+Peform these steps on CL1.
 
 1. Logon as **smart\administrator**.
 1. Run Windows PowerShell as Administrator.
@@ -70,13 +70,20 @@ Peform these steps on S2D1.
 1. Activate Storage Spaces Direct
 
    ````powershell
-   Enable-ClusterS2D -CacheState Disabled -SkipEligibilityChecks
+   # A CIM session is necessary to run some commands remotely.
+   # The first element of an array can be accessed by the [0] syntax.
+   $cimSession = New-CimSession -ComputerName $computerName[0]
+
+   Enable-ClusterS2D `
+      -CimSession $cimSession `
+      -CacheState Disabled `
+      -SkipEligibilityChecks
    ````
 
 1. List the storage pools in the cluster.
 
    ````powershell
-   Get-StoragePool
+   Get-StoragePool -CimSession $cimSession
    ````
 
    S2D automatically created a Storage Pool with all eligible disks ([figure 1]).
@@ -89,12 +96,9 @@ Peform these steps on S2D1.
    of the cluster object, that can be set. To see all properties of an object
    and whether they can be set or are read only, you can use the Get-Member
    cmdlet, e. g.
-   Get-Cluster | Get-Member
-
-   Because Get-Cluster must be executed before you can access the properties of
-   the returned object, you have to put it into braces.
+   $cluster | Get-Member
    #>
-   (Get-Cluster).ResiliencyDefaultPeriod = 10 
+   $cluster.ResiliencyDefaultPeriod = 10 
    ````
 
 #### Task 2: Administering S2D with Windows Admin Center
