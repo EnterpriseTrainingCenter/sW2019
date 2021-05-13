@@ -52,10 +52,10 @@ Perform these steps on CL1.
 1. Logon as **smart\administrator**
 1. Start Google Chrome.
 1. In Google Chrome, navigate to <https://admincenter.smart.etc>.
-1. Add a server connection to server **SRV1903.smart.etc**
-1. Open the connection to **SRV1903.smart.etc**.
+1. Add a server connection to server **FS.smart.etc**
+1. Open the connection to **FS.smart.etc**.
 1. Click on **Roles & Features**.
-1. Install the **Storage Migration Service Proxy** feature. This will install all necessary components on SRV1903.
+1. Install the **Storage Migration Service Proxy** feature. This will install all necessary components on FS.
 1. Click **Firewall**.
 1. On the tab **Incoming rules**, make sure, necessary rules are enabled.
    * File and Printer Sharing (SMB-In)
@@ -67,10 +67,10 @@ Perform these steps on CL1.
 
 Perform these steps on CL1.
 
-1. In **Windows Admin Center**, add a connection to server **FS.smart.etc**.
-1. Connect to **FS.smart.etc**.
+1. In **Windows Admin Center**, add a connection to server **SRV1903.smart.etc**.
+1. Connect to **SRV1903.smart.etc**.
 1. In the tree on the left, click **Firewall**.
-1. On the tab **Incoming rules**, make sure, that the **File and Printer Sharing (SMB-In)** rule is enabled
+1. On the tab **Incoming rules**, make sure, that the **File and Printer Sharing (SMB-In)** rule is enabled.
 1. In the tree click **Storage Migration Service**.
 1. Click **Install** to install the storage migration service components.
 1. After installation finished, activate checkbox **Don’t show this again**, and click **Close**.
@@ -94,7 +94,7 @@ In this exercise, you will inventory the source server and start the transfer. A
 
 Perform these steps on CL1.
 
-1. In **Windows Admin Center**, connect to **fs.smart.etc**.
+1. In **Windows Admin Center**, connect to **SRV1903.smart.etc**.
 1. Click on **Storage Migration Service**.
 1. Click **New Job**.
 1. In **Job name**, type **SRV2008R2Migration**, and click on **OK**.
@@ -109,7 +109,7 @@ Perform these steps on CL1.
 Perform these steps on CL1.
 
 1. If offered, use stored credentials, otherwise enter the credentials for **smart\administrator**.
-1. As destination device, add **SRV1903.smart.etc**, and click **Scan**.
+1. As destination device, add **FS.smart.etc**, and click **Scan**.
 1. On the page **Add a destination device and mappings for srv2008r2.smart.etc**, section **Volume**, from the dropdown, select **C:** as destination volume for the migration ([figure 5]).
 1. On the page **Adjust transfer settings**, in **Validation method (checksum) for transmitted files**, select **CRC64** ([figure 6]).
 1. In the section **Migrate users and groups** section, select **Don't transfer users and groups**.
@@ -142,16 +142,18 @@ Perform these steps on CL1.
 
 #### Task 4: Validate migration
 
-Perform these steps on SRV1903 (now SRV2008R2).
+Perform these steps on FS (now SRV2008R2).
 
 1. Logon as **smart\administrator**.
 1. Open **File Explorer**.
-
-   ````
-   explorer
-   ````
 1. On folder **D:\Data\HR**, open the properties.
-1. Make sure it is shared as **HR**.
+1. Make sure it is shared as **HR** and that the following share and NTFS permissions exist.
+
+   | Principal      | Permission       |
+   | -------------- | ---------------- |
+   | **PERM_HR_FC** | Full Control     |
+   | **PERM_HR_M**  | Modify           |
+   | **PERM_HR_R**  | Read and Execute |
 
 [figure 1]: images/Lab12/figure01.png
 [figure 2]: images/Lab12/figure02.png
