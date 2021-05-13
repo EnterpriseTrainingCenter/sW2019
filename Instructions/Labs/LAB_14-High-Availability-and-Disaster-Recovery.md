@@ -235,7 +235,7 @@ Perform these steps on RDCB1.
 
 1. Close **Notepad**.
 
-#### Task 2: Create an NLB cluster
+#### Task 3: Create an NLB cluster
 
 Perform these steps on RDCB1.
 
@@ -257,7 +257,7 @@ Perform these steps on RDCB1.
    ipconfig
    ````
 
-#### Task 3: Configure DNS
+#### Task 4: Configure DNS
 
 Perform these steps on DC1.
 
@@ -276,7 +276,7 @@ Perform these steps on DC1.
 
 1. In the web browser, navigate to www.smart.etc. You should see the default page with a red background.
 
-#### Task 4: Add a node to an NLB cluster
+#### Task 5: Add a node to an NLB cluster
 
 Perform these steps on RDCB1.
 
@@ -286,7 +286,7 @@ Perform these steps on RDCB1.
 1. On page **Add Host to Cluster: Host Parameters**, keep the default settings, and click on **Next**.
 1. On page **Add Host to Cluster: Port Rules**, keep the default configuration, and click on **Finish**. Wait until the node joins the cluster.
 
-#### Task 5: Validate an NLB cluster
+#### Task 6: Validate an NLB cluster
 
 Perform these steps on DC1.
 
@@ -296,25 +296,25 @@ Perform these steps on DC1.
 
    You may try to refresh the page several times.
 
-#### Task 6: Simulate a failure
+#### Task 7: Simulate a failure
 
 Perform these steps on RDCB1.
 
 1. In **Network Load Balancing manager**, From the context menu of node **RDCB1**, select **Control host**, **Suspend**.
 
-#### Task 7: Validate failover
+#### Task 8: Validate failover
 
 Perform these steps on DC1.
 
 1. In the web browser, refresh the page. You should see the default page with a blue background.
 
-#### Task 8: Simulate recovery
+#### Task 9: Simulate recovery
 
 Perform these steps on RDCB1.
 
 1. In **Network Load Balancing Manager**, from the context menu of node FS, select **Control Host**, **Resume**, then **Start**. Wait until the node joins the cluster.
 
-#### Task 9: Validate recovery
+#### Task 10: Validate recovery
 
 Perform these steps on DC1.
 
