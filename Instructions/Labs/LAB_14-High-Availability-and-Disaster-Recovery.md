@@ -181,14 +181,14 @@ In this exercise, you will create and test a network load balancing cluster.
 
 1. [Install IIS and Network Load Balancing](#task-1-install-iis-and-network-load-balancing)
 1. [Configure IIS](#task-2-configure-iis)
-1. [Create an NLB cluster](#task-2-create-an-nlb-cluster)
-1. [Configure DNS](#task-3-configure-dns)
-1. [Add a node to the NLB cluster](#task-4-add-a-node-to-an-NLB-cluster)
-1. [Validate an NLB cluster](#task-5-validate-an-nlb-cluster)
-1. [Simulate a failure](#task-6-simulate-a-failure)
-1. [Validate failover](#task-7-validate-failover)
-1. [Simulate recovery](#task-8-simulate-recovery)
-1. [Validate recovery](#task-9-validate-recovery)
+1. [Create an NLB cluster](#task-3-create-an-nlb-cluster)
+1. [Configure DNS](#task-4-configure-dns)
+1. [Add a node to the NLB cluster](#task-5-add-a-node-to-an-NLB-cluster)
+1. [Validate an NLB cluster](#task-6-validate-an-nlb-cluster)
+1. [Simulate a failure](#task-7-simulate-a-failure)
+1. [Validate failover](#task-8-validate-failover)
+1. [Simulate recovery](#task-9-simulate-recovery)
+1. [Validate recovery](#task-10-validate-recovery)
 
 ### Detailed Instructions
 
