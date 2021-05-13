@@ -7,8 +7,8 @@
 * DHCP
 * Router
 * HV1
-* FS on HV1
-* WS2019 on HV1
+* RDCB1
+* RDCB2
 
 ## Exercises
 
@@ -179,7 +179,8 @@ In this exercise, you will create and test a network load balancing cluster.
 
 ### Tasks
 
-1. [Install and configure IIS](#task-1-install-and-configure-iis)
+1. [Install IIS and Network Load Balancing](#task-1-install-iis-and-network-load-balancing)
+1. [Configure IIS](#task-2-configure-iis)
 1. [Create an NLB cluster](#task-2-create-an-nlb-cluster)
 1. [Configure DNS](#task-3-configure-dns)
 1. [Add a node to the NLB cluster](#task-4-add-a-node-to-an-NLB-cluster)
@@ -191,24 +192,26 @@ In this exercise, you will create and test a network load balancing cluster.
 
 ### Detailed Instructions
 
-#### Task 1: Install and configure IIS
+#### Task 1: Install IIS and Network Load Balancing
 
-Perform these tasks on CL1.
+Perform these steps on RDCB1 and RDCB2.
 
-1. Logon as **smart\administrator**
-1. Run **Windows PowerShell** as Administrator
-1. Install Role Web Server (IIS) the feature Network Load Balancing.
+1. Logon as **smart\administrator**.
+1. Open **Server Manager**.
+1. In **Server Manager**, click **Manage**, **Add Roles and Features**.
+1. In **Add Role and Features Wizard**, continue to the page **Select server roles**.
+1. On page **Select server roles**, activate **Web Server (IIS)**.
+1. On page **Select featues**, active **Network Load Balancing**.
+1. Continue through the wizard to install Web Server (IIS) and Network Load Balancing.
 
-   ````powershell
-   # Invoke-Command allow to run the command in ScriptBlock
-   # remotely on multiple computers
-   Invoke-Command -Computername FS, WS2019 -ScriptBlock {
-       Install-WindowsFeature 'Web-Server', 'NLB' -IncludeManagementTools
-    }
-   ````
+Repeat the steps on RDCB2.
+
+#### Task 2: Configure IIS
+
+Perform these steps on RDCB1.
 
 1. Open Notepad.
-1. Open file \\FS\c$\Inetpub\wwwroot\iisstart.htm.
+1. Open file \\\\RDCB1\c$\Inetpub\wwwroot\iisstart.htm.
 1. Find the stylesheet for body, change the **background-color** attribute to **red**, and save the file.
 
    ````css
@@ -219,7 +222,7 @@ Perform these tasks on CL1.
    }
    ````
 
-1. Open file \\WS2019\c$\Inetpub\wwwroot\iisstart.htm.
+1. Open file \\RDCB2\c$\Inetpub\wwwroot\iisstart.htm.
 1. Find the stylesheet for body, change the **background-color** attribute to **blue**, and save the file.
 
    ````css
@@ -230,21 +233,23 @@ Perform these tasks on CL1.
    }
    ````
 
+1. Close **Notepad**.
+
 #### Task 2: Create an NLB cluster
 
-Perform these steps on FS.
+Perform these steps on RDCB1.
 
 1. Logon as **smart\Adminitrator**.
 1. From the start menu, open **Network Load Balancing Manager**.
 1. From the context menu of **Load Balancing Clusters**, select **New Cluster**.
-1. Enter **FS**, and click on **Connect**.
-1. Select the IP address **10.1.1.42**, and click on **Next**.
-1. Keep the default settings, and click on **Next**.
-1. Add the clustered IP **10.1.1.64/24**, and click on **Next**.
-1. Enter the FQDN **www.smart.etc**, and set the cluster operations mode to **Multicast**.
-1. Select the default port rules, and click on **Edit**.
-1. Change the port range to **80:80/tcp** ([figure 10]).
-1. Click on **Finish** to create the NLB cluster.
+1. On page **New Cluster: Connect**, in **Host**, enter **RDCB**, and click on **Connect**.
+1. Under **Interfaces available for configuring a new cluster**, select the interface with the IP address **10.1.1.51**, and click on **Next**.
+1. On page **New Cluster: Host Parameters**, keep the default settings, and click on **Next**.
+1. On page **New Cluster: Cluster IP Addresses**, add the clustered IP **10.1.1.64/24**, and click on **Next**.
+1. On page **New Cluster: Cluster Parameters**, in **Full Internet name**, enter the FQDN **www.smart.etc**, set the cluster operations mode to **Multicast**, and click on **Next**.
+1. On page **New Cluster: Port Rules**, select the default port rule, and click on **Edit**.
+1. In **#Add/Edit Port Rule**, in **From** and **To**, enter **80**. Under Protocols, select TCP and click on **OK** ([figure 10]).
+1. Back on page **New Cluster: Port Rules**, click on **Finish** to create the NLB cluster.
 1. Open a **Command Prompt**.
 1. Validate the IP configuration ([figure 11]).
 
@@ -259,7 +264,8 @@ Perform these steps on DC1.
 1. Open a web browser.
 1. Navigate to <http://10.1.1.64>. You should see the default page with red background.
 1. Open the **DNS Manager**.
-1. From the zone **smart.etc**, delete the record **www**.
+1. Click the Forward Lookup Zone **smart.etc**.
+1. If present, delete the A record **www**.
 1. Create a new A record with the name **www** and the IP address **10.1.1.64**.
 1. Run **Windows PowerShell** as Administrator.
 1. Clear the DNS Cache.
@@ -272,13 +278,13 @@ Perform these steps on DC1.
 
 #### Task 4: Add a node to an NLB cluster
 
-Perform these steps on FS.
+Perform these steps on RDCB1.
 
 1. In **Network Load Balancing Manager**,  from the context menu of the cluster www.smart.etc, select **Add Host to Cluster**.
-1. Enter **WS2019**.
-1. Select the IP address **10.1.1.32**, and click on **Next**.
-1. Keep the default configuration, and click on **Next**.
-1. Keep the default port configuration, and click on **Finish**. Wait until the node joins the cluster.
+1. On page **Add Host to Cluster: Connect**, in **Host**, enter **RDCB2**.
+1. Under **Interfaces available for configuring the cluster**, select the interface with the IP address **10.1.1.52**, and click on **Next**.
+1. On page **Add Host to Cluster: Host Parameters**, keep the default settings, and click on **Next**.
+1. On page **Add Host to Cluster: Port Rules**, keep the default configuration, and click on **Finish**. Wait until the node joins the cluster.
 
 #### Task 5: Validate an NLB cluster
 
@@ -292,9 +298,9 @@ Perform these steps on DC1.
 
 #### Task 6: Simulate a failure
 
-Perform these steps on FS.
+Perform these steps on RDCB1.
 
-1. In **Network Load Balancing manager**, From the context menu of node **FS**, select **Control host**, **Suspend**.
+1. In **Network Load Balancing manager**, From the context menu of node **RDCB1**, select **Control host**, **Suspend**.
 
 #### Task 7: Validate failover
 
@@ -304,9 +310,9 @@ Perform these steps on DC1.
 
 #### Task 8: Simulate recovery
 
-Perform these steps on FS.
+Perform these steps on RDCB1.
 
-1. In **Network Load Balancing Manager**, from the context menu of node FS, select **Control Host**, **Resume and Start**. Wait until the node joins the cluster.
+1. In **Network Load Balancing Manager**, from the context menu of node FS, select **Control Host**, **Resume**, then **Start**. Wait until the node joins the cluster.
 
 #### Task 9: Validate recovery
 
@@ -318,7 +324,7 @@ Perform these steps on DC1.
 
    You may try to refresh the page several times.
 
-If time permits, you can repeat tasks 6 - 9 simulating a failure on WS2019.
+If time permits, you can repeat tasks 6 - 9 simulating a failure on RDCB2.
 
 [figure 1]: images/Lab14/figure01.png
 [figure 2]: images/Lab14/figure02.png
