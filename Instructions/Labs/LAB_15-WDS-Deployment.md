@@ -5,7 +5,7 @@
 * DC1
 * DHCP
 * Router
-* FS on HV1
+* WS2019 on HV1
 
 ## Exercises
 
@@ -34,9 +34,9 @@ In this exercise, you will install the WDS Services, create a reference server i
 
 #### Task 1: Install and configure WDS
 
-Perform these steps on FS.
+Perform these steps on WS2019.
 
-1. On FS logon as **smart\administrator**.
+1. On WS2019 logon as **smart\administrator**.
 1. Open **File Explorer**
 1. Navigate to **D:\ISO**.
 1. Double-click on the file **WS2019.iso** to mount it.
@@ -48,8 +48,8 @@ Perform these steps on FS.
    ````
 
 1. From the start menu, open the **Windows Deployment Services** console.
-1. Expand the tree to **FS.smart.etc**.
-1. From the context menu of **FS.smart.etc**, select **Configure Your Server**.
+1. Expand the tree to **WS2019.smart.etc**.
+1. From the context menu of **WS2019.smart.etc**, select **Configure Your Server**.
    * **Integrated with Active Directory**
    * D:\Remoteinstall
    * Respond to all client computers
@@ -102,7 +102,7 @@ Perform these steps on Master.
 
 #### Task 4: Import the master image
 
-Perform these steps on FS.
+Perform these steps on WS2019.
 
 1. Switch to **WDS console**.
 1. Create a new image group **WindowsServerVHDX**.
@@ -157,11 +157,11 @@ Perform these steps on HV1.
    * **Domain:** smart.etc
    * **Password:** Pa$$w0rd
    * **User:** user1
-1. Save the file to **\\\FS\d$\Remoteinstall\WDSClientUnattend\uefi-wds.xml**.
+1. Save the file to **\\\WS2019\d$\Remoteinstall\WDSClientUnattend\uefi-wds.xml**.
 
 #### Task 6: Configure WDS to use the answer file
 
-Perform these steps on FS.
+Perform these steps on WS2019.
 
 1. Open the properties of WDS
 1. On the tab **Client**, enable the **Enable unattended installation** checkbox.
@@ -170,7 +170,7 @@ Perform these steps on FS.
 
 #### Task 7: Create a multicast transmission
 
-Perform these steps on FS.
+Perform these steps on WS2019.
 
 1. From the context menu of **Multicast Transmissions**, select **Create Multicast Transmission**.
    * **Name:** WS2019VHDX
@@ -192,7 +192,7 @@ Perform these steps on HV1.
 
 #### Task 9: Monitor multicast transmissions
 
-Perform these steps on FS.
+Perform these steps on WS2019.
 
 1. In the WDS console select the multicast transmission your created before. Notice the multicast transmission monitoring in the WDS console. You can trace the installation there ([figure 7]).
 1. To speed things up in our lab environment, you can bypass multicast ([figure 8]).
