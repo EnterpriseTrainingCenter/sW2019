@@ -146,6 +146,8 @@ Perform these steps on DC1.
 
 #### Windows Admin Center
 
+Perform these steps on CL1.
+
 1. In **Windows Admin Center**, connected to **dc1.smart.etc**, in **Active Directory**, on the toolbar, click **Create**, **User**.
 1. In the pane **Add User**, at the bottom click **Change...**.
 1. In the pane **Select Path**, select to OU **Server2019**, then click **Select**.
