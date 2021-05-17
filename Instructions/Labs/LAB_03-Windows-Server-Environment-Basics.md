@@ -18,14 +18,14 @@
 
 In this exercise, you will create an Organizational Unit and a personalized Active Directory user account.
 
-### Tasks
+#### Tasks
 
 1. [Create a new Organizational Unit and a new AD User](#task-1-create-a-new-organizational-unit-and-a-new-ad-user)
 1. [Create a new AD user](#task-2-create-a-new-ad-user)
 
-### Detailed Instructions
+### Task 1: Create a new Organizational Unit and a new AD user
 
-#### Task 1: Create a new Organizational Unit and a new AD user
+#### Desktop Experience
 
 Perform these steps on DC1.
 
@@ -40,7 +40,100 @@ Perform these steps on DC1.
 
 1. Leave **Active Directory Users and Computers** open for the next task.
 
-#### Task 2: Create a new AD user
+#### Windows Admin Center
+
+Perform these steps on CL1.
+
+1. Logon as **smart\Administrator**.
+1. Open **Google Chrome** and navigate to <https://admincenter>.
+1. In **Windows Admin Center**, click the gear icon on the top-right to open Settings.
+1. In **Settings**, on the right, click **Extensions**.
+1. In **Extensions**, on the tab **Available extensions**, search and select **Active Directory**.
+1. On the top, click **Install**. Wait for the install to complete.
+
+   If you cannot click **Install**, it is installed already. Proceed to the next step.
+
+1. On the top-left click **Windows Admin Center** to return to the home page.
+1. Connect to **dc1.smart.etc**.
+1. Connected to **dc1.smart.etc**, on the left, click **Active Directory**.
+1. In **Active Directory Domain Services**, click **Create**, **OU**.
+1. In the pane **Add Organizational Unit**, at the bottom click **Change...**.
+1. In the pane **Select Path**, select to root node **DC=smart,DC=etc**, then click **Select**.
+
+   If you cannot click **Select**, the node was selected already. Click **Close** instead.
+
+   The text to the left of the button **Change...** should read **Create in: DC=smart,DC=etc** ([figure 2]).
+
+1. Select the new OU and try to delete it.
+
+   > Can you delete the OU? Why? (Hint: see [figure 2])
+
+1. Leave **Windows Admin Center** open for the next task.
+
+#### PowerShell
+
+Perform these steps on DC1.
+
+1. Logon as **smart\Administrator**.
+1. Run **Windows PowerShell** as Administrator.
+1. Create a new Organization Unit (OU) named Server2019.
+
+   ````powershell
+   <#
+   Since we will need the DNS name of the domain several times, store it in a
+   variable.
+   #>
+   $domainDns = 'smart.etc'
+
+   <#
+   We will need the distinguished name of the domain several times. We can build
+   it automatically from the DNS name.
+   
+   In PowerShell, a string in double quotes can contain expressions. This is
+   called template string in other languages. Expressions are prefixed with a
+   $ sign. The expression is written in braces, following the $ sign, e. g.
+   $(3*4) will result in 12.
+
+   To build the distinguished name of the domain, we need to prefix it with dc=.
+   Moreover, all dots are separate components and must be replaced by ', dc='
+   respectively. E. g. smart.etc becomes to dc=smart.etc.
+
+   The replacement of all dots is accomplished by the replace operator. The
+   replace operator uses regular expressions. Since the dot has a special
+   meaning in regular expressions, we need to prefix it with a backslash (\).
+   The second paramter in the replace operator is the replacement string.
+
+   The result of the replacment is then prefixed with dc=, completing the
+   distinguished name.
+   #>
+   
+   $domainDN= "dc=$($DomainDns -replace '\.', ', dc=')"
+
+   # Again, the OU name will be used more than once, therefore a variable
+
+   $oUName='Server2019'
+
+   New-ADOrganizationalUnit -Name $oUName -Path $domainDN
+   ````
+
+1. Try to delete the OU.
+
+   ````powershell
+   <#
+   We will need the DN of the OU in this step and later. We can build it from
+   the DN of the domain and the OU name.
+   #>
+   $oUDN="ou=$oUName, $domainDN"
+   Remove-ADOrganizationalUnit -Identity $oUDN
+   ````
+
+   > Can you delete the OU? Why? (Hint: see [figure 1])
+
+1. Leave **Windows PowerShell** open for the next task.
+
+### Task 2: Create a new AD user
+
+#### Desktop Experience
 
 Perform these steps on DC1.
 
@@ -48,6 +141,57 @@ Perform these steps on DC1.
 1. Create a new user using your your personal first and last name. For the user logon name use the following format: **firstname.lastname**. For the password use **Pa$$w0rd** and deactivate **User must change password at next logon**.
 1. Double-click the new user to open its properties.
 1. Click on the tab **Member Of**.
+
+   > Which groups is the new user member of?
+
+#### Windows Admin Center
+
+1. In **Windows Admin Center**, connected to **dc1.smart.etc**, in **Active Directory**, on the toolbar, click **Create**, **User**.
+1. In the pane **Add User**, at the bottom click **Change...**.
+1. In the pane **Select Path**, select to OU **Server2019**, then click **Select**.
+
+   The text to the left of the button **Change...** should read **Create in: OU=Server2019,DC=smart,DC=etc**.
+
+1. Create a new user using your your personal given name and surname. For the **Sam Account Name** use the following format: **firstname.lastname**. For the password use **Pa$$w0rd**.
+1. Select the new user, and click **Properties**.
+1. On the left, click on the tab **Membership**.
+
+   > Which groups is the new user member of?
+
+#### PowerShell
+
+1. Create a new user.
+
+   ````powershell
+   $firstname = '' # TODO: Insert your first name
+   $lastname = '' # TODO: Insert your last name
+
+   # Build the full name, which will be used for the display name too
+   $name = "$firstname $lastname"
+
+   # For security reasons, prompt for the password
+   $password = (Read-Host -Prompt 'Password' -AsSecureString)
+
+   # We will need the samAccountName later
+   $samAccountName = "$firstname.$lastname"
+
+   New-ADUser `
+      -Path $oUDN `
+      -GivenName $firstname `
+      -Surname $lastname `
+      -Name $name `
+      -SamAccountName $samAccountName `
+      -UserPrincipalName "$samAccountName@$domainDns `
+      -AccountPassword $password `
+      -ChangePasswordAtLogon $false `
+      -Enabled $true
+   ````
+
+1. Get group memberships of the user.
+
+   ````powershell
+   Get-ADPrincipalGroupMembership $samAccountName
+   ````
 
    > Which groups is the new user member of?
 
