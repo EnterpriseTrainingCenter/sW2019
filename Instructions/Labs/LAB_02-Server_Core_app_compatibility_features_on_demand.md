@@ -17,14 +17,12 @@
 
 In this exercise, you will install Server Core app compatibility features on demand.
 
-### Tasks
+#### Tasks
 
 1. [Install the FOD package](#task-1-install-the-fod-package)
 1. [Install the Internet Explorer FOD package](#task-2-install-the-internet-explorer-fod-package)
 
-### Detailed Instructions
-
-#### Task 1: Install the FOD package
+### Task 1: Install the FOD package
 
 Perform these steps on SRV2.
 
@@ -79,7 +77,7 @@ Perform these steps on SRV2.
    Get-WindowsCapability -Online -Name Servercore*
    ````
 
-#### Task 2: Install the Internet Explorer FOD package
+### Task 2: Install the Internet Explorer FOD package
 
 Perform these steps on SRV2.
 
@@ -116,14 +114,12 @@ Perform these steps on SRV2.
 
 In this exercise, you will test Server Core app compatibility features on demand.
 
-### Tasks
+#### Tasks
 
 1. [Use GUI management tools](#task-1-use-gui-management-tools)
 1. [Use Internet explorer](#task-2-use-internet-explorer)
 
-### Detailed Instructions
-
-#### Task 1:  Use GUI management tools
+### Task 1:  Use GUI management tools
 
 Perform these steps on SRV2.
 
@@ -149,7 +145,7 @@ Perform these steps on SRV2.
    Ncpa.cpl
    ````
 
-#### Task 2:  Use Internet explorer
+### Task 2:  Use Internet explorer
 
 Perform these steps on SRV2.
 

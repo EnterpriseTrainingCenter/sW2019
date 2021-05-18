@@ -23,15 +23,13 @@
 
 In this exercise, you will create the Hyper-Converged Cluster with two Cluster Shared Volumes using Storage Spaces Direct.
 
-### Tasks
+#### Tasks
 
 1. [Enable Storage Spaces Direct](#task-1-enable-storage-spaces-direct)
 1. [Administering S2D with Windows Admin Center](#task-2-administering-s2d-with-windows-admin-center)
 1. [Create storage pools and virtual disks](#task-3-create-storage-pools-and-virtual-disks)
 
-### Detailed Instructions
-
-#### Task 1: Enable Storage Spaces Direct
+### Task 1: Enable Storage Spaces Direct
 
 Peform these steps on CL1.
 
@@ -101,7 +99,7 @@ Peform these steps on CL1.
    $cluster.ResiliencyDefaultPeriod = 10 
    ````
 
-#### Task 2: Administering S2D with Windows Admin Center
+### Task 2: Administering S2D with Windows Admin Center
 
 Perform these steps on CL1.
 
@@ -112,7 +110,7 @@ Perform these steps on CL1.
 1. Click on **Servers**, **Inventory**. Discover the different options available for S2D server management.
 1. Leave **Windows Admin Center** open for the next task.
 
-#### Task 3: Create storage pools and virtual disks
+### Task 3: Create storage pools and virtual disks
 
 Peform these steps on CL1.
 
@@ -131,7 +129,7 @@ Peform these steps on CL1.
 
 In this exercise, you will create a new virtual machine within the Hyper-converged cluster. After the replication has finished two nodes will be shutdown to simulate a hardware failure.
 
-### Tasks
+#### Tasks
 
 1. [Create a Nanoserver VM](#task-1-create-a-nanoserver-vm)
 1. [Simulate a workload](#task-2-simulate-a-workload)
@@ -140,9 +138,7 @@ In this exercise, you will create a new virtual machine within the Hyper-converg
 1. [Simulate another failure](#task-5-simulate-another-failure)
 1. [Validate failover again](#task-6-validate-failover-again)
 
-### Detailed Instructions
-
-#### Task 1: Create a Nanoserver VM
+### Task 1: Create a Nanoserver VM
 
 Perform these steps on CL1.
 
@@ -162,7 +158,7 @@ Perform these steps on CL1.
 1. Refresh the **Virtual Machine Inventory** ([figure 5]).
 1. Select the VM **Nanoserver** and start it.
 
-#### Task 2: Simulate a workload
+### Task 2: Simulate a workload
 
 Perform these steps on CL1.
 
@@ -173,13 +169,13 @@ Perform these steps on CL1.
    ping -t 10.1.1.25
    ````
 
-#### Task 3: Simulate a failure
+### Task 3: Simulate a failure
 
 Perform these steps on your host computer.
 
 1. In **Hyper-V Manager**, turn off S2D1.
 
-#### Task 4: Validate failover
+### Task 4: Validate failover
 
 Perform these steps on CL1.
 
@@ -191,13 +187,13 @@ Perform these steps on CL1.
 1. Click on **Volumes**, **Inventory**. Notice that the volumes need a repair.
 1. Click on **Drives**, **Inventory**. Notice the lost communication with drives from S2D1.
 
-#### Task 5: Simulate another failure
+### Task 5: Simulate another failure
 
 Perform these steps on your host computer.
 
 1. In **Hyper-V Manager**, turn off the VM **Nanoserver** currently runs on (you should have taken a note in the previous task).
 
-#### Task 6: Validate failover again
+### Task 6: Validate failover again
 
 Perform these steps on CL1.
 

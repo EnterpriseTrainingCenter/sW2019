@@ -21,15 +21,13 @@
 
 In this exercise, you will install Windows Admin Center on Windows Server 2019 Core Edition using a trusted certificate. After that you will configure Kerberos Constrained Delegation to be able to use Single Sign On (SSO) for Admin Center management.
 
-### Tasks
+#### Tasks
 
 1. [Request a certificate](#task-1-request-a-certificate)
 1. [Install Windows Admin Center binaries](#task-2-install-windows-admin-center-binaries)
 1. [Configure Kerberos Constrained Delegation and DNS](#task-3-configure-kerberos-constrained-delegation-and-dns)
 
-### Detailed Instructions
-
-#### Task 1: Request a certificate
+### Task 1: Request a certificate
 
 Perform these steps on SRV2.
 
@@ -63,7 +61,7 @@ Perform these steps on SRV2.
 
 1. Leave PowerShell open for the next task
 
-#### Task 2: Install Windows Admin Center binaries
+### Task 2: Install Windows Admin Center binaries
 
 Perform these steps on SRV2.
 
@@ -88,7 +86,7 @@ Perform these steps on SRV2.
    msiexec /i $path /qb+ /L*v 'C:\WAC-install.log' CHK_REDIRECT_PORT_80=1 SME_PORT=443 SSL_CERTIFICATE_OPTION=installed SME_THUMBPRINT=$thumbprint
    ````
 
-#### Task 3: Configure Kerberos Constrained Delegation and DNS
+### Task 3: Configure Kerberos Constrained Delegation and DNS
 
 Perform these steps on DC1.
 
@@ -123,7 +121,7 @@ Perform these steps on DC1.
 
 In this exercise, you will make yourself familiar with Windows Admin Center.
 
-### Tasks
+#### Tasks
 
 1. [Configure Windows Admin Center](#task-1-configure-windows-admin-center)
 1. [Connect to Computers](#task-2-connect-to-computers)
@@ -131,9 +129,7 @@ In this exercise, you will make yourself familiar with Windows Admin Center.
 1. [Use Windows Admin Center Tools](#task-4-use-windows-admin-center-tools)
 1. [Examine PowerShell functions used by Windows Admin Center](#task-5-examine-powershell-functions-used-by-windows-admin-center)
 
-### Detailed Instructions
-
-#### Task 1: Configure Windows Admin Center
+### Task 1: Configure Windows Admin Center
 
 Perform these steps on CL1.
 
@@ -149,7 +145,7 @@ Perform these steps on CL1.
 1. Install available updates for existing extensions
 1. Leave Windows Admin Center open for the next task.
 
-#### Task 2: Connect to Computers
+### Task 2: Connect to Computers
 
 Perform these steps on CL1.
 
@@ -164,7 +160,7 @@ Perform these steps on CL1.
 
 1. Leave Windows Admin Center open for the next task.
 
-#### Task 3: Import Windows Admin Center Connections
+### Task 3: Import Windows Admin Center Connections
 
 Perform these steps on CL1.
 
@@ -182,7 +178,7 @@ Perform these steps on CL1.
 1. Select the file you created earlier in this task, and click **Add**. You should see two new shared connections for HV1 and HV2.
 1. Leave **Windows Admin Center** open for the next task.
 
-#### Task 4: Use Windows Admin Center Tools
+### Task 4: Use Windows Admin Center Tools
 
 Perform these steps on CL1.
 
@@ -195,7 +191,7 @@ Perform these steps on CL1.
    * Examine Storage
    * Examine Windows Update settings
 
-#### Task 5: Examine PowerShell functions used by Windows Admin Center
+### Task 5: Examine PowerShell functions used by Windows Admin Center
 
 Perform these steps on CL1.
 
@@ -209,7 +205,7 @@ Perform these steps on CL1.
 
 In this exercise you will configure access permissions to Windows Admin Center and activate role-based-access control for a single server.
 
-### Tasks
+#### Tasks
 
 1. [Create groups to secure Windows Admin Center](#task-1-create-groups-to-secure-windows-admin-center)
 1. [Configure allowed groups in Windows Admin Center](#task-2-configure-allowed-groups-in-windows-admin-center)
@@ -217,9 +213,7 @@ In this exercise you will configure access permissions to Windows Admin Center a
 1. [Activate role-based access control for Windows Admin Center](#task-4-activate-role-based-access-control-for-windows-admin-center)
 1. [Test role-based access control for Windows Admin Center](#task-5-test-role-based-access-control-for-windows-admin-center)
 
-### Detailed Instructions
-
-#### Task 1: Create groups to secure Windows Admin Center
+### Task 1: Create groups to secure Windows Admin Center
 
 Perform these steps on DC1.
 
@@ -233,7 +227,7 @@ Perform these steps on DC1.
 1. Add **smart\user1** as a member of the **DL_WAC-Admins** group.
 1. Add **smart\user2** as a member of the **DL_WAC-Users** group.
 
-#### Task 2: Configure allowed groups in Windows Admin Center
+### Task 2: Configure allowed groups in Windows Admin Center
 
 Perform these steps on CL1.
 
@@ -246,7 +240,7 @@ Perform these steps on CL1.
 1. Delete the **BUILTIN\Users** group.
 1. Logoff from CL1.
 
-#### Task 3: Test Windows Admin Center access permissions
+### Task 3: Test Windows Admin Center access permissions
 
 Peform these steps on CL1.
 
@@ -279,7 +273,7 @@ Peform these steps on CL1.
 
 1. Logoff.
 
-#### Task 4: Activate role-based access control for Windows Admin Center
+### Task 4: Activate role-based access control for Windows Admin Center
 
 Perform these steps on CL1.
 
@@ -298,7 +292,7 @@ Perform these steps on CL1.
 1. Click on the **Windows Admin Center Readers** group and add **smart\user2** as a member.
 1. Logoff.
 
-#### Task 5: Test role-based access control for Windows Admin Center
+### Task 5: Test role-based access control for Windows Admin Center
 
 Perform these steps on CL1.
 

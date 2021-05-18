@@ -17,14 +17,12 @@
 
 In this exercise, you will create a data collector set with most relevant counters for the 4 primary server performance subsystems.
 
-### Tasks
+#### Tasks
 
 1. [Create Data Collector Sets](#task-1-create-data-collector-sets)
 1. [Analyze performance data](#task-2-analyze-performance-data)
 
-### Detailed Instructions
-
-#### Task 1: Create Data Collector Sets
+### Task 1: Create Data Collector Sets
 
 Perform these steps on NET1.
 
@@ -76,7 +74,7 @@ Perform these steps on NET1.
 
 1. Stop both data collector sets.
 
-#### Task 2: Analyze performance data
+### Task 2: Analyze performance data
 
 Perform these steps on NET1.
 

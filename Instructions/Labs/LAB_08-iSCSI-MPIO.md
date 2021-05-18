@@ -20,7 +20,7 @@
 
 In this exercise, you will create an iSCSI target and configure a multipath route to your storage. At the end, you will test a multipath failover.
 
-### Tasks
+#### Tasks
 
 1. [Configure network connections](#task-1-configure-network-connections)
 1. [Configure TCP/IP](#task-2-configure-tcpip)
@@ -29,9 +29,7 @@ In this exercise, you will create an iSCSI target and configure a multipath rout
 1. [Test fault-tolerance of Multipath I/O](#task-5-test-fault-tolerance-of-multipath-io)
 1. [Examine the performance gain of MPIO](#task-6-examine-the-performance-gain-of-mpio)
 
-### Detailed Instructions
-
-#### Task 1: Configure network connections
+### Task 1: Configure network connections
 
 Perform these steps on HV1.
 
@@ -45,7 +43,7 @@ Perform these steps on HV1.
 1. Click **Advanced Features**. Take a note of the MAC address.
 1. Repeat the previous steps to take a note of the MAC address of the network adapter connected to **iSCSI2**.
 
-#### Task 2: Configure TCP/IP
+### Task 2: Configure TCP/IP
 
 Perform these steps on WS2019.
 
@@ -63,7 +61,7 @@ Perform these steps on WS2019.
    * **Subnet mask:** 255.255.255.0
    * Disable DNS registration
 
-#### Task 3: Configure an iSCSI target
+### Task 3: Configure an iSCSI target
 
 Perform these steps on CL1.
 
@@ -82,7 +80,7 @@ Perform these steps on CL1.
    * **Name:** **MPIOTest**
    * **Access servers:** Query initiator name of computer **WS2019**
 
-#### Task 4: Configure the iSCSI initiator
+### Task 4: Configure the iSCSI initiator
 
 Perform these steps on WS2019.
 
@@ -108,7 +106,7 @@ Perform these steps on WS2019.
 1. Open **Disk Management**, bring the new LUN online and initialize it as GPT.
 1. Create and format a new volume with default settings and drive letter **E:**.
 
-#### Task 5: Test fault-tolerance of MultiPath I/O
+### Task 5: Test fault-tolerance of MultiPath I/O
 
 Perform these steps on HV1.
 
@@ -125,7 +123,7 @@ Perform these steps on HV1.
 
 1. Reconnect the NIC.
 
-#### Task 6: Examine the performance gain of MPIO
+### Task 6: Examine the performance gain of MPIO
 
 On HV1, make sure a copy process is still running.
 

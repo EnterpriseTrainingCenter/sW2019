@@ -18,7 +18,7 @@
 
 In this exercise, you will create a patch management solution with Windows Server Update Services (WSUS) and approve and download some updates to your Windows Client machines.
 
-### Tasks
+#### Tasks
 
 1. [Install and configure WSUS](#task-1-install-and-configure-wsus)
 1. [Configure the Environment for WSUS](#task-2-configure-the-environment-for-wsus)
@@ -26,9 +26,7 @@ In this exercise, you will create a patch management solution with Windows Serve
 1. [Generate Windows Update logs on a client](#task-4-generate-windows-update-logs-on-a-client)
 1. [View the client status in WSUS](#task-5-view-the-client-status-in-WSUS)
 
-### Detailed Instructions
-
-#### Task 1: Install and configure WSUS
+### Task 1: Install and configure WSUS
 
 Perform these steps on NET1.
 
@@ -65,7 +63,7 @@ Perform these steps on NET1.
 1. In the **Approve Updates** dialog, approve the update only for the Clients computer group ([figure 7]).
 1. WSUS will download the update now, you can track the download via the **Server Status** page.
 
-#### Task 2: Configure the Environment for WSUS
+### Task 2: Configure the Environment for WSUS
 
 Perform these steps on DC1.
 
@@ -97,7 +95,7 @@ Perform these steps on DC1.
 1. Double-click on the service entry **Windows Update**.
 1. Activate **Define this policy settings**, and set the service startup mode to **Automatic**.
 
-#### Task 3: Install updates using WSUS
+### Task 3: Install updates using WSUS
 
 Perform these steps on CL1.
 
@@ -112,7 +110,7 @@ Perform these steps on CL1.
 1. Depending on the current patch status of your VM, the selected update may show up and you can install it ([figure 10]).
 1. Install the desired update and reboot if necessary.
 
-#### Task 4: Generate Windows Update logs on a Client
+### Task 4: Generate Windows Update logs on a Client
 
 Perform these steps on CL1.
 
@@ -126,7 +124,7 @@ Perform these steps on CL1.
 1. Use Notepad to open the logfile.
 1. Find the Windows Update process you initiated ([figure 12]).
 
-#### Task 5: View the client status in WSUS
+### Task 5: View the client status in WSUS
 
 Perform these steps on NET1.
 

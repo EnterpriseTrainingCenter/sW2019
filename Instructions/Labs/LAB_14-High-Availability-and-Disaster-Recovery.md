@@ -21,7 +21,7 @@
 
 In this exercise, you will upgrade a Windows Server 2012 R2 cluster to Windows Server 2019.
 
-### Tasks
+#### Tasks
 
 1. [Start cluster nodes](#task-1-start-cluster-nodes)
 1. [Evict node from cluster](#task-2-evict-node-from-cluster)
@@ -33,9 +33,7 @@ In this exercise, you will upgrade a Windows Server 2012 R2 cluster to Windows S
 1. [Update cluster functional level](#task-8-update-cluster-functional-level)
 1. [Clean up](#task-9-clean-up)
 
-### Detailed Instructions
-
-#### Task 1: Start cluster nodes
+### Task 1: Start cluster nodes
 
 Perform these steps on HV1.
 
@@ -43,7 +41,7 @@ Perform these steps on HV1.
 1. From the context menu of **Node1** or **Node2**, select **Checkpoint** ([figure 1]).
 1. From the context menu of **Node1** or **Node2**, select **Start**. Wait for the both VMs to boot and display the logon screen.
 
-#### Task 2: Evict node from cluster
+### Task 2: Evict node from cluster
 
 Perform these steps on CL1.
 
@@ -55,7 +53,7 @@ Perform these steps on CL1.
 1. From the context menu of **Node1**, select **Pause**, **Drain Roles**.
 1. From the context menu of **Node1**, select **More Actions**, **Evict** ([figure 2]).
 
-#### Task 3: Prepare for reinstall
+### Task 3: Prepare for reinstall
 
 Perform these steps on HV1.
 
@@ -65,7 +63,7 @@ Perform these steps on HV1.
 1. Double-click **Node1** to open the Hyper-V console
 1. Start **Node1** and boot from DVD.
 
-#### Task 4: Reinstall node
+### Task 4: Reinstall node
 
 Perform these steps on Node1.
 
@@ -77,7 +75,7 @@ Perform these steps on Node1.
 1. Delete all volumes on the disk and start the installation. Wait for the installation to finish.
 1. Set the local Administrator password as **Pa$$w0rd** and logon.
 
-#### Task 5: Configure node
+### Task 5: Configure node
 
 Perform these steps on Node1.
 
@@ -114,7 +112,7 @@ Perform these steps on Node1.
 1. Run **certlm.msc**.
 1. Navigate to **Personal**, **Certificates**. Verify that a certificate **CLIUSR** exists ([figure 7]). This certificate is used for authentication between cluster nodes.
 
-#### Task 6: Add node to cluster
+### Task 6: Add node to cluster
 
 Perform these steps on CL1.
 
@@ -122,7 +120,7 @@ Perform these steps on CL1.
 
    > In real world, what could be the next steps at this point?
 
-#### Task 7: Reinstall and configure subsequent nodes
+### Task 7: Reinstall and configure subsequent nodes
 
 1. Refer to the steps in [Task 2: Evict first node from the cluster](#task-2-evict-first-node-from-the-cluster) to evict **Node2** from the cluster.
 1. Refer to [Task 3: Prepare the reinstall of first node](#task-3-prepare-the-reinstall-of-first-node) to prepare the reinstall of **Node2**.
@@ -135,7 +133,7 @@ Perform these steps on CL1.
 | Datacenter1     | 10.1.1.62  |
 | iSCSI           | 10.1.9.62  |
 
-#### Task 8: Update cluster functional level
+### Task 8: Update cluster functional level
 
 Perform these steps on CL1.
 
@@ -165,7 +163,7 @@ Perform these steps on CL1.
 
    > What is the updated cluster functional level?
 
-#### Task 9: Clean up
+### Task 9: Clean up
 
 Perform these steps on HV1.
 
@@ -177,7 +175,7 @@ Perform these steps on HV1.
 
 In this exercise, you will create and test a network load balancing cluster.
 
-### Tasks
+#### Tasks
 
 1. [Install IIS and Network Load Balancing](#task-1-install-iis-and-network-load-balancing)
 1. [Configure IIS](#task-2-configure-iis)
@@ -190,9 +188,7 @@ In this exercise, you will create and test a network load balancing cluster.
 1. [Simulate recovery](#task-9-simulate-recovery)
 1. [Validate recovery](#task-10-validate-recovery)
 
-### Detailed Instructions
-
-#### Task 1: Install IIS and Network Load Balancing
+### Task 1: Install IIS and Network Load Balancing
 
 Perform these steps on RDCB1 and RDCB2.
 
@@ -206,7 +202,7 @@ Perform these steps on RDCB1 and RDCB2.
 
 Repeat the steps on RDCB2.
 
-#### Task 2: Configure IIS
+### Task 2: Configure IIS
 
 Perform these steps on RDCB1.
 
@@ -235,7 +231,7 @@ Perform these steps on RDCB1.
 
 1. Close **Notepad**.
 
-#### Task 3: Create an NLB cluster
+### Task 3: Create an NLB cluster
 
 Perform these steps on RDCB1.
 
@@ -257,7 +253,7 @@ Perform these steps on RDCB1.
    ipconfig
    ````
 
-#### Task 4: Configure DNS
+### Task 4: Configure DNS
 
 Perform these steps on DC1.
 
@@ -276,7 +272,7 @@ Perform these steps on DC1.
 
 1. In the web browser, navigate to www.smart.etc. You should see the default page with a red background.
 
-#### Task 5: Add a node to an NLB cluster
+### Task 5: Add a node to an NLB cluster
 
 Perform these steps on RDCB1.
 
@@ -286,7 +282,7 @@ Perform these steps on RDCB1.
 1. On page **Add Host to Cluster: Host Parameters**, keep the default settings, and click on **Next**.
 1. On page **Add Host to Cluster: Port Rules**, keep the default configuration, and click on **Finish**. Wait until the node joins the cluster.
 
-#### Task 6: Validate an NLB cluster
+### Task 6: Validate an NLB cluster
 
 Perform these steps on DC1.
 
@@ -296,25 +292,25 @@ Perform these steps on DC1.
 
    You may try to refresh the page several times.
 
-#### Task 7: Simulate a failure
+### Task 7: Simulate a failure
 
 Perform these steps on RDCB1.
 
 1. In **Network Load Balancing manager**, From the context menu of node **RDCB1**, select **Control host**, **Suspend**.
 
-#### Task 8: Validate failover
+### Task 8: Validate failover
 
 Perform these steps on DC1.
 
 1. In the web browser, refresh the page. You should see the default page with a blue background.
 
-#### Task 9: Simulate recovery
+### Task 9: Simulate recovery
 
 Perform these steps on RDCB1.
 
 1. In **Network Load Balancing Manager**, from the context menu of node FS, select **Control Host**, **Resume**, then **Start**. Wait until the node joins the cluster.
 
-#### Task 10: Validate recovery
+### Task 10: Validate recovery
 
 Perform these steps on DC1.
 

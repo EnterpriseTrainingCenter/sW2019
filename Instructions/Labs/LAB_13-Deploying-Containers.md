@@ -21,7 +21,7 @@
 
 In this exercise, you will deploy a Docker host and start standard containers.
 
-### Tasks
+#### Tasks
 
 1. [Enable nested virtualization](#task-1-enable-nested-virtualization)
 1. [Install Docker](#task-2-install-docker)
@@ -33,9 +33,7 @@ In this exercise, you will deploy a Docker host and start standard containers.
 1. [Save the custom container as new image to the repository](#task-9-save-the-custom-container-as-new-image-to-the-repository)
 1. [Run a container in Hyper-V isolation mode](#task-10-run-a-container-in-hyper-v-isolation-mode)
 
-### Detailed Instructions
-
-#### Task 1: Enable nested virtualization and install docker
+### Task 1: Enable nested virtualization and install docker
 
 Perform these steps on the host computer.
 
@@ -49,7 +47,7 @@ Perform these steps on the host computer.
 
 1. In **Hyper-V Manager**, start the VM **DOCKER**.
 
-#### Task 2: Install Docker
+### Task 2: Install Docker
 
 Perform these steps on DOCKER.
 
@@ -82,7 +80,7 @@ Perform these steps on DOCKER.
    Install-WindowsFeature 'Hyper-V' -Restart
    ````
 
-#### Task 3: Prepare docker images and networking
+### Task 3: Prepare docker images and networking
 
 Perform these steps on DOCKER.
 
@@ -147,7 +145,7 @@ Perform these steps on DOCKER.
    docker network ls
    ````
 
-#### Task 4: Working with docker images
+### Task 4: Working with docker images
 
 1. Start a Windows container based on Nano Server 1809.
 
@@ -223,7 +221,7 @@ Perform these steps on DOCKER.
    docker rm <container id>
    ````
 
-#### Task 5: Install a web server within a container
+### Task 5: Install a web server within a container
 
 1. Start a new Windows Server Core 2019 Container with transparent networking.
 
@@ -256,7 +254,7 @@ Perform these steps on DOCKER.
    exit
    ````
 
-#### Task 6: Validate the web server
+### Task 6: Validate the web server
 
 Perform these steps on DC1.
 
@@ -266,7 +264,7 @@ Perform these steps on DC1.
 
    > Do you see a valid web page?
 
-#### Task 7: Deploy a web site in the container
+### Task 7: Deploy a web site in the container
 
 Perform these steps on DOCKER.
 
@@ -276,7 +274,7 @@ Perform these steps on DOCKER.
    echo "Test Homepage" > C:\inetpub\wwwroot\default.htm
    ````
 
-#### Task 8: Validate the web site deployment
+### Task 8: Validate the web site deployment
 
 Perform these steps on DC1.
 
@@ -284,7 +282,7 @@ Perform these steps on DC1.
 
    > Did the web site change?
 
-#### Task 9: Save the custom container as new image to the repository
+### Task 9: Save the custom container as new image to the repository
 
 Perform these steps on DOCKER.
 
@@ -314,7 +312,7 @@ Perform these steps on DOCKER.
    docker history iisdemo
    ````
 
-#### Task 10: Run a container in Hyper-V isolation mode
+### Task 10: Run a container in Hyper-V isolation mode
 
 1. Start the container **iisdemo** in Hyper-V isolation mode.
 
@@ -332,15 +330,13 @@ Perform these steps on DOCKER.
 
 In this exercise, you will deploy a container using Dockerfile.
 
-### Tasks
+#### Tasks
 
 1. [Use dockerfile to create an image](#task-1-use-dockerfile-to-create-an-image)
 2. [Validate the new image](#task-2-validate-the-new-image)
 3. [Stop the container](#task-3-stop-the-container)
 
-### Detailed Instructions
-
-#### Task 1: Use dockerfile to create an image
+### Task 1: Use dockerfile to create an image
 
 Perform these steps on DOCKER.
 
@@ -397,7 +393,7 @@ Perform these steps on DOCKER.
    ipconfig
    ````
 
-#### Task 2: Validate the new image
+### Task 2: Validate the new image
 
 Perform these steps on DC1.
 
@@ -406,7 +402,7 @@ Perform these steps on DC1.
 
    > Do you see a custom web page?
 
-#### Task 3: Stop the container
+### Task 3: Stop the container
 
 Perform these steps on DOCKER.
 
@@ -428,14 +424,12 @@ Perform these steps on DOCKER.
 
 In this exercise, you will deploy a Linux Container.
 
-### Tasks
+#### Tasks
 
 1. Activate and run a Linux Container
 1. Coexistence between Windows and Linux containers
 
-### Detailed Instructions
-
-#### Task 1: Activate and run a Linux Container
+### Task 1: Activate and run a Linux Container
 
 Perform these steps on DOCKER.
 
@@ -463,7 +457,7 @@ Perform these steps on DOCKER.
 
 Figure 5
 
-#### Task 2: Coexistence between Windows and Linux containers
+### Task 2: Coexistence between Windows and Linux containers
 
 Perform these steps on DOCKER.
 
@@ -520,15 +514,13 @@ In this exercise you will use a Kubernetes cluster to deploy two replicas of a p
 
 Since the setup of a Kubernetes cluster is not as easy as a Windows administrator would expect, the cluster is already set up for you. The master must run on Linux (here Ubuntu 18.04) and the single node is running on Windows Server 2019. In Microsoft's documentation you can find more information how to configure a Kubernetes cluster with Windows Server 2019 nodes/agents (<https://docs.microsoft.com/en-us/virtualization/windowscontainers/kubernetes/getting-started-kubernetes-windows>).
 
-### Tasks
+#### Tasks
 
 1. [Prepare the Kubernetes cluster](#task-1-prepare-the-kubernetes-cluster)
 1. [Create a deployment imperatively](#task-2-create-a-deployment-imperatively)
 1. [Use a yml file for a declarative deployment](#task-3-use-a-yml-file-for-a-declarative-deployment)
 
-### Detailed Instructions
-
-#### Task 1: Prepare the Kubernetes cluster
+### Task 1: Prepare the Kubernetes cluster
 
 Perform these steps on K8SNode
 
@@ -554,7 +546,7 @@ Perform these steps on K8SNode
 
 1. Leave Windows PowerShell open and proceed with the next task.
 
-#### Task 2: Create a deployment imperatively
+### Task 2: Create a deployment imperatively
 
 Perform these steps on K8SMaster.
 
@@ -634,7 +626,7 @@ Perform these steps on K8SMaster.
    kubectl delete deployment smartweb
    ````
 
-#### Task 3: Use a yml file for a declarative deployment
+### Task 3: Use a yml file for a declarative deployment
 
 1. Ensure that the yml file exists.
 

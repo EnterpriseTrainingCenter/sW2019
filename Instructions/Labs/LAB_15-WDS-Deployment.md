@@ -17,7 +17,7 @@
 
 In this exercise, you will install the WDS Services, create a reference server image and deploy this image unattended via multicast transmission.
 
-### Tasks
+#### Tasks
 
 1. [Install and configure WDS](#task-1-install-and-configure-wds)
 1. [Create a master VM](#task-2-create-a-master-vm)
@@ -30,9 +30,7 @@ In this exercise, you will install the WDS Services, create a reference server i
 1. [Monitor multicast transmissions](#task-9-monitor-multicast-transmissions)
 1. [Validate the deployment](#task-10-validate-the-deployment)
 
-### Detailed Instructions
-
-#### Task 1: Install and configure WDS
+### Task 1: Install and configure WDS
 
 Perform these steps on WS2019.
 
@@ -61,7 +59,7 @@ Perform these steps on WS2019.
 1. In the tab **Boot**, in section **Unknown clients**, select the radio button **Always continue the PXE boot**.
 1. Click on **OK** to confirm the changes.
 
-#### Task 2: Create a master VM
+### Task 2: Create a master VM
 
 Perform these steps on HV1.
 
@@ -79,7 +77,7 @@ Perform these steps on HV1.
 1. Double-click on VM **Master** to open the Hyper-V Console.
 1. Start the VM.
 
-#### Task 3: Create a master image
+### Task 3: Create a master image
 
 Perform these steps on Master.
 
@@ -100,7 +98,7 @@ Perform these steps on Master.
    c:\windows\system32\sysprep\sysprep /generalize /oobe /shutdown
    ````
 
-#### Task 4: Import the master image
+### Task 4: Import the master image
 
 Perform these steps on WS2019.
 
@@ -112,7 +110,7 @@ Perform these steps on WS2019.
 1. Open the properties of the imported image.
 1. Take note of **Imagename** and **File Name**.
 
-#### Task 5: Create an answer file for automated WDS deployment
+### Task 5: Create an answer file for automated WDS deployment
 
 Perform these steps on HV1.
 
@@ -159,7 +157,7 @@ Perform these steps on HV1.
    * **User:** user1
 1. Save the file to **\\\WS2019\d$\Remoteinstall\WDSClientUnattend\uefi-wds.xml**.
 
-#### Task 6: Configure WDS to use the answer file
+### Task 6: Configure WDS to use the answer file
 
 Perform these steps on WS2019.
 
@@ -168,7 +166,7 @@ Perform these steps on WS2019.
 1. In the section **x64 (UEFI) architecture**, browse for the file **\WdsClientUnattended\uefi-wds.xml** ([figure 6]).
 1. Click on **OK** to commit the changes.
 
-#### Task 7: Create a multicast transmission
+### Task 7: Create a multicast transmission
 
 Perform these steps on WS2019.
 
@@ -177,7 +175,7 @@ Perform these steps on WS2019.
    * **Image selection:** Image from the **WindowsServerVHDX** group
    * **Multicast Type:** Autocast
 
-#### Task 8: Deploy VMs using multicast
+### Task 8: Deploy VMs using multicast
 
 Perform these steps on HV1.
 
@@ -190,14 +188,14 @@ Perform these steps on HV1.
 
 1. Start both VMs and boot to PXE. The installation should proceed automatically, except for the last OOBE steps.
 
-#### Task 9: Monitor multicast transmissions
+### Task 9: Monitor multicast transmissions
 
 Perform these steps on WS2019.
 
 1. In the WDS console select the multicast transmission your created before. Notice the multicast transmission monitoring in the WDS console. You can trace the installation there ([figure 7]).
 1. To speed things up in our lab environment, you can bypass multicast ([figure 8]).
 
-#### Task 10: Validate the deployment
+### Task 10: Validate the deployment
 
 Perform these steps on Server1 or Server2.
 

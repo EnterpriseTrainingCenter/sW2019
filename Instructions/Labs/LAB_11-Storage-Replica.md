@@ -22,16 +22,14 @@
 
 In this exercise, you will test the underlying storage.
 
-### Tasks
+#### Tasks
 
 1. [Configure storage](#task-1-configure-storage)
 1. [Install Storage Replica feature](#task-2-install-storage-replica-feature)
 1. [Run the Storage Replica test](#task-3-run-the-storage-replica-test)
 1. [Evaluate the Storage Replica test](#task-4-evaluate-the-storage-replica-test)
 
-### Detailed Instructions
-
-#### Task 1: Configure storage
+### Task 1: Configure storage
 
 Perform these steps on CL1.
 
@@ -54,7 +52,7 @@ Perform these steps on CL1.
 
 1. For server **SR2.smart.etc**, initialize the disks **Disk 1** and **Disk 2** as GPT disks. On the disks, create volumes like in the previous step.
 
-#### Task 2: Install Storage Replica feature
+### Task 2: Install Storage Replica feature
 
 Perform these steps on CL1.
 
@@ -67,7 +65,7 @@ Perform these steps on CL1.
 1. Activate the checkbox **Reboot the destination server automatically if required**
 1. Install the same features on **SR2.smart.etc**.
 
-#### Task 3: Run the Storage Replica test
+### Task 3: Run the Storage Replica test
 
 Perform these steps on SR1.
 
@@ -103,7 +101,7 @@ Perform these steps on SR1.
        -ResultPath $resultPath
    ````
 
-#### Task 4: Evaluate the Storage Replica test
+### Task 4: Evaluate the Storage Replica test
 
 Perform these steps on CL1.
 
@@ -119,14 +117,12 @@ Perform these steps on CL1.
 
 In this exercise, you will create a stretched Hyper-V cluster and configure storage replica.
 
-### Tasks
+#### Tasks
 
 1. [Create a failover cluster](#task-1-create-a-failover-cluster)
 1. [Configure storage replica](#task-2-configure-storage-replica)
 
-### Detailed Instructions
-
-#### Task 1: Create a failover cluster
+### Task 1: Create a failover cluster
 
 Perform these steps on CL1.
 
@@ -227,7 +223,7 @@ Perform these steps on CL1.
    Set-ADComputer $clusterName -PrincipalsAllowedToDelegateToAccount $gw 
    ````
 
-#### Task 2: Configure storage replica
+### Task 2: Configure storage replica
 
 Perform these steps on CL1.
 
@@ -250,7 +246,7 @@ Perform these steps on CL1.
 
 In this exercise, you create a new virtual machine within the Hyper-V stretched cluster. After replication has finished, you shut down one node to simulate a hardware failure. Finally, you test replication failover.
 
-### Tasks
+#### Tasks
 
 1. [Create a Nanoserver VM](#task-1-create-a-nanoserver-vm)
 1. [Simulate a workload](#task-2-simulate-a-workload)
@@ -261,9 +257,7 @@ In this exercise, you create a new virtual machine within the Hyper-V stretched 
 1. [Reverse replication](task-7-reverse-replication)
 1. [Simulate a replication failure](#task-8-simulate-a-replication-failure)
 
-### Detailed Instructions
-
-#### Task 1: Create a Nanoserver VM
+### Task 1: Create a Nanoserver VM
 
 Perform these steps on CL1.
 
@@ -283,7 +277,7 @@ Perform these steps on CL1.
 1. Increase the number of virtual processors to 2.
 1. From the conect menu of the virtual machine **Nanoserver**, click **Start**.
 
-#### Task 2: Simulate a workload
+### Task 2: Simulate a workload
 
 Perform these steps on CL1.
 
@@ -297,13 +291,13 @@ Perform these steps on CL1.
 1. In **Failover Cluster Manager**, click on **Roles**
 1. Take note of the node currently owning the VM.
 
-#### Task 3: Simulate a failure
+### Task 3: Simulate a failure
 
 Perform these steps on the host computer.
 
 1. In **Hyper-V Manager**, turn off the virtual machine you took note of in the previous task.
 
-#### Task 4: Validate failover
+### Task 4: Validate failover
 
 Perform these steps on CL1.
 
@@ -318,19 +312,19 @@ Perform these steps on CL1.
 1. Click the 36 GB disk, that is still online.
 1. At the bottom pane, click on **Replication** and check the status.
 
-#### Task 5: Simulate recovery
+### Task 5: Simulate recovery
 
 Perform these steps on the host computer.
 
 1. In **Hyper-V Manager**, start the failed node.
 
-#### Task 6: Validate recovery
+### Task 6: Validate recovery
 
 Perform these steps on CL1.
 
 1. In **Failover Cluster Manager**, check the health-state of the cluster, the disks, the availability of the cluster shared volumes and of storage replication. After a few minutes everything should be back to normal operations…
 
-#### Task 7: Reverse replication
+### Task 7: Reverse replication
 
 Perform these steps on CL1.
 
@@ -341,7 +335,7 @@ Perform these steps on CL1.
 1. On the context menu of the 36 GB disk assigned to **Cluster Shared Volume**, click **Move**, **Select Node...**
 1. Select the node you moved the VM to. Replication should be in the same state as before we turned off a node.
 
-#### Task 8: Simulate a replication failure
+### Task 8: Simulate a replication failure
 
 Perform these steps on SR2.
 

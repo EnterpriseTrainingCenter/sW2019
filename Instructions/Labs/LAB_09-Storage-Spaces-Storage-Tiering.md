@@ -19,7 +19,7 @@
 
 In this exercise, you will create a local Storage Space, configure some virtual disks and test what happens if you remove one or more disks.
 
-### Tasks
+#### Tasks
 
 1. [Creating a Storage Pool](#task-1-creating-a-storage-pool)
 1. [Creating virtual disks](#task-2-creating-virtual-disks)
@@ -27,9 +27,7 @@ In this exercise, you will create a local Storage Space, configure some virtual 
 1. [Repairing a virtual disk](#task-4-repairing-a-virtual-disk)
 1. [Removing a Storage Pool](#task-5-removing-a-storage-pool)
 
-### Detailed Instructions
-
-#### Task 1: Creating a Storage Pool
+### Task 1: Creating a Storage Pool
 
 Perform these steps on FS.
 
@@ -38,7 +36,7 @@ Perform these steps on FS.
 1. From the tasks drop-down, select **New Storage Pool...** ([figure 1]).
 1. Sort the view by **Chassis** ([figure 2]). Create a new Storage Pool **Pool1** using the five 100 GB disks. Do not use the disk on SCSI LUN2!
 
-#### Task 2: Creating virtual disks
+### Task 2: Creating virtual disks
 
 Perform these steps on FS.
 
@@ -57,7 +55,7 @@ Perform these steps on FS.
    * **Volume Label:** Data
    * **Deduplication:** disabled
 
-#### Task 3: Testing Storage Pool resilience
+### Task 3: Testing Storage Pool resilience
 
 Perform these steps on HV1.
 
@@ -74,7 +72,7 @@ Perform these steps on HV1.
 
 1. Reconnect one of the removed disks
 
-#### Task 4: Repairing a virtual disk
+### Task 4: Repairing a virtual disk
 
 Perform these steps on FS.
 
@@ -87,7 +85,7 @@ Perform these steps on FS.
 1. From the context menu of the missing physical disk, select **Remove Disk** ([figure 7].
 1. In **Server Manager**, refresh the view. All warnings should disappear.
 
-#### Task 5: Removing a Storage Pool
+### Task 5: Removing a Storage Pool
 
 Peform these steps on FS.
 
@@ -101,7 +99,7 @@ Peform these steps on FS.
 
 In this exercise, you will create a new Storage Pool with Storage Tiering. This demonstrates how to make use of a fast SSD Cache in conjunction with slower HDDs.
 
-### Tasks
+#### Tasks
 
 1. [Creating a tiered Storage Pool](#task-1-creating-a-storage-pool)
 1. [Creating a tiered virtual disk](#task-2-creating-a-tiered-virtual-disk)
@@ -109,7 +107,7 @@ In this exercise, you will create a new Storage Pool with Storage Tiering. This 
 
 Detailed Instructions
 
-#### Task 1: Creating a Storage Pool
+### Task 1: Creating a Storage Pool
 
 Perform these steps on FS.
 
@@ -130,7 +128,7 @@ Perform these steps on FS.
 1. In the drop-down **Tasks**, click **New Storage Pool...**.
 1. Create a new storage pool with the name **TieredPool1** using all available physical disks
 
-#### Task 2: Creating a tiered virtual disk
+### Task 2: Creating a tiered virtual disk
 
 Perform these steps on FS.
 

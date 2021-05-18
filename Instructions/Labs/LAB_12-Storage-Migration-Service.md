@@ -22,16 +22,14 @@
 
 In this exercise, you will prepare all systems for storage migration.
 
-### Tasks
+#### Tasks
 
 1. [Prepare for the lab](#task-1-configure-prerequisites-on-the-source-server)
 1. [Configure prerequisites on the source server](#task-1-configure-prerequisites-on-the-source-server)
 1. [Configure prerequisites on the destination server](#task-2-configure-prerequisites-on-the-destination-server)
 1. [Configure the orchestrator server](#task-3-configure-the-orchestrator-server)
 
-### Detailed Instructions
-
-#### Task 1: Configure prerequisites on the source server
+### Task 1: Configure prerequisites on the source server
 
 Perform these steps on SRV2008R2.
 
@@ -45,7 +43,7 @@ Perform these steps on SRV2008R2.
    * Windows Management Instrumentation (WMI-In)
    * Windows Management Instrumentation (DCOM-In)
 
-#### Task 2: Configure prerequisites on the destination server
+### Task 2: Configure prerequisites on the destination server
 
 Perform these steps on CL1.
 
@@ -63,7 +61,7 @@ Perform these steps on CL1.
    * Windows Management Instrumentation (WMI-In)
    * Windows Management Instrumentation (DCOM-In)
 
-#### Task 3: Configure the orchestrator server
+### Task 3: Configure the orchestrator server
 
 Perform these steps on CL1.
 
@@ -81,16 +79,14 @@ Perform these steps on CL1.
 
 In this exercise, you will inventory the source server and start the transfer. After the data transfer, you configure settings on the destination server, validate the configuration, and finally cutover to the new server.
 
-### Tasks
+#### Tasks
 
 1. [Create an inventory](#task-1-create-an-inventory)
 1. [Transfer data](#task-2-transfer-data)
 1. [Cutover services](#task-3-cutover-services)
 1. [Validate migration](#task-4-validate-migration)
 
-### Detailed Instructions
-
-#### Task 1: Create an inventory
+### Task 1: Create an inventory
 
 Perform these steps on CL1.
 
@@ -104,7 +100,7 @@ Perform these steps on CL1.
 1. Click on **Succeeded**.
 1. Check the result of the scan at the bottom of the screen ([figure 4]). Then, click **Next**.
 
-#### Task 2: Transfer data
+### Task 2: Transfer data
 
 Perform these steps on CL1.
 
@@ -121,7 +117,7 @@ Perform these steps on CL1.
 1. At the bottom pane, click **Transfer detail**.
 1. Click on **Transfer log**, and open the logfile in Excel.
 
-#### Task 3: Cutover services
+### Task 3: Cutover services
 
 Perform these steps on CL1.
 
@@ -140,7 +136,7 @@ Perform these steps on CL1.
 1. Click **Start/Run**
 1. Enter the UNC Path **\\SRV2008R2** and press Enter. You should see all the file shares that were migrated.
 
-#### Task 4: Validate migration
+### Task 4: Validate migration
 
 Perform these steps on FS (now SRV2008R2).
 

@@ -7,6 +7,7 @@
 * Router
 * HV1
 * HV2
+* SRV2
 
 ## Exercises
 
@@ -21,13 +22,13 @@
 
 In this exercise, you will install the Hyper-V Role.
 
-### Tasks
+#### Tasks
 
-1. [Use Server Manager to install the Hyper-V role](#task-1-use-server-manager-to-install-the-hyper-v-role)
+1. [Install the Hyper-V role](#task-1-use-server-manager-to-install-the-hyper-v-role)
 
-### Detailed Instructions
+### Task 1: Install the Hyper-V role
 
-#### Task 1: Use Server Manager to install the Hyper-V role
+#### Desktop Experience
 
 Perform these steps on HV2.
 
@@ -43,21 +44,80 @@ Perform these steps on HV2.
 1. Click on install. The system will reboot twice
 1. After installation completes, logon with **smart\Administrator**.
 
+#### Windows Admin Center
+
+Perform these steps on CL1.
+
+1. Logon with **smart\Administrator**.
+1. Open **Google Chrome** and navigate to <https://admincenter>.
+1. In **Windows Admin Center**, connect to **hv2.smart.etc**.
+1. Connected to **hv2.smart.etc**, on the left, click **Role & features**.
+1. In **Roles and features**, activate **Hyper-V**, and click **Install**.
+1. In the pane **Install Role and Features**, activate the checkbox **Reboot the server automatically, if required**, and click **Yes**. The system will reboot twice.
+1. Refresh **Windows Admin Center**, until ,you see **Virtual machines** on the left.
+1. On the left, click **Settings**.
+1. In **Settings**, on the left, under **Hyper-V Host Settings**, click **General**.
+1. Change both paths to **D:\\**, and click **Save**.
+1. Leave **Windows Admin Center** open for the next exercise.
+1. On the left, click **Virtual switches**.
+1. In the toolbar, click **New**.
+1. In the pane **New virtual switch**, in **Switch name:**, type **Datacenter2**.
+1. In **Switch type:**, select **External**.
+1. In the list **Network adapters**, activate **Datacenter2**.
+1. Make sure, the checkbox **Allow management OS to share these network adapters** is activated, and click **Save**.
+
+You might receive an error message, telling you that the virtual switch could not be created, because of a lost connection. This error message is expected and can be ignored.
+
+   > What is the effect of the option **Allow management OS to share these network adapters**? Why did you receive an error message?
+
+
+#### PowerShell
+
+Perform these steps on HV2.
+
+1. Logon with **smart\Administrator**.
+1. Run **Windows PowerShell** as Administrator.
+1. Install the Hyper-V feature. The system will reboot twice.
+
+   ````powershell
+   Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart
+   ````
+
+1. After installation completes, logon with **smart\Administrator**.
+1. Run **Windows PowerShell** as Administrator.
+1. Create a virtual switch.
+
+   ````powershell
+   $vMSwitchName = 'Datacenter 2 - Virtual Switch'
+   New-VMSwitch `
+      -Name $vMSwitchName `
+      -NetAdapterName 'Datacenter2' `
+      -AllowManagementOS $true
+   ````
+
+1. Set the default stores.
+
+   ````powershell
+   Set-VMHost -VirtualHardDiskPath D:\ -VirtualMachinePath D:\
+   ````
+
+1. Leave **Windows PowerShell** open for the next exercise.
+
 ## Exercise 2: Managing virtual networks
 
 ### Introduction
 
 In this exercise, you will create and manage virtual networks.
 
-### Tasks
+#### Tasks
 
 1. [Examine the switch that was created during installation](#task-1-examine-the-switch-that-was-created-during-installation)
 1. [Change the dynamic MAC Address Range](#task-2-change-the-dynamic-mac-address-range)
 1. [Create internal and private switches](#task-3-create-internal-and-private-switches)
 
-### Detailed Instructions
+### Task 1: Examine the switch that was created during installation
 
-#### Task 1: Examine the switch that was created during installation
+#### Desktop Experience
 
 Perform these steps on HV2. Since the IP configuration has changed, use a Hyper-V Console connection for this task.
 
@@ -83,7 +143,7 @@ Perform these steps on HV2. Since the IP configuration has changed, use a Hyper-
 1. In **Network and Sharing Center**, on the left, click on **Change adapter settings** ([figure 4]).
 1. On the top-right corner of the toolbar, change the view to **Details** ([figure 5]).
 1. Compare the two network adapters. One is the physical adapter (**Datacenter2**), which is bound to the Hyper-V virtual switch, the other is the management OS adapter (**vEthernet (Datacenter2)**).
-1. From the context menu of the network adapter **vEtherne (Datacenter2)**, select **Status**.
+1. From the context menu of the network adapter **vEthernet (Datacenter2)**, select **Status**.
 1. Click on **Details**.
 
    > Which IP address does the adapter have? Why?
@@ -109,16 +169,176 @@ Perform these steps on HV2. Since the IP configuration has changed, use a Hyper-
 1. Click on **Cancel** and then **Close**.
 1. Close the Hyper-V Console Window. You can use RDP Manager for the next task again.
 
-#### Task 3: Change the dynamic MAC address range
+#### Windows Admin Center
+
+Perform these steps on CL1.
+
+1. In **Windows Admin Center**, still connected to **hv2.smart.etc**, on the left, click **Networks**.
+
+   > What is the name of the network, that has an IP address?
+
+   > Why does the network **Datacenter2** not have an IP address? (Hint: You might want to sign in to HV2 directly and examine the properties of the **Datacenter2** network adapter.)
+
+1. Leave **Windows Admin Center** open for upcoming tasks.
+
+#### PowerShell
+
+Perform these steps on HV2. Since the IP configuration has changed, use a Hyper-V Console connection for this task.
+
+1. Examine the switch that has been created by the installation.
+
+   ````powershell
+   $VMSwitch = Get-VMSwitch $vMSwitchName
+   $VMSwitch | Format-List
+   ````
+
+   > What is the name of the switch? How was this name determined?
+
+   > The option AllowManagementOS is true. What is the effect of this option?
+
+1. Get name and description of the network adapter associated with the virtual switch.
+
+   ````powershell
+   $vmNetworkAdapter = Get-VMNetworkAdapter `
+      -ManagementOS `
+      -SwitchName $vMSwitchName
+
+   <#
+      The format of the MAC address of vmNetworkAdapter and NetAdapter are
+      different. The later contains dashes, which must be removed for
+      comparison. This is easily be done with the -replace operator.
+   #>
+   $netAdapter = Get-NetAdapter |
+      Where-Object {
+         ($PSItem.MacAddress -replace '-','') -eq $vmNetworkAdapter.MacAddress
+      } 
+   $netAdapter = Select-Object Name, InterfaceDescription, ConnectorPresent
+   ````
+
+   > What is the name and description of the network card that is connected to the **Unidentified** network?
+
+1. Rename the external switch to **Datacenter2**.
+
+   ````powershell
+   $vMSwitchName = 'Datacenter2'
+   Rename-VMSwitch -VMSwitch $VMSwitch -NewName $vMSwitchName
+   ````
+
+1. Get name and description of the network adapters, again.
+
+   ````powershell
+   $netAdapter = Get-NetAdapter |
+      Where-Object {
+         ($PSItem.MacAddress -replace '-','') -eq $vmNetworkAdapter.MacAddress
+      } 
+   $netAdapter | Select-Object Name, InterfaceDescription, ConnectorPresent
+   ````
+
+   > What is the name of the network card now?
+
+1. Get the ip address of the adapter.
+
+   ````powershell
+   Get-NetIpConfiguration -InterfaceIndex $netAdapter.ifIndex
+   ````
+
+   > Which IP address does the adapter have? Why?
+
+1. Change the IPv4 configuration to use a static IP Address with the following parameters.
+
+   * **IP Address:** 10.1.2.30
+   * **Subnet Mask:** 255.255.255.0
+   * **Default Gateway:** 10.1.2.254
+   * **Preferred DNS Server:** 10.1.1.1
+
+   ````powershell
+   $netAdapter | New-NetIPAddress `
+      -IPAddress 10.1.2.30 `
+      -DefaultGateway 10.1.2.254 `
+      -PrefixLength 24 `
+      -AddressFamily IPv4
+   $netAdapter | Set-DnsClientServerAddress -ServerAddresses 10.1.1.1
+   ````
+
+1. Get a list of net adapters.
+
+   ````powershell
+   Get-NetAdapter
+   ````
+
+   > Which is the physical net adapter, that provides the uplink for the virtual switch? (Hint: You might want to fefer to exercise 1).
+
+1. Get the physical net adapter.
+
+   ````powershell
+   $netAdapter = Get-NetAdapter -Name 'Datacenter2'
+   ````
+
+1. Get the ip configuration of the physical net adapter connecting the virtual switch.
+
+   ````powershell
+   Get-NetIpConfiguration -InterfaceIndex $netAdapter.ifIndex
+   ````
+
+   > Why do you receive an error message? Hint: Continue to next step.
+
+1. Get procotols bound to the physical network card.
+
+   ````powershell
+   $netAdapter | Get-NetAdapter-Binding -Name 'Datacenter2'
+   ````
+
+   > Which protocols are bound to the physical network card?
+
+1. Leave **Windows PowerShell** open for the next task.
+
+### Task 2: Change the dynamic MAC address range
+
+#### Desktop Experience
 
 Perform these steps on HV2.
 
 1. Switch back to **Virtual Switch Manager**.
 2. Click on **MAC Address Range**.
 3. Change the second octet of the minimum and maximum range to **17** ([figure 12]).
-4. Click on **OK** to commit the changes
+4. Click on **OK** to commit the changes.
 
-#### Task 2:  Create internal and private switches
+#### PowerShell
+
+Perform these steps on HV2.
+
+1. Change the second octet of the minimum and maximum range to **17** .
+
+   ````powershell
+   $secondOctet = '17'
+   $vmHost = Get-VMHost
+   $MacAddressMinimum = $vmHost.MacAddressMinimum
+   $MacAddressMaximum = $vmHost.MacAddressMaximum
+
+   # Substring(0, 2) retrieves 2 characters, starting from position 0,
+   # i. e. the first octet
+   # Substring(4, 8) retrieves 8 characters, starting from position 4,
+   # i. e. the third and fourth octet.
+   # This replaces only the second octet.
+   $MacAddressMinimum = "$(
+         $MacAddressMinimum.Substring(0, 2)
+      )$SecondOctet$(
+         $MacAddressMinimum.Substring(4, 8)
+      )"
+   
+   # Same for maximum
+   $MacAddressMaximum = "$($MacAddressMaximum.Substring(0, 2))$SecondOctet$($MacAddressMaximum.Substring(4, 8))"
+
+   Set-VMHost `
+      -MacAddressMinimum $MacAddressMinimum `
+      -MacAddressMaximum $MacAddressMaximum
+   ````
+
+1. Leave **Windows PowerShell** open for the next exercise.
+
+### Task 3:  Create internal and private switches
+
+#### Desktop Experience
 
 Perform these steps on HV2.
 
@@ -137,13 +357,76 @@ Perform these steps on HV2.
 
    > Why is there no new network adapter shown?
 
+#### Windows Admin Center
+
+Perform these steps on CL1.
+
+1. In **Windows Admin Center**, connected to **hv2.smart.etc**, on the left, click **Virtual switches**.
+1. Create a new internal switch with the name **Internal**.
+1. On the left, click **Networks**. A new network adapter has been created as management OS adapter for the internal switch.
+
+   > What is the IP address of the new network adapter? Why?
+
+1. Switch back to **Virtual switches**.
+1. Create a new private switch ([figure 10]) with the name **Private**.
+1. Navigate to **Networks**.
+
+   > Why is there no new network adapter shown?
+
+#### PowerShell
+
+Perform these steps on HV2.
+
+1. Create a new internal switch  with the name **Internal**.
+
+   ````powershell
+   $vmSwitchName = 'Internal'
+   New-VMSwitch -Name $vmSwitchname -SwitchType Internal
+   ````
+
+1. Switch to **Network and Sharing Center**. A new network adapter has been created as management OS adapter for the internal switch ([figure 8]).
+
+   ````powershell
+   Get-NetAdapter
+   ````
+
+1. Get the IP address of the new network adapter.
+
+   ````powershell
+   $vmNetworkAdapter = Get-VMNetworkAdapter `
+      -ManagementOS `
+      -SwitchName $vMSwitchName
+
+   $netAdapter = Get-NetAdapter |
+      Where-Object {
+         ($PSItem.MacAddress -replace '-','') -eq $vmNetworkAdapter.MacAddress
+      } 
+   Get-NetIpConfiguration -InterfaceIndex $netAdapter.ifIndex
+   ````
+
+   > What is the IP address of the new network adapter? Why?
+
+1. Create a new private switch with the name **Private**.
+
+   ````powershell
+   New-VMSwitch -Name 'Private' -SwitchType Private
+   ````
+
+1. Retrieve the list of net adapters.
+
+   ````powershell
+   Get-NetAdapter
+   ````
+
+   > Why is there no new network adapter shown?
+
 ## Exercise 3: Managing virtual hard disks
 
 ### Introduction
 
 In this exercise, you will create and manage virtual hard disks.
 
-### Tasks
+#### Tasks
 
 1. [Create a dynamic disk](#task-1-create-dynamic-disk)
 1. [Create a fixed disk](#task-2-create-a-fixed-disk)
@@ -154,9 +437,9 @@ In this exercise, you will create and manage virtual hard disks.
 1. [Expand a disk](#task-7-expand-a-disk)
 1. [Shring a disk](#task-8-shrink-a-disk)
 
-### Detailed Instructions
+### Task 1: Create dynamic disk
 
-#### Task 1: Create dynamic disk
+#### Desktop Experience
 
 Perform these steps on HV2.
 
@@ -169,7 +452,27 @@ Perform these steps on HV2.
    * **Location:** D:\VHDs
    * **Size:** 1000 GB
 
-#### Task 2: Create a fixed disk
+### PowerShell
+
+Perform these steps on HV2.
+
+1. Create a new disk with the following settings.
+
+   * **Disk format:** **VHDX**
+   * **Disk Type:** **Dynamically expanding**
+   * **Name:** Dynamic.vhdx
+   * **Location:** D:\VHDs
+   * **Size:** 1000 GB
+
+   ````powershell
+   $PathDynamic = 'D:\VHDs\Dynamic.vhdx'
+   New-VHD -Path $PathDynamic -Dynamic -SizeBytes 1000GB
+
+1. Leave **Windows PowerShell** open for the next task.
+
+### Task 2: Create a fixed disk
+
+#### Desktop Experience
 
 Perform these steps on HV2.
 
@@ -195,7 +498,74 @@ Perform these steps on HV2.
 1. On **E:**, create a new folder with the name **fixed disk**.
 1. From the context menu of **E:**, select **Eject** to unmount the disk.
 
-#### Task 3: Create a differencing disk
+#### PowerShell
+
+Perform these steps on HV2.
+
+1. Create a new disk with the following settings:
+
+   * **Disk format:** **VHDX**
+   * **Disk Type:** **Fixed size**
+   * **Name:** Fixed.vhdx
+   * **Location:** D:\VHDs
+   * **Size:** 1 GB
+
+   ````powershell
+   $PathFixed = 'D:\VHDs\Fixed.vhdx'
+   New-VHD -Path $PathFixed -Fixed -SizeBytes 1GB
+   ````
+
+1. Examine the virtual hard disk files.
+
+   ````powershell
+   Get-ChildItem -Path D:\VHDs
+   ````
+
+   > What is the size of the virtual hard disk files?
+
+1. Mount **Fixed.vhdx**.
+
+   ````powershell
+   # The -Passthru switch tells this command to return the mounted disk
+   $VirtualHardDisk = Mount-VHD -Path $PathFixed -Passthru
+   ````
+
+1. Initialize the disk.
+
+   ````powershell
+   $VirtualHardDisk | Initialize-Disk -PartitionStyle GPT
+   ````
+
+1. On the mounted VHD, create a new volume. Assign drive letter **E:**.
+
+   ````powershell
+   New-Volume `
+      -DiskNumber $VirtualHardDisk.Number `
+      -FriendlyName 'Fixed' `
+      -DriveLetter E
+   ````
+
+1. Check the availability of the new volume.
+
+   ````powershell
+   Get-Volume
+   ````
+
+1. On **E:**, create a new folder with the name **fixed disk**.
+
+   ````powershell
+   New-Item -Path "E:\fixed disk" -ItemType Directory
+   ````
+
+1. Unmount the disk.
+
+   ````powershell
+   Dismount-VHD -Path $PathFixed
+   ````
+
+1. Leave **Windows PowerShell** open for the next task.
+
+### Task 3: Create a differencing disk
 
 Perform these steps on HV2.
 
@@ -219,7 +589,7 @@ Perform these steps on HV2.
 
 1. In **File Explorer**, from the context menu of **E:**, select **Eject**.
 
-#### Task 4: Convert disks
+### Task 4: Convert disks
 
 Perform these steps on HV2.
 
@@ -230,7 +600,7 @@ Perform these steps on HV2.
 1. Select **Dynamic** and click on **Next**.
 1. Save the converted file as **D:\VHDs\Dynamic.vhd** ([figure 21]).
 
-#### Task 5: Inspecting a disk
+### Task 5: Inspecting a disk
 
 Perform these steps on HV2.
 
@@ -238,7 +608,7 @@ Perform these steps on HV2.
 1. In the **Open** dialog navigate to **D:\VHDs** and select **Differencing.vhdx**.
 1. A window opens showing the properties of the differencing disk including the chain ([figure 22]).
 
-#### Task 6: Fixing a broken disk chain
+### Task 6: Fixing a broken disk chain
 
 Perform these steps on HV2.
 
@@ -251,7 +621,7 @@ Perform these steps on HV2.
 1. On the page **Reconnect to parent virtual hard disk** page, select the **Fixed.vhdx** from **D:\**
 1. After the wizard finished, Inspect the disk **D:\VHDs\Differencing.vhdx** again. The disk chain should now be ok.
 
-#### Task 7: Expand a disk
+### Task 7: Expand a disk
 
 Perform these steps on HV2.
 
@@ -261,7 +631,7 @@ Perform these steps on HV2.
 1. Specify 2 GB as new size.
 1. Click on **Finish**.
 
-#### Task 8: Shrink a disk
+### Task 8: Shrink a disk
 
 Perform these steps on HV2.
 
@@ -278,7 +648,7 @@ Perform these steps on HV2.
 
 In this exercise, you will use Hyper-V replica to replicate a VM from HV1 to HV2.
 
-### Tasks
+#### Tasks
 
 1. [Enable Hyper-V replica](#task-1-enable-hyper-v-replica)
 1. [Configure VM replication](#task-2-configure-vm-replication)
@@ -288,9 +658,7 @@ In this exercise, you will use Hyper-V replica to replicate a VM from HV1 to HV2
 1. [Simulate a failure](#task-6-simulate-a-failure)
 1. [Recover from a failure](#task-7-recover-from-a-failure)
 
-### Detailed Instructions
-
-#### Task 1: Enable Hyper-V replica
+### Task 1: Enable Hyper-V replica
 
 Perform these steps on HV1.
 
@@ -309,7 +677,7 @@ Perform these steps on HV1.
 
 Repeat all steps from this task on HV2. In the last step, the external network to be renamed is called **Datacenter2**.
 
-#### Task 2: Configure VM replication
+### Task 2: Configure VM replication
 
 Perform these steps on HV1.
 
@@ -325,7 +693,7 @@ Perform these steps on HV1.
 1. At the bottom of **Hyper-V Manager**, select the tab **Replication** to check the state of the initial replication of the VM ([figure 30]). Wait until the initial replication has finished. This takes about 5 minutes.
 1. From the context menu of **WS2019**, select **Replication**, **View Replication Health**. Validate the successful continuous replication progress.
 
-#### Task 3: Validate VM replication
+### Task 3: Validate VM replication
 
 Perform these steps on HV1.
 
@@ -333,7 +701,7 @@ Perform these steps on HV1.
 1. From the context menu of **WS2019**, select **Replication**, **View Replication Health**. Validate the successful continuous replication progress.
 1. Open **File Explorer** and navigate to **D:\\**. You should see a folder **Hyper-V Replica** – inside this folder Hyper-V creates all the replicas of VMs.
 
-#### Task 4: Test planned failover
+### Task 4: Test planned failover
 
 Perform these steps on HV1.
 
@@ -348,19 +716,19 @@ Perform these steps on HV1.
 
    > Can you perform a planned failover now? Why or why not?
 
-#### Task 5: Validate planned failover
+### Task 5: Validate planned failover
 
 Perform these steps on HV2.
 
 1. Verify, that the VM **WS2019** has started and the replication is working.
 
-#### Task 6: Simulate a failure
+### Task 6: Simulate a failure
 
 Perform these steps on the host computer or the hosting cloud service.
 
 1. Turn off **HV2** to simulate a failure of HV2 (do not shut down!).
 
-#### Task 7: Recover from a failure
+### Task 7: Recover from a failure
 
 Perform these steps on HV1.
 

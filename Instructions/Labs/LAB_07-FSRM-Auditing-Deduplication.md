@@ -20,7 +20,7 @@
 
 In this exercise, you will create rules for FSRM and test them. You will also create reports and test the classification feature.
 
-### Tasks
+#### Tasks
 
 1. [Install File Server Resource Manager](#task-1-install-file-server-resource-manager)
 1. [Create a quota](#task-2-creating-a-quota)
@@ -28,9 +28,7 @@ In this exercise, you will create rules for FSRM and test them. You will also cr
 1. [Create and test a file screen](#task-4-create-and-test-a-file-screen)
 1. [Using FSRM Reports](#task-5-using-fsrm-reports)
 
-### Detailed Instructions
-
-#### Task 1: Install File Server Resource Manager
+### Task 1: Install File Server Resource Manager
 
 Perform these steps on FS.
 
@@ -41,7 +39,7 @@ Perform these steps on FS.
 1. On page **Select server roles**, expand **File and storage Service**, **File and iSCSI Services**, then activate **File Server Resource Manager**.
 1. Continue through the wizard to install File Server Resource Manager.
 
-#### Task 2: Create a quota
+### Task 2: Create a quota
 
 Perform these steps on FS.
 
@@ -55,7 +53,7 @@ Perform these steps on FS.
 
    You should see the used space in the **% Used** column in each subfolder of the presentations folder. If not, copy the Datasheets folder from **L:\SampleDocuments** to **D:\Presentations** and refresh the view.
 
-#### Task 3: Test the quota
+### Task 3: Test the quota
 
 Perform these steps on CL1.
 
@@ -70,7 +68,7 @@ Perform these steps on CL1.
 
    > Can you copy all content of SampleDocuments to P:? ([figure 4])
 
-#### Task 4: Create and test a file screen
+### Task 4: Create and test a file screen
 
 Perform these steps on FS.
 
@@ -83,7 +81,7 @@ Perform these steps on FS.
 
    > What happens when you change the file extension of one of the files to **.exe**? ([figure 5])
 
-#### Task 5: Using FSRM Reports
+### Task 5: Using FSRM Reports
 
 Perform these steps on FS.
 
@@ -101,15 +99,13 @@ Perform these steps on FS.
 
 In this lab, you will create audit rules to log file access.
 
-### Tasks
+#### Tasks
 
 1. [Configure auditing](#task-1-configure-auditing)
 1. [Test auditing](#task-2-test-auditing)
 1. [Review audit logs](#task-3-review-audit-logs)
 
-### Detailed Instructions
-
-#### Task 1: Configure auditing
+### Task 1: Configure auditing
 
 Perform these steps on FS.
 
@@ -127,14 +123,14 @@ Perform these steps on FS.
    * **Applies to:** This folder, subfolders and files
    * **Advanced permissions:** Delete (In the upper right corner, click **Show advanced permissions**.)
 
-#### Task 2: Test auditing
+### Task 2: Test auditing
 
 Perform these steps on CL1.
 
 1. Log on as user **User2**
 1. Delete a file from the **\\\FS\Training** share.
 
-#### Task 3: Review audit logs
+### Task 3: Review audit logs
 
 Perform these steps on FS.
 
@@ -149,14 +145,12 @@ Perform these steps on FS.
 
 In this exercise, you will deduplicate some files to demonstrate deduplication efficiency.
 
-### Tasks
+#### Tasks
 
 1. [Install and configure deduplication](#task-1-install-and-configure-deduplication)
 1. [Test deduplication](#task-2-test-deduplication)
 
-### Detailed Instructions
-
-#### Task 1: Install and configure deduplication
+### Task 1: Install and configure deduplication
 
 Perform these steps on FS.
 
@@ -171,7 +165,7 @@ Perform these steps on FS.
 1. Review the tasks under **Microsoft**, **Windows**, **Deduplication**.
 1. Leave **Task Scheduler** open for the next task.
 
-#### Task 2: Test deduplication
+### Task 2: Test deduplication
 
 Perform these steps on FS.
 

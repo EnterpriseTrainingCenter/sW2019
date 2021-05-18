@@ -21,21 +21,19 @@
 
 In this exercise, you will create a few new VHD Disks on your host to simulate plugging in new hard drives to your server. Additionally, you will shrink and expand volumes.
 
-### Tasks
+#### Tasks
 
 1. [Start the virtual machine FS](#task-1-start-the-virtual-machine-fs)
 1. [Working with disks and volumes](#task-2-working-with-disks-and-volumes)
 
-### Detailed Instructions
-
-#### Task 1: Start the virtual machine FS
+### Task 1: Start the virtual machine FS
 
 Perform these steps on HV1.
 
 1. Logon as **smart\administrator**.
 2. Open **Hyper-V Manager** and start the virtual machine FS.
 
-#### Task 2: Working with disks and volumes
+### Task 2: Working with disks and volumes
 
 Perform these steps on FS.
 
@@ -68,7 +66,7 @@ Perform these steps on FS.
 
 In this exercise, you will create a file share and work with the AGDLP principles. You will also learn how to use Access Based Enumeration (ABE).
 
-### Tasks
+#### Tasks
 
 1. [Create Groups in Active Directory](#task-1-create-groups-in-active-directory)
 1. [Configure file shares](#task-2-configure-file-shares)
@@ -76,9 +74,7 @@ In this exercise, you will create a file share and work with the AGDLP principle
 1. [Modify permissions](#task-4-modify-permissions)
 1. [Test modified permissions](#task-5-test-modified-permissions)
 
-### Detailed Instructions
-
-#### Task 1: Create groups in Active Directory
+### Task 1: Create groups in Active Directory
 
 Perform these steps on DC1.
 
@@ -93,7 +89,7 @@ Perform these steps on DC1.
 1. Create a new **Global** group **G_Sales** and add it as a member to the group **DL_Presentations**.
 1. Add user **User1** as a member to the **G_Sales** global group.
 
-#### Task 2: Configure file shares
+### Task 2: Configure file shares
 
 Perform these steps on FS.
 
@@ -125,7 +121,7 @@ Perform these steps on FS.
 1. Click **Next** and then create to create the share.
 1. Create another share with the name **Presentations** with the path **D:\Presentations**. The group **DL_Presentations** must have **Modify** permissions (**SYSTEM** and **Administrators** must have **Full Control**).
 
-#### Task 3: Test file shares
+### Task 3: Test file shares
 
 Perform these steps on CL1.
 
@@ -135,7 +131,7 @@ Perform these steps on CL1.
 
    > Can you connect? Why? What content do you see?
 
-#### Task 4: Modify permissions
+### Task 4: Modify permissions
 
 Perfom these steps on FS.
 
@@ -144,7 +140,7 @@ Perfom these steps on FS.
 1. Remove the **DL_Presentations** group from the list.
 1. Click on **OK** to commit the changes.
 
-#### Task 5: Test modified permissions
+### Task 5: Test modified permissions
 
 Perform these steps on CL1.
 
@@ -158,23 +154,21 @@ Perform these steps on CL1.
 
 In this exercise, you will install and configure the Work Folders feature and try to sync user files across devices.
 
-### Tasks
+#### Tasks
 
 1. [Configure DNS](#task-1-configure-dns)
 1. [Enroll a certificate](#task-2-enroll-a-certificate)
 1. [Install and Configure Work Folders](#task-3-install-and-configure-work-folders)
 1. [Test Work Folder access](#task-4-test-work-folder-access)
 
-### Detailed Instructions
-
-#### Task 1: Configure DNS
+### Task 1: Configure DNS
 
 Perform these steps on DC1.
 
 1. Open the **DNS** Management console
 1. In the **smart.etc** zone, create a new A - Record **Workfolders** with IP Address **10.1.1.42**.
 
-#### Task 2: Enroll a certificate
+### Task 2: Enroll a certificate
 
 Perform these steps on FS.
 
@@ -188,7 +182,7 @@ Perform these steps on FS.
 1. Repeat the previous step to add an alternative DNS name with a value of **fs.smart.etc** ([figure 13]).
 1. Complete the wizard to request and install the certificate.
 
-#### Task 3:  Install and Configure Work Folders
+### Task 3:  Install and Configure Work Folders
 
 Perform these steps on FS.
 
@@ -212,7 +206,7 @@ Perform these steps on FS.
    * Deactivate **Automatically lock screen, and require password** feature.
 1. Check if **User2** has access to the sync share ([figure 16]).
 
-#### Task 4: Test Work Folder access
+### Task 4: Test Work Folder access
 
 Perform these steps on CL1.
 

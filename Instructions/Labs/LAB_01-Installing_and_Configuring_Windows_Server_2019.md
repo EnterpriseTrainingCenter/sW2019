@@ -22,7 +22,7 @@
 
 In this exercise, you prepare an Unattend.xml file to automate the deployment of Windows Server 2019.
 
-### Tasks
+#### Tasks
 
 1. [Install Windows System Image Manager](#task-1-install-windows-system-image-manager)
 1. [Author an Unattend.xml file using Windows System Image Manager](#task-2-author-an-unattendxml-file-using-windows-system-image-manager)
@@ -40,7 +40,7 @@ Perform these steps on **HV1**.
 1. On the **Select the features you want to install** page, clear the checkboxes beside all components. Select the checkbox beside **Deployment tools** ([figure 1]).
 1. Click on **Install** and wait for the install to complete. Then, click on **Close**.
 
-#### Task 2:  Author an Unattend.xml file using Windows System Image Manager
+### Task 2:  Author an Unattend.xml file using Windows System Image Manager
 
 Perform these steps on **HV1**.
 
@@ -86,7 +86,7 @@ Perform these steps on **HV1**.
 
 In this exercise, you will build a new Windows Server 2019 DVD that contains your unattended file from exercise 1.
 
-### Tasks
+#### Tasks
 
 1. [Inject the Unattend.xml file into the original Install.wim file](#task-1-inject-the-unattendxml-file-into-the-original-installwim-file)
 1. [Build a new ISO file which contains the modified Install.wim file](#task-2-build-a-new-iso-file-which-contains-the-modified-installwim-file)
@@ -111,7 +111,7 @@ Perform these steps on HV1.
 
 1. Leave the command prompt open for the next task.
 
-#### Task 2: Build a new ISO file which contains the modified Install.wim file
+### Task 2: Build a new ISO file which contains the modified Install.wim file
 
 Perform these steps on HV1.
 
@@ -127,7 +127,7 @@ Perform these steps on HV1.
 
 In this exercise, you will use the Unattend.xml file from exercise 1 to install a new Windows Server 2019 Server.
 
-### Tasks
+#### Tasks
 
 1. [Create a VM for Windows Server 2019](#task-1-create-a-vm-for-windows-server-2019)
 1. [Install Windows Server 2019 unattended](#task-2-install-windows-server-2019-unattended)
@@ -261,7 +261,7 @@ Perform these steps on WS2019.
 
 In this exercise, you will configure the network settings and join the server to the domain.
 
-### Tasks
+#### Tasks
 
 1. [Change network settings](#task-1-change-network-settings)
 1. [Join the computer to the domain](#task-2-join-the-computer-to-the-domain)
@@ -369,7 +369,7 @@ Perform these steps on WS2019.
 
 In this exercise, you will install the Telnet Client feature by using Server Manager and the Hyper-V Management Console using PowerShell on WS2019.
 
-### Tasks
+#### Tasks
 
 1. [Install the Telnet Client by using Server Manager](#task-1-install-the-telnet-client-by-using-server-manager)
 1. [Install the Hyper-V Management Console from the RSAT Tools using PowerShell](#task-2-install-the-hyper-v-management-console-from-the-rsat-tools-using-powershell)
