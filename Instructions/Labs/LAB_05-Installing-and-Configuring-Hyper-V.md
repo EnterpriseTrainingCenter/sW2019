@@ -567,6 +567,8 @@ Perform these steps on HV2.
 
 ### Task 3: Create a differencing disk
 
+#### Desktop Experience
+
 Perform these steps on HV2.
 
 1. In **Hyper-V Manager**, create a new disk with the following settings:
@@ -589,7 +591,63 @@ Perform these steps on HV2.
 
 1. In **File Explorer**, from the context menu of **E:**, select **Eject**.
 
+#### PowerShell
+
+Perform these steps on HV2.
+
+1. Create a new disk with the following settings:
+
+   * **Disk format:** **VHDX**
+   * **Disk Type:** **Differencing**
+   * **Name:** Differencing.vhdx
+   * **Location:** D:\VHDs
+   * **Parent Path:** D:\VHDs\Fixed.vhdx; this specifies the parent disk
+
+   ````powershell
+   $PathDifferencing = 'D:\VHDs\Differencing.vhdx'
+   New-VHD -Path $PathDifferencing -Differencing -ParentPath $PathFixed
+   ````
+
+1. Examine the virtual hard disk files.
+
+   ````powershell
+   Get-ChildItem -Path D:\VHDs
+   ````
+
+   > What is the size of the **Differencing.vhdx** file?
+
+1. Mount the differencing disk and retrieve its contents. It should contain the folder **fixed disk**.
+
+   ````powershell
+   Mount-VHD -Path $PathDifferencing
+   Get-ChildItem -Path E:\
+   ````
+
+1. Rename the folder to **diff disk**.
+
+   ````powershell
+   Rename-Item -Path 'E:\fixed disk' -NewName 'E:\diff disk'
+   ````
+
+1. Examine the file size of **Differencing.vhdx**.
+
+   ````powershell
+   Get-ChildItem -Path E:\
+   ````
+
+   > What is the size of the **Differencing.vhdx** file now?
+
+1. Unmount the disk.
+
+   ````powershell
+   Dismount-VHD -Path $PathDifferencing
+   ````
+
+1. Leave **Windows PowerShell** open for the next task.
+
 ### Task 4: Convert disks
+
+#### Deskstop Experience
 
 Perform these steps on HV2.
 
@@ -600,7 +658,21 @@ Perform these steps on HV2.
 1. Select **Dynamic** and click on **Next**.
 1. Save the converted file as **D:\VHDs\Dynamic.vhd** ([figure 21]).
 
+#### PowerShell
+
+Perform these steps on HV2.
+
+1. Convert the dynamic disk from VHDX to VHD.
+
+   ````powershell
+   Convert-VHD -Path $PathDynamic -DestinationPath 'D:\VHDs\Dynamic.vhd'
+   ````
+
+1. Leave **Windows PowerShell** open for the next task.
+
 ### Task 5: Inspecting a disk
+
+#### Desktop Experience
 
 Perform these steps on HV2.
 
@@ -608,7 +680,22 @@ Perform these steps on HV2.
 1. In the **Open** dialog navigate to **D:\VHDs** and select **Differencing.vhdx**.
 1. A window opens showing the properties of the differencing disk including the chain ([figure 22]).
 
+#### PowerShell
+
+Perform these steps on HV2.
+
+1. Inspect a VHD.
+
+   ````powershell
+   Get-VHD -Path $PathDifferencing
+   Test-VHD -Path $PathDifferencing
+   ````
+
+1. Leave **Windows PowerShell** open for the next task.
+
 ### Task 6: Fixing a broken disk chain
+
+#### Desktop Experience
 
 Perform these steps on HV2.
 
@@ -621,7 +708,42 @@ Perform these steps on HV2.
 1. On the page **Reconnect to parent virtual hard disk** page, select the **Fixed.vhdx** from **D:\**
 1. After the wizard finished, Inspect the disk **D:\VHDs\Differencing.vhdx** again. The disk chain should now be ok.
 
+#### PowerShell
+
+Perform these steps on HV2.
+
+1. Move the file **Fixed.vhdx** from **D:\VHDs** to **D:\\**
+
+   ````powershell
+   Move-Item -Path $PathFixed -Destination 'D:\'
+   ````
+
+1. Inspect the disk **D:\VHDs\Differencing.vhdx** again. The disk chain is broken because we moved the parent disk.
+
+   ````powershell
+   Get-VHD -Path $PathDifferencing
+   Test-VHD -Path $PathDifferencing
+   ````
+
+1. Reconnect the VHD.
+
+   ````powershell
+   $PathFixed = 'D:\Fixed.vhdx'
+   Set-VHD -Path $PathDifferencing -ParentPath $PathFixed
+   ````
+
+1. **D:\VHDs\Differencing.vhdx** again. The disk chain should now be ok.
+
+   ````powershell
+   Get-VHD -Path $PathDifferencing
+   Test-VHD -Path $PathDifferencing
+   ````
+
+1. Leave **Windows PowerShell** open for the next task.
+
 ### Task 7: Expand a disk
+
+#### Desktop Experience
 
 Perform these steps on HV2.
 
@@ -631,7 +753,21 @@ Perform these steps on HV2.
 1. Specify 2 GB as new size.
 1. Click on **Finish**.
 
+#### PowerShell
+
+Perform these steps on HV2.
+
+1. Expand the fixed disk to 2 GB.
+
+   ````powershell
+   Resize-VHD $PathFixed -SizeBytes 2GB
+   ````
+
+1. Leave **Windows PowerShell** open for the next task.
+
 ### Task 8: Shrink a disk
+
+#### Desktop Experience
 
 Perform these steps on HV2.
 
@@ -641,6 +777,18 @@ Perform these steps on HV2.
    ````powershell
    Resize-VHD -Path D:\Fixed.vhdx -SizeBytes 1GB
    ````
+
+#### PowerShell
+
+Perform these steps on HV2.
+
+1. Enter the following command to shrink the fixed disk back to 1 GB.
+
+   ````powershell
+   Resize-VHD -Path D:\Fixed.vhdx -SizeBytes 1GB
+   ````
+
+1. Leave **Windows PowerShell** open for the next exercise.
 
 ## Exercise 4: Hyper-V replica
 
@@ -660,6 +808,8 @@ In this exercise, you will use Hyper-V replica to replicate a VM from HV1 to HV2
 
 ### Task 1: Enable Hyper-V replica
 
+#### Desktop Experience
+
 Perform these steps on HV1.
 
 1. Logon as **smart\administrator**
@@ -677,7 +827,39 @@ Perform these steps on HV1.
 
 Repeat all steps from this task on HV2. In the last step, the external network to be renamed is called **Datacenter2**.
 
+#### PowerShell
+
+Perform these steps on HV1.
+
+1. Enable replication with Kerberos authentication and D:\ as default path.
+
+   ````powershell
+   Set-VMReplicationServer `
+      -ReplicationEnabled $true `
+      -AllowedAuthenticationType Kerberos `
+      -ReplicationAllowedFromAnyServer $true `
+      -DefaultStorageLocation D:\
+   ````
+
+1. Enable necessary inbound firewall rules for the Hyper-V Replica Listener.
+
+   ````powershell
+   Get-NetFirewallRule -DisplayName 'Hyper-V Replica*' | Enable-NetFirewallRule
+   ````
+
+1. Rename the external network **Datacenter1** to **smart.etc**.
+
+   ````powershell
+   Rename-VMSwitch -Name 'Datacenter1' -NewName 'smart.etc'
+   ````
+
+1. Leave **Windows PowerShell** open for the next task.
+
+Repeat all steps from this task on HV2. In the last step, the external network to be renamed is called **Datacenter2**.
+
 ### Task 2: Configure VM replication
+
+#### Desktop Experience
 
 Perform these steps on HV1.
 
@@ -693,7 +875,41 @@ Perform these steps on HV1.
 1. At the bottom of **Hyper-V Manager**, select the tab **Replication** to check the state of the initial replication of the VM ([figure 30]). Wait until the initial replication has finished. This takes about 5 minutes.
 1. From the context menu of **WS2019**, select **Replication**, **View Replication Health**. Validate the successful continuous replication progress.
 
+#### PowerShell
+
+Perform these steps on HV1.
+
+1. Enable replication for **WS2019**. The replication frequency should be 30 seconds, the recovery history 12 hours, and the VSS snapshot frequency 2 hours.
+
+   ````powershell
+   $VMName='WS2019'
+   Enable-VMReplication `
+      -VMName $VMName `
+      -ReplicaServerName HV2 `
+      -ReplicaServerPort 80 `
+      -AuthenticationType Kerberos `
+      -ReplicationFrequencySec 30 `
+      -RecoveryHistory 12 `
+      -VSSSnapshotFrequencyHour 2
+   ````
+
+1. Send the initial copy immediately over the network and start the replication.
+
+   ````powershell
+   Start-VMInitialReplication -VMName $VMName
+   ````
+
+1. Check the state of the initial replication of the VM. Wait until the initial replication has finished. This takes about 5 minutes.
+
+   ````powershell
+   Get-VMReplication -VMName $VMName
+   ````
+
+1. Leave **Windows PowerShell** open for the next task.
+
 ### Task 3: Validate VM replication
+
+#### Desktop Experience
 
 Perform these steps on HV1.
 
@@ -701,7 +917,28 @@ Perform these steps on HV1.
 1. From the context menu of **WS2019**, select **Replication**, **View Replication Health**. Validate the successful continuous replication progress.
 1. Open **File Explorer** and navigate to **D:\\**. You should see a folder **Hyper-V Replica** – inside this folder Hyper-V creates all the replicas of VMs.
 
+#### PowerShell
+
+Perform these steps on HV1.
+
+1. View replication health.
+
+   ````powershell
+   Get-VMReplication -VMName $VMName
+   ````
+
+1. Check the contents of **D:\\**. You should see a folder **Hyper-V Replica** – inside this folder Hyper-V creates all the replicas of VMs.
+
+   ````powershell
+   Get-ChildItem -Path D:\
+   Get-ChildItem -Path 'D:\Hyper-V Replica' -Recurse
+   ````
+
+1. Leave **Windows PowerShell** open for the next task.
+
 ### Task 4: Test planned failover
+
+#### Desktop Experience
 
 Perform these steps on HV1.
 
@@ -716,25 +953,124 @@ Perform these steps on HV1.
 
    > Can you perform a planned failover now? Why or why not?
 
+#### PowerShell
+
+Perform these steps on HV1.
+
+1. Try to perform a planned failover.
+
+   ````powershell
+   Start-VMFailover -VMName $VMName -Prepare
+   ````
+
+   > Can you perform a planned failover? Why or why not?
+
+1. Shut-down **WS2019**.
+
+   ````powershell
+   Stop-VM -VMName $VMName
+   ````
+
+1. Try to perform a planned failover again.
+
+   ````powershell
+   Start-VMFailover -VMName $VMName -Prepare
+   Start-VMFailover -VMName $VMName -ComputerName HV2
+   Set-VMReplication -Reverse -VMName $VMName -ComputerName HV2
+   ````
+
+   > Can you perform a planned failover now? Why or why not?
+
+1. Reverse the replication and start the VM.
+
+   ````powershell
+   Set-VMReplication -Reverse -VMName $VMName -ComputerName HV2
+   Start-VM -VMName $VMName -ComputerName HV2
+   ````
+
+1. Leave **Windows PowerShell** open for the next task.
+
 ### Task 5: Validate planned failover
+
+#### Desktop Experience
 
 Perform these steps on HV2.
 
 1. Verify, that the VM **WS2019** has started and the replication is working.
 
+#### PowerShell
+
+Perform these steps on HV2.
+
+1. Verify, that the VM **WS2019** has started and the replication is working.
+
+   ````powershell
+   Get-VM -VMName $VMName
+   Get-VMReplication -VMName $VMName
+
+1. Leave **Windows PowerShell** open for the next task.
+
 ### Task 6: Simulate a failure
+
+#### Desktop Experience
 
 Perform these steps on the host computer or the hosting cloud service.
 
 1. Turn off **HV2** to simulate a failure of HV2 (do not shut down!).
 
+#### PowerShell
+
+Perform these steps on the host computer or the hosting cloud service.
+
+1. Turn off **HV2** to simulate a failure of HV2 (do not shut down!).
+
+   ````powershell
+   Stop-VM -Name HV2 -Force
+   ````
+
+1. Leave **Windows PowerShell** open for the next task.
+
 ### Task 7: Recover from a failure
+
+#### Desktop Experience
 
 Perform these steps on HV1.
 
 1. On HV1 verify, that the VM **WS2019** is powered off. From the context menu of the VM **WS2019**, select **Replication** and click on **Failover**.
 1. Select **Latest Recovery Point** and click on **Failover**.
 1. Wait until the failover is finished and the VM is started.
+
+#### PowerShell
+
+Perform these steps on HV1.
+
+1. On HV1 verify, that the VM **WS2019** is powered off.
+
+   ````powershell
+   Get-VM -VMName $VMName -ComputerName HV1
+   ````
+
+1. Start the failover and start the VM.
+
+   ````powershell
+   Start-VMFailover $VMName -ComputerName HV1
+   Start-VM -Name $VMName -ComputerName HV1
+   Get-VM -Name $VMName -ComputerName HV1
+   Complete-VMFailover -VMName $VMName -ComputerName $hv1
+   ````powershell
+
+Bonus: After HV is available again, you could execute these commands to enable replication again.
+
+````powershell
+Stop-VM -VMName $VMName -ComputerName $hv2
+Set-VMReplication -VMName $VMName -AsReplica -ComputerName $hv2
+Set-VMReplication `
+    -VMName $VMName `
+    -Reverse `
+    -ReplicaServerName $hv2 `
+    -ComputerName $hv1
+Start-VMInitialReplication -VMName $VMName -ComputerName $hv1
+````
 
 [figure 1]: images/Lab05/figure01.png
 [figure 2]: images/Lab05/figure02.png
