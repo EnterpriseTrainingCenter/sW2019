@@ -19,7 +19,7 @@
 
 In this exercise, you will create an Organizational Unit and a personalized Active Directory user account.
 
-#### Tasks
+##### Tasks
 
 1. [Create a new Organizational Unit and a new AD User](#task-1-create-a-new-organizational-unit-and-a-new-ad-user)
 1. [Create a new AD user](#task-2-create-a-new-ad-user)
@@ -204,13 +204,11 @@ Perform these steps on CL1.
 
 In this exercise, you will perform some PowerShell basic tasks.
 
-### Tasks
+#### Tasks
 
 1. [Examine PowerShell functionality](#task-1-examine-powershell-functionality)
 
-### Detailed Instructions
-
-#### Task 1: Examine PowerShell functionality
+### Task 1: Examine PowerShell functionality
 
 Perform these steps on HV1.
 
