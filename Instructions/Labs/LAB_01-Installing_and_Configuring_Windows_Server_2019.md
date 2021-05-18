@@ -6,6 +6,7 @@
 * DHCP
 * HV1
 * Router
+* SRV2
 
 ## Exercises
 
@@ -26,9 +27,7 @@ In this exercise, you prepare an Unattend.xml file to automate the deployment of
 1. [Install Windows System Image Manager](#task-1-install-windows-system-image-manager)
 1. [Author an Unattend.xml file using Windows System Image Manager](#task-2-author-an-unattendxml-file-using-windows-system-image-manager)
 
-### Detailed Instructions
-
-#### Task 1: Install Windows System Image Manager
+### Task 1: Install Windows System Image Manager
 
 Perform these steps on **HV1**.
 
@@ -62,14 +61,18 @@ Perform these steps on **HV1**.
 1. Expand the component in the answer file
 1. Delete all sub nodes (you can also use the DEL key) ([figure 8]). The resulting settings node should look like [figure 9].
 1. In the **Microsoft-Windows-Shell-Setup** component, in  the setting **ComputerName**, type **WS2019** ([figure 10]).
-1. Open a command prompt
-1. List the name of your current time zone
+1. Open Windows PowerShell.
+1. List the name of your current time zone using one of the following commands.
 
    ````shell
    tzutil /g
    ````
 
-1. Copy the output value of the current time zone.
+   ````powershell
+   Get-TimeZone
+   ````
+
+1. Copy the output value or the **ID** of the current time zone.
 1. In the answer file, in the **Microsoft-Windows-Shell-Setup** component, in the **TimeZone** setting, paste the copied time zone.
 1. In the **Windows Image** section, expand the component **amd64_Microsoft-Windows-Shell-Setup …**
 1. Navigate to **UserAccounts/AdministratorPassword**
@@ -88,9 +91,7 @@ In this exercise, you will build a new Windows Server 2019 DVD that contains you
 1. [Inject the Unattend.xml file into the original Install.wim file](#task-1-inject-the-unattendxml-file-into-the-original-installwim-file)
 1. [Build a new ISO file which contains the modified Install.wim file](#task-2-build-a-new-iso-file-which-contains-the-modified-installwim-file)
 
-### Detailed Instructions
-
-#### Task 1: Inject the Unattend.xml file into the original Install.wim file
+### Task 1: Inject the Unattend.xml file into the original Install.wim file
 
 Perform these steps on HV1.
 
@@ -131,9 +132,9 @@ In this exercise, you will use the Unattend.xml file from exercise 1 to install 
 1. [Create a VM for Windows Server 2019](#task-1-create-a-vm-for-windows-server-2019)
 1. [Install Windows Server 2019 unattended](#task-2-install-windows-server-2019-unattended)
 
-### Detailed Instructions
+### Task 1: Create a VM for Windows Server 2019
 
-#### Task 1: Create a VM for Windows Server 2019
+#### Desktop Experience
 
 Perform these steps on HV1.
 
@@ -157,7 +158,85 @@ Perform these steps on HV1.
 1. Double-Click on the VM to open the VM Console window.
 1. Click on **Start** to start WS2019
 
-#### Task 2: Install Windows Server 2019 unattended
+#### Windows Admin Center
+
+Perform these steps on CL1.
+
+1. Login as **smart\Administrator**.
+1. Open **Google Chrome**.
+1. Navigate to <https://admincenter>.
+1. In **Windows Admin Center***, connect to **hv1.smart.etc**.
+1. On the left, click **Virtual machines**.
+1. In **Virtual machines**, click **Add**, **New**.
+
+   * **Name** WS2019
+   * **Generation**: **Generation 2 (Recommended)**
+   * **Path**: D:\
+   * **Virtual processors**
+      * **Count**: 4
+   * **Startup Memory:** 1 GB
+   * **Use dynamic memory** activated
+   * **Virtual switch"**: **Datacenter1**
+   * **Storage**: Click **+ Add**
+      Under **New disk 1**
+      * **Create an empty virtual hard disk**
+      * **Size (GB)**: 127
+   * **Install an operating system from an image fille (.iso)**
+   * **Path**: D:\ISO\WS2019-RTM-Unattend.iso
+
+#### PowerShell
+
+Perform these steps on HV1.
+
+1. Run **Window PowerShell** as Administrator.
+1. Create a new virtual machine. You do not need to type the comments.
+
+   ````powershell
+
+   <#
+   It is a good idea to store values, that are used more than one time in 
+   variables. In PowerShell Variables are preceeded by a $ sign.
+   #>
+   $vMName = 'WS2019'
+   $vMPath = 'D:\'
+
+   <#
+   If a string is surounded by double quotes, variables are auto-expanded.
+   This is a simple version to build a path. A better way to build paths is the
+   Join-Path cmdlet, which is platform-independent. Remember, that on Unixoid
+   platforms (Linux, MacOS, ...) directories are separated by a forward slash
+   in contrast to Windows' backslash.
+   #>
+   $NewVHDPath = "$vMPath\$vMName)\Virtual Hard Disks\$VMName.vhdx"
+
+   # The back tick ` can be used to split long command lines and make them more readable
+
+   New-VM `
+      -Name $vMName `
+      -Path $vmPath `
+      -Generation 2 `
+      -MemoryStartupBytes 1GB `
+      -SwitchName Datacenter1 `
+      -NewVHDPath $NewVHDPath `
+      -NewVHDSizeBytes 127GB
+
+   $vMDvdDrive = Add-VMDvdDrive -VMName $vMName -Path 'D:\ISO\WS2019-RTM-Unattend.iso' -Passthru
+   Set-VMFirmware -VMName $vMName -FirstBootDevice $vMDvdDrive
+   ````
+
+1. For the newly created VM increase the processor count to 4.
+
+   ````powershell
+   Set-VM -Name $vMName -ProcessorCount 4
+   ````
+
+1. Start the VM.
+
+   ````powershell
+   Start-VM -Name $vmName
+   ````
+
+### Task 2: Install Windows Server 2019 unattended
 
 Perform these steps on WS2019.
 
@@ -187,7 +266,9 @@ In this exercise, you will configure the network settings and join the server to
 1. [Change network settings](#task-1-change-network-settings)
 1. [Join the computer to the domain](#task-2-join-the-computer-to-the-domain)
 
-#### Task 1: Change networking settings
+### Task 1: Change networking settings
+
+#### Desktop Experience
 
 Perform these steps on WS2019.
 
@@ -206,7 +287,39 @@ Perform these steps on WS2019.
 
 1. Click on **OK** twice to commit the changes.
 
-#### Task 2: Join the computer to the domain
+#### PowerShell
+
+Perform these steps on WS2019.
+
+1. Logon as **.\Administrator**.
+1. Run **Windows PowerShell** as Administrator.
+1. Rename network interface card (NIC) Ethernet to Datacenter1.
+
+   ````powershell
+   $interfaceAlias = 'Datacenter1'
+   Rename-NetAdapter -Name 'Ethernet' -NewName $interfaceAlias
+   ````
+
+1. Configure Internet Procotol Version 4.
+
+   ````powershell
+   New-NetIPAddress `
+      -AddressFamily IPv4 `
+      -InterfaceAlias $interfaceAlias `
+      -IPAddress 10.1.1.32 `
+      -PrefixLength 24 `
+      -DefaultGateway 10.1.1.254
+   Set-DnsClientServerAddress `
+      -InterfaceAlias $interfaceAlias `
+      -ServerAddresses 10.1.1.1
+   ````
+
+1. Leave **Windows PowerShell** open for the next task.
+
+
+### Task 2: Join the computer to the domain
+
+#### Desktop Experience
 
 Perform these steps on WS2019.
 
@@ -223,6 +336,33 @@ Perform these steps on WS2019.
 
 1. Logoff.
 
+#### PowerShell
+
+Perform these steps on WS2019.
+
+1. Rename the computer and join it to the domain.
+
+   ````powershell
+   $domainName = 'smart.etc'
+
+   # In PowerShell, commands in braces are executed first.
+   # The result can then be used in a parameter of the surounding commmand.
+   Add-Computer `
+      -DomainName $domainName `
+      -Credential (
+         Get-Credential -Message "Credentials to join domain $domainName"
+      ) `
+      -Restart
+   ````
+
+1. In the dialog, that asks for credentails, use the credentials for **smart\Administrator** to join the computer to the domain.
+1. Logon as **smart\user1**.
+
+   > Can you logon? Why?
+
+1. Logoff.
+
+
 ## Exercise 5: Install windows features using Server Manager and Windows PowerShell
 
 ### Introduction
@@ -234,9 +374,7 @@ In this exercise, you will install the Telnet Client feature by using Server Man
 1. [Install the Telnet Client by using Server Manager](#task-1-install-the-telnet-client-by-using-server-manager)
 1. [Install the Hyper-V Management Console from the RSAT Tools using PowerShell](#task-2-install-the-hyper-v-management-console-from-the-rsat-tools-using-powershell)
 
-### Detailed Instructions
-
-#### Task 1: Install the Telnet Client by using Server Manager
+### Task 1: Install the Telnet Client by using Server Manager
 
 Perform these steps on WS2019.
 
@@ -249,7 +387,7 @@ Perform these steps on WS2019.
 1. Click on **Close**. The installation will continue in the background.
 1. On the toolbar click on the flag icon to display the status of the installation ([figure 22]).
 
-#### Task 2: Install the Hyper-V Management Console from the RSAT Tools using PowerShell
+### Task 2: Install the Hyper-V Management Console from the RSAT Tools using PowerShell
 
 Perform these steps on WS2019.
 
