@@ -6,6 +6,7 @@
 * Router
 * DHCP
 * HV1
+* SRV2
 
 ## Exercises
 
