@@ -209,7 +209,8 @@ Perform these steps on CL1.
 1. Change the default language of Windows Admin Center to **English** and the regional format to match your region.
 1. Click on **Extensions**
 1. Click on **Installed extensions**
-1. Install available updates for existing extensions
+1. Install available updates for existing extensions.
+1. Install the extension **Active Directory**.
 1. Leave Windows Admin Center open for the next task.
 
 ### Task 2: Connect to Computers

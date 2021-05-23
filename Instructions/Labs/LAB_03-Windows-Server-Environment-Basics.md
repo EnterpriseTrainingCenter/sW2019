@@ -47,14 +47,6 @@ Perform these steps on CL1.
 
 1. Logon as **smart\Administrator**.
 1. Open **Google Chrome** and navigate to <https://admincenter>.
-1. In **Windows Admin Center**, click the gear icon on the top-right to open Settings.
-1. In **Settings**, on the right, click **Extensions**.
-1. In **Extensions**, on the tab **Available extensions**, search and select **Active Directory**.
-1. On the top, click **Install**. Wait for the install to complete.
-
-   If you cannot click **Install**, it is installed already. Proceed to the next step.
-
-1. On the top-left click **Windows Admin Center** to return to the home page.
 1. Connect to **dc1.smart.etc**.
 1. Connected to **dc1.smart.etc**, on the left, click **Active Directory**.
 1. In **Active Directory Domain Services**, click **Create**, **OU**.

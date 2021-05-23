@@ -518,10 +518,7 @@ Perform these steps on DC1.
 
 Perform these steps on CL1.
 
-1. In **Windows Admin Center**, click the gear icon to open the settings.
-1. On the left, click **Extensions**.
-1. Install the extension **DNS (Preview)**.
-1. Go back to the home page and connect to **dc1.smart.etc.**.
+1. In **Windows Admin Center**, connect to **dc1.smart.etc.**.
 1. On the left, click **DNS**.
 1. In **DNS**, select the zone **smart.etc**.
 1. At the bottom, click **+ Create a new DNS record**.
