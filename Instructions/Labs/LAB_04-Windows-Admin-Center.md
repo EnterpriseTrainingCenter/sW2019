@@ -88,6 +88,8 @@ Perform these steps on SRV2.
 
 ### Task 3: Configure Kerberos Constrained Delegation and DNS
 
+#### Desktop Experience
+
 Perform these steps on DC1.
 
 1. Logon as **smart\Administrator**.
@@ -114,6 +116,71 @@ Perform these steps on DC1.
    * Record type: A
    * Record data: admincenter
    * Record IP: 10.1.1.73
+
+#### PowerShell
+
+Perform these steps on DC1.
+
+1. Logon as **smart\Administrator**.
+1. Open **Windows PowerShell**.
+1. Define the target servers for KCD.
+
+   ````powershell
+   <#
+   @() indicates an array of string, which we can loop through later
+   If you place each element of the array on its own line, you can ommit the
+   commas separating its elements normally.
+   #>
+   $nodes = @(
+      'dc1'
+      'fs'
+      'HV1'
+      'HV2'
+      'sr1'
+      'sr2'
+      'S2D'
+      'S2D1'
+      'S2D2'
+      'S2D3'
+      'S2D4'
+      'SRV1903'
+      'Docker'
+      'Node1'
+      'Node2'
+      'PKI'
+      'SR1'
+      'SR2'
+      'WS2019'
+   )
+   ````
+
+1. Configure KCD for each target computer.
+
+   ````powershell
+   $gw = Get-ADComputer -Identity "srv2"
+
+   <#
+   ForEach-Object loops through the pipeline, where we put the elements of
+   $nodes first. On each iteration, $PSItem contains the next element in the
+   array. $PSItem could  be written as $_ also.
+   #>
+   $nodes | ForEach-Object  {
+      $Object = Get-ADComputer -Identity $PSItem
+      Set-ADComputer $Object -PrincipalsAllowedToDelegateToAccount $gw 
+   }
+
+   ````
+
+1. Create the following record in zone **smart.etc**.
+
+   * Record type: A
+   * Record data: admincenter
+   * Record IP: 10.1.1.73
+
+   ````powershell
+   Add-DnsServerResourceRecordA `
+      -ZoneName 'smart.etc' -Name admincenter -IPv4Address 10.1.1.73
+   ````
 
 ## Exercise 2: Using Windows Admin Center
 
