@@ -2,11 +2,12 @@
 
 ## Required VMs
 
-1. DC1
-1. DHCP
-1. Router
-1. FS on HV1
-1. CL1
+* DC1
+* DHCP
+* Router
+* FS on HV1
+* CL1
+* SRV2
 
 ## Exercises
 
@@ -30,6 +31,8 @@ In this exercise, you will create rules for FSRM and test them. You will also cr
 
 ### Task 1: Install File Server Resource Manager
 
+#### Desktop Experience
+
 Perform these steps on FS.
 
 1. Logon as **smart\Administrator**.
@@ -39,7 +42,22 @@ Perform these steps on FS.
 1. On page **Select server roles**, expand **File and storage Service**, **File and iSCSI Services**, then activate **File Server Resource Manager**.
 1. Continue through the wizard to install File Server Resource Manager.
 
+#### PowerShell
+
+Perform these steps on FS.
+
+1. Run **Windows PowerShell** as Administrator
+1. Install the role service **File Server Resource Manager**.
+
+   ````powershell
+   Install-WindowsFeature 'FS-Resource-Manager' –IncludeManagementTools 
+   ````
+
+1. Leave **Windows PowerShell** open for the next task.
+
 ### Task 2: Create a quota
+
+#### Desktop Experience
 
 Perform these steps on FS.
 
@@ -52,6 +70,24 @@ Perform these steps on FS.
    * **Derive values from template**: 200MB Limit Reports to User
 
    You should see the used space in the **% Used** column in each subfolder of the presentations folder. If not, copy the Datasheets folder from **L:\SampleDocuments** to **D:\Presentations** and refresh the view.
+
+#### PowerShell
+
+Perform these steps on FS.
+
+1. Create a quota.
+
+   ````powershell
+   New-FSRMQuota -Path D:\Presentations -Template '200 MB Limit Reports to User'
+   ````
+
+1. Validate the quota.
+
+   ````powershell
+   Get-FsrmQuota -Path D:\Presentations
+   ````
+
+1. Leave **Windows PowerShell** open for the next task.
 
 ### Task 3: Test the quota
 
@@ -70,6 +106,8 @@ Perform these steps on CL1.
 
 ### Task 4: Create and test a file screen
 
+#### Desktop Experience
+
 Perform these steps on FS.
 
 1. In **File Server Resource Manager**, expand **File Screen Management**.
@@ -81,7 +119,24 @@ Perform these steps on FS.
 
    > What happens when you change the file extension of one of the files to **.exe**? ([figure 5])
 
+#### PowerShell
+
+Perform these steps on FS.
+
+1. Create a file screen.
+
+   ````powershell
+   New-FsrmFileScreen -Path D:\Presentations -Template 'Block Executable Files'
+   ````
+
+1. Leave **Windows PowerShell** open for the next task.
+1. Open **File Explorer**.
+
+   > What happens when you change the file extension of one of the files to **.exe**? ([figure 5])
+
 ### Task 5: Using FSRM Reports
+
+#### Desktop Experience
 
 Perform these steps on FS.
 
@@ -92,6 +147,36 @@ Perform these steps on FS.
 1. On the tab **Scope**, add the folder **D:\SampleDocuments**.
 1. Click on **OK** and wait for the report to be completed.
 1. Open the report after it has been rendered and look for duplicates.
+
+#### PowerShell
+
+Perform these steps on FS.
+
+1. Copy the **Sample Documents** folder from **L:\\** to **E:\\** drive.
+
+   ````powershell
+   Copy-Item -Path L:\SampleDocuments -Destination E:\SampleDocuments -Recurse
+   ````
+
+1. Generate a Storage Reports Management report. Wait for the report to be completed.
+
+   ````powershell
+   New-FsrmStorageReport `
+      -Interactive `
+      -Name "Interactive Report Task $(Get-Date)" `
+      -Namespace 'E:\SampleDocuments' `
+      -ReportType DuplicateFiles |
+   Wait-FsrmStorageReport
+   ````
+
+1. On the tab **Settings**, select the report **Duplicate files**.
+1. On the tab **Scope**, add the folder **E:\SampleDocuments**.
+1. Click on **OK**.
+1. Open the report after it has been rendered and look for duplicates.
+
+   ````powershell
+   explorer (Get-FsrmSetting).ReportLocationOnDemand
+   ````
 
 ## Exercise 2: File Auditing
 
@@ -106,6 +191,8 @@ In this lab, you will create audit rules to log file access.
 1. [Review audit logs](#task-3-review-audit-logs)
 
 ### Task 1: Configure auditing
+
+#### Desktop Experience
 
 Perform these steps on FS.
 
@@ -122,6 +209,23 @@ Perform these steps on FS.
    * **Type:** Success
    * **Applies to:** This folder, subfolders and files
    * **Advanced permissions:** Delete (In the upper right corner, click **Show advanced permissions**.)
+
+#### PowerShell
+
+Perform these steps on FS.
+
+1. Run **gpedit.msc** as administrator to open the **Local Group Policy** console.
+1. Navigate to **Computer Configuration**, **Windows Settings**, **Security Settings**, **Advanced Audit Policy**, **System Audit Policies**, **Object Access** ([figure 6]).
+1. Double-click on **Audit File System** and activate **Success Auditing**.
+1. Add an auditing entry.
+
+   ````powershell
+   $Acl = Get-Acl D:\Training
+   $AuditRule = New-Object System.Security.AccessControl.FileSystemAuditRule(
+      'Everyone', 'Delete', 'ContainerInherit, ObjectInherit', 'None', 'Success'
+   )
+   $Acl.AddAuditRule($AuditRule)
+   $Acl | Set-Acl -Path D:\Training
 
 ### Task 2: Test auditing
 
@@ -152,6 +256,8 @@ In this exercise, you will deduplicate some files to demonstrate deduplication e
 
 ### Task 1: Install and configure deduplication
 
+#### Desktop Experience
+
 Perform these steps on FS.
 
 1. In **Server Manager**, start the **Add Role and Features Wizard**.
@@ -165,7 +271,56 @@ Perform these steps on FS.
 1. Review the tasks under **Microsoft**, **Windows**, **Deduplication**.
 1. Leave **Task Scheduler** open for the next task.
 
+#### PowerShell
+
+Perform these steps on FS.
+
+1. Run **PowerShell** as Administrator
+1. Install the deduplication feature.
+
+   ````powershell
+   Install-WindowsFeature 'FS-Data-Deduplication' –IncludeManagementTools
+   ````
+
+1. Enable Deduplication on Volume D.
+
+   ````powershell
+   Enable-DedupVolume -Volume D:
+   ````
+
+1. Change the minimum file age of deduplicated files to zero.
+
+   ````powershell
+   Set-DedupVolume –Volume D: –MinimumFileAgeDays 0
+   ````
+
+1. Check and take a note of the current savings rate on drive **D:**.
+
+   ````powershell
+   Get-DedupVolume
+   ````
+
+1. Create a new schedule that automatically deduplicates your D: drive at night.
+
+   ````powershell
+   # The back tick ` allows to split long commands into multiple lines
+   New-DedupSchedule `
+       –Name 'DedupLabfiles' `
+       –Type Optimization `
+       -Days Mon, Tues, Wed, Thurs, Fri `
+       –Start 01:00 `
+       –DurationHours 6
+   ````
+
+1. Review the schedule
+
+   ````powershell
+   Get-DedupSchedule
+   ````
+
 ### Task 2: Test deduplication
+
+#### Desktop Experience
 
 Perform these steps on FS.
 
@@ -176,6 +331,28 @@ Perform these steps on FS.
 1. In **Volumes**, from the context menu of volume **D:**, click **Properties**.
 
    > What are your savings using deduplication?
+
+#### PowerShell
+
+Perform these steps on FS.
+
+1. Start the deduplication process now.
+
+   ````powershell
+   Start-DedupJob –Volume D: –Type Optimization
+   ````
+
+1. Review the running deduplication process. Repeat until the job completes.
+
+   ````powershell
+   Get-DedupJob
+   ````
+
+1. Compare the savings rate to the previous task.
+
+   ````powershell
+   Get-DedupVolume
+   ````
 
 [figure 1]: images/Lab07/figure01.png
 [figure 2]: images/Lab07/figure02.png
