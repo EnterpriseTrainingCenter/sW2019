@@ -29,6 +29,8 @@ In this exercise, you will create a local Storage Space, configure some virtual 
 
 ### Task 1: Creating a Storage Pool
 
+#### Desktop Experience
+
 Perform these steps on FS.
 
 1. Open **Server Manager**.
@@ -36,7 +38,29 @@ Perform these steps on FS.
 1. From the tasks drop-down, select **New Storage Pool...** ([figure 1]).
 1. Sort the view by **Chassis** ([figure 2]). Create a new Storage Pool **Pool1** using the five 100 GB disks. Do not use the disk on SCSI LUN2!
 
+#### Powershell
+
+Perform these steps on FS.
+
+1. Run **Windows PowerShell** as administrator.
+1. Create a new Storage Pool **Pool1** using the five 100 GB disks. Do not use the disk on SCSI LUN2!
+
+   ````powershell
+   $physicalDisks =  Get-PhysicalDisk -CanPool $true | 
+      Where-Object { 
+         $PSItem.Size -eq 100GB -and $PSItem.PhysicalLocation -notlike '*LUN 2' 
+      }
+   $storagePool = New-StoragePool `
+      -FriendlyName Pool1 `
+      -PhysicalDisks $physicalDisks `
+      -StorageSubSystemFriendlyName 'Windows Storage*'
+   ````
+
+1. Leave **Windows PowerShell** open for the next task.
+
 ### Task 2: Creating virtual disks
+
+#### Desktop Experience
 
 Perform these steps on FS.
 
@@ -55,7 +79,45 @@ Perform these steps on FS.
    * **Volume Label:** Data
    * **Deduplication:** disabled
 
+#### PowerShell
+
+Perform these steps on FS.
+
+1. Create a virtual disk.
+
+   * Name: Data
+   * Storage layout: Mirror
+   * Resiliency: Three-way mirror
+   * Provisioning type: Thin
+   * Size: 40GB
+
+   ````powershell
+   $virtualDisk = $storagePool | New-VirtualDisk `
+      -FriendlyName Data `
+      -ResiliencySettingName Mirror `
+      -ProvisioningType Thin `
+      -Size 40GB
+   ````
+
+1. Create a new volume on the new virutal disk.
+   * Drive Letter: G:
+   * File System: ReFS
+   * Volume Label: Data
+   * Deduplication: disabled
+
+   ```powershell
+   New-Volume `
+      -FriendlyName Data `
+      -FileSystem ReFS `
+      -DriveLetter G `
+      -DiskUniqueId $VirtualDisk.UniqueId
+   ````
+
+1. Leave **Windows PowerShell** open for the next task.
+
 ### Task 3: Testing Storage Pool resilience
+
+#### Desktop Experience
 
 Perform these steps on HV1.
 
@@ -72,7 +134,57 @@ Perform these steps on HV1.
 
 1. Reconnect one of the removed disks
 
+#### PowerShell
+
+Perform these steps on HV1.
+
+1. Run **Windows PowerShell** as Administrator
+1. Start a copy process from D:\ISO\WS2016.iso to \\FS\G$.
+
+   ```powershell
+   Copy-Item D:\ISO\WS2016.iso \\FS\G$
+   ````
+
+1. During the file copy process, remove one of the 5 disks starting with LUN3.
+
+   ````powershell
+   $hardDiskDrives = Get-VMHardDiskDrive -VMName FS | 
+      Where-Object { $PSItem.ControllerLocation -ge 3 }
+
+   # Save the disk's path, so we can easily reconnect it later.   
+   $path0 = $hardDiskDrives[0].Path
+   $hardDiskDrives[0] | Remove-VMHardDiskDrive
+   ````
+
+   > Does the file copy process continue?
+
+   Wait for the file copy process to complete.
+
+1. Remove another disk starting with LUN3.
+
+   ````powershell
+   $path1 = $hardDiskDrives[1].Path
+   $hardDiskDrives[1] | Remove-VMHardDiskDrive
+   ````
+
+   > On **FS**, what is the impact of the latest disk removal in FS? Hint:
+
+   ````powershell
+   # Run these on FS
+   Get-StoragePool -FriendlyName $StoragePool.FriendlyName
+   Get-VirtualDisk -StoragePool $StoragePool
+   Get-PhysicalDisk -StoragePool $StoragePool 
+   ````
+
+1. Reconnect one of the removed disks.
+
+   ````powershell
+   Add-VMHardDiskDrive -VMName FS -Path $path0
+   ````
+
 ### Task 4: Repairing a virtual disk
+
+#### Desktop Experience
 
 Perform these steps on FS.
 
@@ -85,13 +197,87 @@ Perform these steps on FS.
 1. From the context menu of the missing physical disk, select **Remove Disk** ([figure 7].
 1. In **Server Manager**, refresh the view. All warnings should disappear.
 
+#### PowerShell
+
+Perform these steps on FS.
+
+1. Reset the failed disk.
+
+   ````powershell
+   Remove-PhysicalDisk -StoragePool $StoragePool -PhysicalDisks $PhysicalDisks[0]
+   `````
+
+   It is not necessary to initialize the reconnected disk.
+
+1. Add the reconnected disk and configure it as hot spare.
+
+   ````powershell
+   $PhysicalDisk = Get-PhysicalDisk -CanPool $true | 
+      Where-Object { 
+         $PSItem.Size -eq 100GB 
+      }
+   
+   Add-PhysicalDisk `
+      -StoragePool $StoragePool -PhysicalDisks $PhysicalDisk -Usage HotSpare
+   ````
+
+1. Repair the virtual disk Data.
+
+   ````powershell
+   Get-VirtualDisk -HealthStatus Warning | Repair-VirtualDisk
+   ````
+
+1. Remove the missing disk
+
+   ````powershell
+   $PhysicalDisksWarning = Get-PhysicalDisk `
+      -StoragePool $StoragePool -HealthStatus Warning
+
+   $PhysicalDisksWarning | Set-PhysicalDisk -Usage Retired
+   
+   Remove-PhysicalDisk `
+      -StoragePool $StoragePool -PhysicalDisks $PhysicalDisksWarning
+   ````
+
+1. All warnings should disappear.
+
+   ````powershell
+   Get-StoragePool -FriendlyName $StoragePool.FriendlyName
+   Get-VirtualDisk -StoragePool $StoragePool
+   Get-PhysicalDisk -StoragePool $StoragePool
+   ````
+
 ### Task 5: Removing a Storage Pool
+
+#### Desktop Experience
 
 Peform these steps on FS.
 
 1. From the context menu of the volume, select **Delete volume**.
 1. From the context menu of the virtual disk, select **Delete Virtual Disk**.
 1. From the context menu of the storage pool, select **Delete Storage Pool**.
+
+#### PowerShell
+
+Peform these steps on FS.
+
+1. Delete the volume
+
+   ````powershell
+   Remove-Partition -DriveLetter G
+   ````
+
+1. Delete the virtual disk.
+
+   ````powershell
+   Remove-VirtualDisk -FriendlyName Data
+   ````
+
+1. Delete the storage pool.
+
+   ````powershell
+   Remove-StoragePool -FriendlyName Pool1
+   ````
 
 ## Exercise 2: Storage Tiering
 
@@ -109,6 +295,8 @@ Detailed Instructions
 
 ### Task 1: Creating a Storage Pool
 
+#### Desktop Experience
+
 Perform these steps on FS.
 
 1. On FS open Server Manager
@@ -124,11 +312,55 @@ Perform these steps on FS.
 
 1. Switch to **Server Manager**.
 1. Click **File and Storage Services**, **Volumes**, **Storage Pools**,
-1. In **Storatge Pools**, refresh Server Manager, you should see the faked media types ([figure 8]).
+1. In **Storage Pools**, refresh Server Manager, you should see the faked media types ([figure 8]).
 1. In the drop-down **Tasks**, click **New Storage Pool...**.
-1. Create a new storage pool with the name **TieredPool1** using all available physical disks
+1. Create a new storage pool with the name **TieredPool1** using all available physical disks.
+
+#### PowerShell
+
+Perform these steps on FS.
+
+1. Run **Windows PowerShell** as Administrator.
+1. In **Windows PowerShell**, execute:
+
+   ````powershell
+   Get-PhysicalDisk | Where Size -EQ 50GB | Set-PhysicalDisk -MediaType SSD
+   Get-PhysicalDisk | Where Size -EQ 100GB | Set-PhysicalDisk -MediaType HDD
+   ````
+
+   This simulates our virtual disks being SSDs and HDDs.
+
+1. Validate the media type of the physical disks.
+
+   ````powershell
+   Get-PhysicalDisk
+   ````
+
+1. Create a new storage pool with the name **TieredPool1** using all available physical disks.
+
+   ````powershell
+   $pooldisks = Get-PhysicalDisk | Where-Object { $PSItem.CanPool –eq $true }
+
+   # The back tick ` allows to split long commands into multiple lines
+
+   $storagePoolFriendlyName = 'TieredPool1'
+   New-StoragePool `
+      -StorageSubSystemFriendlyName 'Windows Storage*' `
+      -FriendlyName $storagePoolFriendlyName `
+      -PhysicalDisks $pooldisks
+   New-StorageTier `
+      -StoragePoolFriendlyName $storagePoolFriendlyName `
+      -FriendlyName SSD_TIER `
+      -MediaType SSD
+   New-StorageTier `
+      -StoragePoolFriendlyName $storagePoolFriendlyName `
+      -FriendlyName HDD_TIER `
+      -MediaType HDD
+   ````
 
 ### Task 2: Creating a tiered virtual disk
+
+#### Desktop Experience
 
 Perform these steps on FS.
 
@@ -144,20 +376,48 @@ Perform these steps on FS.
 
 1. In the **New Volume Wizard**, create a standard volume with the name **Volume** using the default settings.
 
-As our HDDs are simulated, we will not see any acceleration in this lab. Note that you could assign files permanently to the SSD tier, for example:
+#### PowerShell
 
-````powershell
-$filePath = 'G:\VM1\Virtual hard Disks\VM1.vhdx'
+Perform these steps on FS.
 
-# The back tick ` allows to split long commands into multiple lines
-Set-FileStorageTier `
-    -FilePath $filePath `
-    -DesiredStorageTierFriendlyName 'Tiered Disk 1_Microsoft_SSD_Template'
-````
+1. Switch **Windows PowerShell ISE**
+1. Create a virtual disk.
+
+   * Name: Tiered Disk 1
+   * Storage layout: Mirror
+   * Size:
+     * Faster tier: 45 GB
+     * Standard tier: 240 GB
+
+   ````powershell
+   $VirtualDisk = New-VirtualDisk `
+      -StoragePoolFriendlyName TieredPool1 `
+      -FriendlyName 'Tiered Disk 1' `
+      -StorageTiers $tier_ssd, $tier_hdd `
+      -ResiliencySettingName Mirror `
+      -StorageTierSizes 45GB, 220GB
+   ````
+
+1. Create a standard volume using the default settings.
+
+   ````powershell
+   New-Volume -DiskUniqueId $VirtualDisk.UniqueId -FriendlyName Volume
+   ````
+
+### Epilog
 
 Note the scheduled tasks for **Storage Tier Management**.
 
 ![Scheduled tasks for storage Tiers Management: Storage Tiers Management Initialization, Storage Tiers Optimization][figure 9]
+
+As our HDDs are simulated, we will not see any acceleration in this lab. Note that you could assign files permanently to the SSD tier, for example:
+
+````powershell
+$filePath = 'G:\VM1\Virtual hard Disks\VM1.vhdx'
+Set-FileStorageTier `
+    -FilePath $filePath `
+    -DesiredStorageTierFriendlyName 'Tiered Disk 1_Microsoft_SSD_Template'
+````
 
 [figure 1]: images/Lab09/figure01.png
 [figure 2]: images/Lab09/figure02.png
