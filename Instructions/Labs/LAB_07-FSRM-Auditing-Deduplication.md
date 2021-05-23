@@ -7,7 +7,6 @@
 * Router
 * FS on HV1
 * CL1
-* SRV2
 
 ## Exercises
 
