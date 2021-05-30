@@ -38,10 +38,9 @@ Perform these steps on CL1.
 
 1. Logon as **smart\Administrator**.
 1. Open **Failover Cluster Manager**.
-1. Select the **Don’t show this message again** checkbox, and close the **Windows Admin Center Info** window.
 1. Connect to **cluster.smart.etc**.
 1. Navigate to **Nodes**.
-1. From the context menu of **Node1**, select **Pause**, **Drain Roles**.
+1. From the context menu of **Node1**, select **Pause**, **Drain Roles**. Wait, until **Status** changes to **Paused**.
 1. From the context menu of **Node1**, select **More Actions**, **Evict** ([figure 2]).
 
 ### Task 2: Prepare for reinstall
@@ -59,7 +58,7 @@ Perform these steps on HV1.
 Perform these steps on Node1.
 
 1. Select your time and currency format.
-1. Click **Install**.
+1. Click **Install now**.
 1. Click **I don’t have a product key**.
 1. Select **Windows Server 2016 Datacenter (Desktop Experience)**, and accept the license.
 1. Select **Custom** as installation method.
@@ -89,17 +88,20 @@ Perform these steps on Node1.
    * **DNS Server:** leave empty
    * Deactivate all other components except for **Internet Protocol Version 4 (TCP/IPv4)** (e.g. **Internet Protocol Version 6 (TCP/IPv6)** [figure 5])
 1. Rename the computer to **Node1** and join it to the domain **smart.etc**. Reboot the computer.
-1. Logon as **smart\Administrator**
+
+   > In real world, what could be the next steps at this point?
+
+1. Logon as **smart\Administrator**.
+1. From the start menu, open **iSCSI Initiator**.
+1. When asked to start the service automatically, click on **Yes** .
+1. In iSCSI Initiator Properties, in **Target:** enter **10.1.9.10** and click **Quick Connect...** ([figure 6]).
 1. Run **Windows PowerShell** as Administrator.
 1. Install the File Server role and the Failover Clustering feature.
 
    ````powershell
-   Install-WindowsFeature 'FS-FileServer', 'Failover-Clustering' -IncludeManagementTools
+   Install-WindowsFeature 'FS-FileServer', 'Failover-Clustering' -IncludeManagementTools -Restart
    ````
 
-1. From the start menu, open **iSCSI Initiator**.
-1. When asked to start the service automatically, click on **Yes** .
-1. In iSCSI Initiator Properties, in **Target:** enter **10.1.9.10** and click **Quick Connect...** ([figure 6]).
 1. Run **certlm.msc**.
 1. Navigate to **Personal**, **Certificates**. Verify that a certificate **CLIUSR** exists ([figure 7]). This certificate is used for authentication between cluster nodes.
 
@@ -107,9 +109,7 @@ Perform these steps on Node1.
 
 Perform these steps on CL1.
 
-1. In **Failover Cluster Manager**, add **Node1** to the Cluster ([figure 8]).
-
-   > In real world, what could be the next steps at this point?
+1. In **Failover Cluster Manager**, add **Node1** to the Cluster ([figure 8]). Do not run validation tests.
 
 ### Task 6: Reinstall and configure subsequent nodes
 
