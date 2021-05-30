@@ -6,7 +6,8 @@
 * CL1
 * DHCP
 * Router
-* HV1
+* Node1 on HV1
+* Node2 on HV1
 * RDCB1
 * RDCB2
 
@@ -23,25 +24,15 @@ In this exercise, you will upgrade a Windows Server 2012 R2 cluster to Windows S
 
 #### Tasks
 
-1. [Start cluster nodes](#task-1-start-cluster-nodes)
-1. [Evict node from cluster](#task-2-evict-node-from-cluster)
-1. [Prepare for reinstall](#task-3-prepare-for-reinstall)
-1. [Reinstall node](#task-4-reinstall-node)
-1. [Configure node](#task-5-configure-node)
-1. [Add node to cluster](#task-6-add-node-to-cluster)
-1. [Reinstall and configure subsequent nodes](#task-7-reinstall-and-configure-subsequent-nodes)
-1. [Update cluster functional level](#task-8-update-cluster-functional-level)
-1. [Clean up](#task-9-clean-up)
+1. [Evict node from cluster](#task-1-evict-node-from-cluster)
+1. [Prepare for reinstall](#task-2-prepare-for-reinstall)
+1. [Reinstall node](#task-3-reinstall-node)
+1. [Configure node](#task-4-configure-node)
+1. [Add node to cluster](#task-5-add-node-to-cluster)
+1. [Reinstall and configure subsequent nodes](#task-6-reinstall-and-configure-subsequent-nodes)
+1. [Update cluster functional level](#task-7-update-cluster-functional-level)
 
-### Task 1: Start cluster nodes
-
-Perform these steps on HV1.
-
-1. In **Hyper-V Manager**, select **Node1** and **Node2**.
-1. From the context menu of **Node1** or **Node2**, select **Checkpoint** ([figure 1]).
-1. From the context menu of **Node1** or **Node2**, select **Start**. Wait for the both VMs to boot and display the logon screen.
-
-### Task 2: Evict node from cluster
+### Task 1: Evict node from cluster
 
 Perform these steps on CL1.
 
@@ -53,7 +44,7 @@ Perform these steps on CL1.
 1. From the context menu of **Node1**, select **Pause**, **Drain Roles**.
 1. From the context menu of **Node1**, select **More Actions**, **Evict** ([figure 2]).
 
-### Task 3: Prepare for reinstall
+### Task 2: Prepare for reinstall
 
 Perform these steps on HV1.
 
@@ -63,7 +54,7 @@ Perform these steps on HV1.
 1. Double-click **Node1** to open the Hyper-V console
 1. Start **Node1** and boot from DVD.
 
-### Task 4: Reinstall node
+### Task 3: Reinstall node
 
 Perform these steps on Node1.
 
@@ -75,7 +66,7 @@ Perform these steps on Node1.
 1. Delete all volumes on the disk and start the installation. Wait for the installation to finish.
 1. Set the local Administrator password as **Pa$$w0rd** and logon.
 
-### Task 5: Configure node
+### Task 4: Configure node
 
 Perform these steps on Node1.
 
@@ -112,7 +103,7 @@ Perform these steps on Node1.
 1. Run **certlm.msc**.
 1. Navigate to **Personal**, **Certificates**. Verify that a certificate **CLIUSR** exists ([figure 7]). This certificate is used for authentication between cluster nodes.
 
-### Task 6: Add node to cluster
+### Task 5: Add node to cluster
 
 Perform these steps on CL1.
 
@@ -120,7 +111,7 @@ Perform these steps on CL1.
 
    > In real world, what could be the next steps at this point?
 
-### Task 7: Reinstall and configure subsequent nodes
+### Task 6: Reinstall and configure subsequent nodes
 
 1. Refer to the steps in [Task 2: Evict first node from the cluster](#task-2-evict-first-node-from-the-cluster) to evict **Node2** from the cluster.
 1. Refer to [Task 3: Prepare the reinstall of first node](#task-3-prepare-the-reinstall-of-first-node) to prepare the reinstall of **Node2**.
@@ -133,7 +124,7 @@ Perform these steps on CL1.
 | Datacenter1     | 10.1.1.62  |
 | iSCSI           | 10.1.9.62  |
 
-### Task 8: Update cluster functional level
+### Task 7: Update cluster functional level
 
 Perform these steps on CL1.
 
@@ -162,12 +153,6 @@ Perform these steps on CL1.
    ````
 
    > What is the updated cluster functional level?
-
-### Task 9: Clean up
-
-Perform these steps on HV1.
-
-1. In **Hyper-V Manager**, shut down Node1 and Node 2.
 
 ## Exercise 2: Network Load Balancing
 
