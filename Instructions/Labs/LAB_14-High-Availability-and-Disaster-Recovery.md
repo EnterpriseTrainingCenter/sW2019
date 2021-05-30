@@ -154,6 +154,8 @@ Perform these steps on CL1.
 
    > What is the updated cluster functional level?
 
+   > How would you upgrade the cluster to Windows Server 2019?
+
 ## Exercise 2: Network Load Balancing
 
 ### Introduction
