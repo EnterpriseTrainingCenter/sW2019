@@ -5,7 +5,7 @@
 * DC1
 * DHCP
 * Router
-* NET1
+* WS2019
 
 ## Exercises
 
@@ -24,7 +24,7 @@ In this exercise, you will create a data collector set with most relevant counte
 
 ### Task 1: Create Data Collector Sets
 
-Perform these steps on NET1.
+Perform these steps on WS2019.
 
 1. From start menu, open the **Performance Monitor** console.
 1. Expand **Data collector sets**.
@@ -76,7 +76,7 @@ Perform these steps on NET1.
 
 ### Task 2: Analyze performance data
 
-Perform these steps on NET1.
+Perform these steps on WS2019.
 
 1. Switch to **Performance Monitor**.
 1. Fully expand **Reports** and open the report for **Performance Baselining** ([figure 6]).
