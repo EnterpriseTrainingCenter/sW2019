@@ -20,46 +20,13 @@
 
 ### Introduction
 
-In this exercise, you will create a few new VHD Disks on your host to simulate plugging in new hard drives to your server. Additionally, you will shrink and expand volumes.
+In this exercise, you will create a 10 GB and a 15 GB volume on Disk 2 of FS and format them with NTFS and ReFS. Then, you will change the size of the volume to 5 GB and 20 GB. Finally, you will create a symbolik link from F:\LabFiles to \\dc1\Labfiles
 
 #### Tasks
 
-1. [Start the virtual machine FS](#task-1-start-the-virtual-machine-fs)
-1. [Working with disks and volumes](#task-2-working-with-disks-and-volumes)
+1. [Working with disks and volumes](#task-1-working-with-disks-and-volumes)
 
-### Task 1: Start the virtual machine FS
-
-#### Desktop Experience
-
-Perform these steps on HV1.
-
-1. Logon as **smart\administrator**.
-2. Open **Hyper-V Manager** and start the virtual machine FS.
-
-#### Windows Admin Center
-
-Perform these steps on CL1.
-
-1. Logon as **smart\administrator**.
-1. Open **Windows Admin Center**.
-1. Connect to **HV1**.
-1. Click **Virtual machines**.
-1. From **Virtual machines**, click **FS**.
-1. From the toolbar, select **Power**, **Start**.
-
-#### PowerShell
-
-Perform these steps on HV1.
-
-1. Logon as **smart\administrator**.
-1. Run **Windows PowerShell** as Administrator.
-1. Start the virtual machine FS.
-
-   ````powershell
-   Start-VM -VMName FS
-   ````
-
-### Task 2: Working with disks and volumes
+### Task 1: Working with disks and volumes
 
 #### Desktop Experience
 
@@ -185,7 +152,7 @@ Perform these steps on FS.
 
 ### Introduction
 
-In this exercise, you will create a file share and work with the AGDLP principles. You will also learn how to use Access Based Enumeration (ABE).
+In this exercise, you will create the domain-local groups DL_Training and DL_Presentations, and the global groups G_Training and G_Sales in the domain. The group G_Sales will be a member of DL_Presentations, and G_Training will be a member of DL_Training. You will add User2 as a member of G_Training, and User1 as a member of G_Sales. Then you will install the file server role on FS, create two new folders on D: of FS and copy some documents from L:\Sampledocuments to them. Next, you will create shares with the new folders and give  DL_Training and DL_Presentations Modify permissions on them, repectively. After testing the file shares from CL1, you will remove DL_Presentations from the ACL of the Presentations share and test it again.
 
 #### Tasks
 
@@ -496,7 +463,7 @@ Perform these steps on CL1.
 
 ### Introduction
 
-In this exercise, you will install and configure the Work Folders feature and try to sync user files across devices.
+In this exercise, you will install and configure the Work Folders feature and try to sync user files across devices. First, you will create an A record Workfolders pointing to 10.1.1.42 in the smart.etc zone. Then, on FS, you will equest a web server certificate for workfolders.smart.etc. Next, you will install the role service Work folders and run the script L:\WorkFolders\ConfWorkFolderCert.ps1 to configure the certificate mapping. The next step will be to configure the Training share as work folder with the user aliases as folder structure. Finally, on CL1, you will test the work folders feature.
 
 #### Tasks
 

@@ -20,7 +20,7 @@
 
 ### Introduction
 
-In this exercise, you prepare an Unattend.xml file to automate the deployment of Windows Server 2019.
+In this exercise, you prepare an Unattend.xml file to automate the deployment of Windows Server 2019. The file should automate InputLocale, SystemLocale, and UserLocale settings. Moreover, it should set the comptuer name to WS2019, set the administrator password to Pa$$w0rd, and set the time zone to your current time zone.
 
 #### Tasks
 
@@ -125,7 +125,7 @@ Perform these steps on HV1.
 
 ### Introduction
 
-In this exercise, you will use the Unattend.xml file from exercise 1 to install a new Windows Server 2019 Server.
+In this exercise, you will use the Unattend.xml file from exercise 1 to install a new Windows Server 2019 Server. First you create a new generation 2 VM named WS2019 with 1 GB of startup memory, connected to the Datacenter1 switch. Then, you will install Windows Server 2019 with your custom ISO image and validate the settings from the unattended file.
 
 #### Tasks
 
@@ -259,7 +259,7 @@ Perform these steps on WS2019.
 
 ### Introduction
 
-In this exercise, you will configure the network settings and join the server to the domain.
+In this exercise, you will configure the network settings and join the server to the domain. Set the IP address of WS2019 to 10.1.1.32/24, the default gateway to 10.1.1.254, and the DNS server to 10.1.1.1. Then, join the machine to the domain smart.etc.
 
 #### Tasks
 
@@ -316,7 +316,6 @@ Perform these steps on WS2019.
 
 1. Leave **Windows PowerShell** open for the next task.
 
-
 ### Task 2: Join the computer to the domain
 
 #### Desktop Experience
@@ -361,7 +360,6 @@ Perform these steps on WS2019.
    > Can you logon? Why?
 
 1. Logoff.
-
 
 ## Exercise 5: Install windows features using Server Manager and Windows PowerShell
 

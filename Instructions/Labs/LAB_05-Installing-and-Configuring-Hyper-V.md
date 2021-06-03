@@ -20,7 +20,7 @@
 
 ### Introduction
 
-In this exercise, you will install the Hyper-V Role.
+In this exercise, you will install the Hyper-V Role on HV2.
 
 #### Tasks
 
@@ -70,7 +70,6 @@ You might receive an error message, telling you that the virtual switch could no
 
    > What is the effect of the option **Allow management OS to share these network adapters**? Why did you receive an error message?
 
-
 #### PowerShell
 
 Perform these steps on HV2.
@@ -107,7 +106,7 @@ Perform these steps on HV2.
 
 ### Introduction
 
-In this exercise, you will create and manage virtual networks.
+In this exercise, you will examine virtual networks, change the second octet of the dynamic MAC address range to 17, create an internal switch names Internal, and a private switch named Private.
 
 #### Tasks
 
@@ -424,7 +423,7 @@ Perform these steps on HV2.
 
 ### Introduction
 
-In this exercise, you will create and manage virtual hard disks.
+In this exercise, you will create a dynamically expanding virtual disk D:\VHDs\Dynamic.vhdx with a size of 1000 GB. Then, you will create a fixed disk D:\VHDs\Fixed.vhdx with a size of 1 GB. Moreover, you will create a differencing disk D:\VHDs\Differencing.vhdx with the fixed disk as parent. You will convert the dynamic disk to the VHD format. Next, you will inspect the differencing disk, break the disk chain and fix it. Finally, you will expand the fixed disk to 2 GB and shrink it to 1 GB again.
 
 #### Tasks
 
@@ -452,7 +451,7 @@ Perform these steps on HV2.
    * **Location:** D:\VHDs
    * **Size:** 1000 GB
 
-### PowerShell
+#### PowerShell
 
 Perform these steps on HV2.
 

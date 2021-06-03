@@ -15,7 +15,7 @@
 
 ### Introduction
 
-In this exercise, you will install Server Core app compatibility features on demand.
+In this exercise, you will install Server Core app compatibility features on demand, including Internet Explorer, on SRV2, and test them.
 
 #### Tasks
 

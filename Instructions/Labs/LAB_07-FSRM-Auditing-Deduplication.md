@@ -18,7 +18,7 @@
 
 ### Introduction
 
-In this exercise, you will create rules for FSRM and test them. You will also create reports and test the classification feature.
+In this exercise, you will install File Server Resource Manager on FS, create and test a quota of 200 MB on the Presentations share, create and test a file screen to block executables from the Presentations share. Finally, you will create a report of file duplicates on D:\ of FS.
 
 #### Tasks
 
@@ -181,7 +181,7 @@ Perform these steps on FS.
 
 ### Introduction
 
-In this lab, you will create audit rules to log file access.
+In this lab, you will create and test an audit rule to monitor file deletes on the Training share.
 
 #### Tasks
 
@@ -246,7 +246,7 @@ Perform these steps on FS.
 
 ### Introduction
 
-In this exercise, you will deduplicate some files to demonstrate deduplication efficiency.
+In this exercise, you will deduplicate the files on D: of FS to demonstrate deduplication efficiency.
 
 #### Tasks
 

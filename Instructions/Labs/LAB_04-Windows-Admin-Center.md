@@ -19,7 +19,7 @@
 
 ### Introduction
 
-In this exercise, you will install Windows Admin Center on Windows Server 2019 Core Edition using a trusted certificate. After that you will configure Kerberos Constrained Delegation to be able to use Single Sign On (SSO) for Admin Center management.
+In this exercise, you will install Windows Admin Center on Windows Server 2019 Core Edition using a trusted certificate on SRV2. After that you will configure Kerberos Constrained Delegation to be able to use Single Sign On (SSO) for the servers dc1, fs, HV1, HV2, sr1, sr2, S2D, S2D1, S2D2, S2D3, S2D4, SRV1903, Docker, Node1, Node2, PKI, SR1, SR2, and WS2019
 
 #### Tasks
 
@@ -186,7 +186,7 @@ Perform these steps on DC1.
 
 ### Introduction
 
-In this exercise, you will make yourself familiar with Windows Admin Center.
+In this exercise, you will set the default language of Windows Admin Center to English, install the Active Directory extension, add manually add connections to DC1 and DHCP, import a connections for HV1 and HV2, test some basic administrative functionality, and examine the PowerShell functions, that make up Windows Admin Center.
 
 #### Tasks
 
@@ -234,7 +234,7 @@ Perform these steps on CL1.
 
 1. Open **Notepad** and create a text file, writing each server name on its own line.
 
-   ````
+   ````shell
    hv1.smart.etc
    hv2.smart.etc
    ````
@@ -271,7 +271,7 @@ Perform these steps on CL1.
 
 ### Introduction
 
-In this exercise you will configure access permissions to Windows Admin Center and activate role-based-access control for a single server.
+In this exercise you will create the domain-local groups DL_WAC-Admins, and DL_WAC-Users in the domain, and give them the Gateway Users and Gateway Administrators role in Windows Admin Center to configure access permissions. Finally, you will activate and test role-based-access control for SRV2.
 
 #### Tasks
 

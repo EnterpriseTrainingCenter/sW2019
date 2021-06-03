@@ -17,9 +17,9 @@
 
 ### Introduction
 
-In this exercise, you will create an Organizational Unit and a personalized Active Directory user account.
+In this exercise, you will create an Organizational Unit named Server2019 and a personalized Active Directory user account.
 
-##### Tasks
+#### Tasks
 
 1. [Create a new Organizational Unit and a new AD User](#task-1-create-a-new-organizational-unit-and-a-new-ad-user)
 1. [Create a new AD user](#task-2-create-a-new-ad-user)

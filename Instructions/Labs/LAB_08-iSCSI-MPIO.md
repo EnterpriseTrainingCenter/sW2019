@@ -18,7 +18,7 @@
 
 ### Introduction
 
-In this exercise, you will create an iSCSI target and configure a multipath route to your storage. At the end, you will test a multipath failover.
+In this exercise, you will add two new additional network interfaces to WS2019 connecting to the virtual switches iSCSI and iSCSI2, configure them with the IP addresses 10.1.9.100 and 10.2.9.100 and disable DNS registration and all network protocol bindings except TCP/IPv4. Next, you will create a new iSCSI target on DHCP by adding a new iSCSI virtual Disk I:, a size of 40 GB giving the initiator of WS2019 access. Then, you will install the Multipath feature on WS2019 and connect to the iSCSI target using MPIO. Finally, you will test the fault-tolerance by disconnecting network connections on WS2019 and examine the performance gain of MPIO.
 
 #### Tasks
 

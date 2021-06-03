@@ -21,7 +21,7 @@
 
 ### Introduction
 
-In this exercise, you will create the Hyper-Converged Cluster with two Cluster Shared Volumes using Storage Spaces Direct.
+In this exercise, you will create a storage pool using all eligible disk on S2D1, S2D2, S2D3, and S2D4. You will set the cluster resiliency period to 10 seconds. Then, you will create a three-way mirrored volume with a size of 40 GB, and a mirror-accelerated parity volume with a size of 85 GB on the storage pool.
 
 #### Tasks
 
@@ -118,7 +118,7 @@ Peform these steps on CL1.
 
 1. Click on **Drives**, **Inventory**. You should see 12 drives from 4 servers.
 1. Click on **Volumes**, **Inventory**. Notice the **ClusterPerformanceHistory** volume.
-1. Create a new three-way mirrored Volume **Volume01** with a Size of **40 GB**. Notice that you could also enable deduplication and compression for ReFS volumes ([figure 3]).
+1. Create a new three-way mirrored Volume **Volume01** with a size of **40 GB**. Notice that you could also enable deduplication and compression for ReFS volumes ([figure 3]).
 1. Create a second volume.
    * **Name**: Volume02
    * **Resiliency**: **Mirror-accelerated parity**
@@ -190,7 +190,7 @@ Peform these steps on CL1.
 
 ### Introduction
 
-In this exercise, you will create a new virtual machine within the Hyper-converged cluster. After the replication has finished two nodes will be shutdown to simulate a hardware failure.
+In this exercise, you will create a new virtual machine using the nanoserver VHDX file on L: within the Hyper-converged cluster. Then, you will simulate a workload and a failure by turning off the host machine of the VM. Next, you will validate the failover. Finally, you will simulate and validate the failure of a second node in the cluster.
 
 #### Tasks
 

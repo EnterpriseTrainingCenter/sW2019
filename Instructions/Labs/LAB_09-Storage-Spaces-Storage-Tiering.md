@@ -17,7 +17,7 @@
 
 ### Introduction
 
-In this exercise, you will create a local Storage Space, configure some virtual disks and test what happens if you remove one or more disks.
+In this exercise, you will create a local Storage Pool on FS using the five remaining 100 GB disks, create a three-way mirror virtual disk with 40 GB and create a ReFS volume G: on it. Finally, you will test the storage pool resilience by removing physical disks from the server, repair the virtual disk by adding a new phyical disk and remove the storage pool.
 
 #### Tasks
 
@@ -283,7 +283,7 @@ Peform these steps on FS.
 
 ### Introduction
 
-In this exercise, you will create a new Storage Pool with Storage Tiering. This demonstrates how to make use of a fast SSD Cache in conjunction with slower HDDs.
+In this exercise, you will first change the media type of the 50 GB physical disks of FS to SSD, and the media type of the 100 GB physical disks to HDD.  Then, you will create a new tiered Storage Pool using the 50 GB and 100 GB disks. Next, you will create a new mirror virtual disk in the Storage Pool with 45 GB in the faster tier, and 240 GB in the standard tier and create a volume with default settings.
 
 #### Tasks
 
