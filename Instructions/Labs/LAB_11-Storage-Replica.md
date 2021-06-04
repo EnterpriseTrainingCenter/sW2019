@@ -20,7 +20,7 @@
 
 ### Introduction
 
-In this exercise, you will test the underlying storage.
+In this exercise, on SR1 and SR2, you will bring disks 1 and 2 online and format the 36 GB disk with the drive letter D and and the label Data, and the 10 GB disk with drive letter E and label Log. Then, on SR1 and SR2, you will install the storage replica feature. Finally, you will run and evaluate the storage replica test.
 
 #### Tasks
 
@@ -222,7 +222,7 @@ Perform these steps on CL1.
 
 ### Introduction
 
-In this exercise, you will create a stretched Hyper-V cluster and configure storage replica.
+In this exercise, you will first create a cluster with SR1 and SR2 as nodes with the NoStorage option. Then, you will create fault separate domains for the two nodes, set the preferred site to the first node, set the cluster resilience period to 10 seconds, and all eligible disks to the cluster. Finally, you will replicate the Data disk from SR1 to SR2 with the help of the Log disk.
 
 #### Tasks
 
@@ -492,7 +492,7 @@ Perform these steps on SR1.
 
 ### Introduction
 
-In this exercise, you create a new virtual machine within the Hyper-V stretched cluster. After replication has finished, you shut down one node to simulate a hardware failure. Finally, you test replication failover.
+In this exercise, you create a new virtual machine within the Hyper-V stretched cluster using the nano server image from L:\NanoVHDX. After replication has finished, you will simulate a work load and shut down one node to simulate a hardware failure. Then, you will validate the failover, reverse the replication and test the recovery. As a last step, you will simulate a replication failure and test, how to revover from it.
 
 #### Tasks
 

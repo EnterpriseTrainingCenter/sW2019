@@ -16,7 +16,7 @@
 
 ### Introduction
 
-In this exercise, you will create a patch management solution with Windows Server Update Services (WSUS) and approve and download some updates to your Windows Client machines.
+In this exercise, you will install and configure WSUS on NET1, approve an update, add a DNS record for WSUS, and add a Group Policy Object to the domain, which configures clients to use NET1 for Windows Updates. Then, you will install updates on CL1 using WSUS, generate Windows Update logs on the client and view the status of the client in WSUS.
 
 #### Tasks
 

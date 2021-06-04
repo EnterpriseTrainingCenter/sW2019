@@ -15,7 +15,7 @@
 
 ### Introduction
 
-In this exercise, you will create a data collector set with most relevant counters for the 4 primary server performance subsystems.
+In this exercise, you will create a data collector set on WS2019 with most relevant counters for memory, CPU, storage and network. Then, you will simulate some workload. Finally, you will analyze the collected performance data.
 
 #### Tasks
 

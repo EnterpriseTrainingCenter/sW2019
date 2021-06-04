@@ -20,7 +20,7 @@
 
 ### Introduction
 
-In this exercise, you will upgrade a Windows Server 2012 R2 cluster to Windows Server 2019.
+In this exercise, you will upgrade a Windows Server 2012 R2 cluster consisting of Node1 and Node2 to Windows Server 2016.
 
 #### Tasks
 
@@ -309,7 +309,7 @@ Perform these steps on CL1.
 
 ### Introduction
 
-In this exercise, you will create and test a network load balancing cluster.
+In this exercise, you will create and test a network load balancing cluster. On RDCB1 and RDCB2, you will install IIS and Network Load Balancing, configure IIS with a sample site, configure the NLB cluster consisting of the two nodes, add a DNS record for the cluster, validate the cluster, and simulate a failure and its recovery.
 
 #### Tasks
 

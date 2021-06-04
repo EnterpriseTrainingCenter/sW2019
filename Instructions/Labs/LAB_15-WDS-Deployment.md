@@ -15,7 +15,7 @@
 
 ### Introduction
 
-In this exercise, you will install the WDS Services, create a reference server image and deploy this image unattended via multicast transmission.
+In this exercise, you will install the WDS Services on WS2019, import a Windows boot and a Windows Server install image, create a master VM from the using WDS, import the VHDX file of the master VM as new master image into WDS, and configure answer files to automate the boot and the install process. Finally, you will create a multicast transmission and test the installation of two servers using multicast.
 
 #### Tasks
 

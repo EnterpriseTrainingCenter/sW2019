@@ -20,7 +20,7 @@
 
 ### Introduction
 
-In this exercise, you will prepare all systems for storage migration.
+The goal for this lab is to migrate the file shares from WS2008R2 to FS. In this exercise, you will install the Storage Migration Service Proxy on FS and the Storage Migration Service on SRV1903, which will act as an orchestrator server during the migration.
 
 #### Tasks
 
@@ -56,7 +56,7 @@ Perform these steps on CL1.
 
 ### Introduction
 
-In this exercise, you will inventory the source server and start the transfer. After the data transfer, you configure settings on the destination server, validate the configuration, and finally cutover to the new server.
+In this exercise, you will inventory the source server WS2008R2 and start the transfer to FS. After the data transfer, you configure settings on the destination server, validate the configuration, and finally cutover to the new server. As a last step, you will validate the migration.
 
 #### Tasks
 
