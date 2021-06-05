@@ -2,11 +2,13 @@
 
 ## Required VMs
 
+* CL1
 * DC1
 * DHCP
 * Router
 * K8SMaster
 * K8SNode
+* SRV2
 
 ## Exercises
 
@@ -19,7 +21,7 @@
 
 ### Introduction
 
-In this exercise, you will deploy a Docker host and start standard containers.
+In this exercise, first, you will enable nested virtualization and install docker on the VM DOCKER. Then, you will pull the nanoserver 1809 image from the docker repository, import the Windows Server LTSC 2019 image from c:\images\winsrvcoreltsc2019 and create a transparent network called smartnet. Next, you will run the nanoserver image. Then, you will start the Windows Server LTSC image and attach it to the smartnet network. You will install IIS in this image, customize the web site and save it as custom image into the local repository. Finally, you will run the custom image in process and Hyper-V isolation mode and compare the memory usage.
 
 #### Tasks
 
@@ -33,7 +35,7 @@ In this exercise, you will deploy a Docker host and start standard containers.
 1. [Save the custom container as new image to the repository](#task-9-save-the-custom-container-as-new-image-to-the-repository)
 1. [Run a container in Hyper-V isolation mode](#task-10-run-a-container-in-hyper-v-isolation-mode)
 
-### Task 1: Enable nested virtualization and install docker
+### Task 1: Enable nested virtualization
 
 Perform these steps on the host computer.
 
@@ -42,30 +44,35 @@ Perform these steps on the host computer.
 1. Enable Nested Virtualization for the VM DOCKER.
 
    ````powershell
-   C:\HostFiles\Enable-NestedVM.ps1 DOCKER
+   $vmName = 'DOCKER'
+   C:\HostFiles\Enable-NestedVM.ps1 $vmName
    ````
 
-1. In **Hyper-V Manager**, start the VM **DOCKER**.
+1. Start the VM DOCKER.
+
+   ````powershell
+   Start-VM $vmName
+   ````
 
 ### Task 2: Install Docker
+
+#### PowerShell
 
 Perform these steps on DOCKER.
 
 1. Logon as Administrator
 1. Run **Windows PowerShell as Administrator**.
-1. Install the Docker Provider.
+1. Install the Docker-Microsoft PackageManagement Provider from the PowerShell Gallery.
 
    ````powershell
    $providerName = 'DockerMsftProvider'
    Install-Module -Name $providerName -Repository PSGallery –Force
    ````
 
-1. Install the Docker package.
+1. Use the PackageManagement PowerShell module to install the latest version of Docker.
 
    ````powershell
-   $packageName = 'Docker'
-   Find-Package $packageName -ProviderName $providerName
-   Install-Package -Name $packageName -ProviderName $providerName -Force
+   Install-Package -Name 'Docker' -ProviderName $providerName
    ````
 
 1. Set Docker service to start automatically.
@@ -80,7 +87,29 @@ Perform these steps on DOCKER.
    Install-WindowsFeature 'Hyper-V' -Restart
    ````
 
+#### Windows Admin Center
+
+Perform these steps on CL1.
+
+1. Logon as **smart\administrator**
+1. Start Google Chrome.
+1. In Google Chrome, navigate to <https://admincenter.smart.etc>.
+1. In **Windows Admin Center**, on the top-right, click the gear icon to open settings.
+1. In **Settings**, on the left, click **Extensions**.
+1. In **Extensions**, click **Containers**, then click **Install**. Wait for the installation to complete.
+1. Return to the home page of **Windows Admin Center**.
+1. Add a server connection to server **Docker**.
+1. Connect to to server **Docker.smart.etc**.
+1. Conntected to **Docker.smart.etc**, on the left, click **Containers**.
+1. Click **Install** and wait for the installation to complete. This will take a minute or two. After installation completes, the server will restart and you will be taken to the home page of **Windows Admin Center**. Wait for the server to reboot and reconnect to **Docker.smart.etc**.
+1. Connected to **Docker.smart.etc**, click **Roles & Features**.
+1. In **Roles and features**, activate **Hyper-V** and click **+ Install**.
+1. On the pane **Install Roles and Features**, activate **Reboot the server automatically if required** and click **Yes**. Wait for the installation to complete. This may take a minute or two.
+
 ### Task 3: Prepare docker images and networking
+
+*Note:*
+Although Windows Admin Center provides some basic functionality for containers, it is limited in a way, which will not allow you to complete all steps in this task or make it over-complicated.
 
 Perform these steps on DOCKER.
 
@@ -153,11 +182,10 @@ Perform these steps on DOCKER.
    docker run -it mcr.microsoft.com/windows/nanoserver:1809 cmd
    ````
 
-1. Within the running container validate the NAT IP configuration and try to ping DC1.
+1. Display the hostname of the container.
 
    ````shell
-   ipconfig /all
-   ping DC1.smart.etc
+   hostname
    ````
 
 1. Exit the running container
@@ -186,10 +214,11 @@ Perform these steps on DOCKER.
    docker attach <container id>
    ````
 
-1. Display the hostname of the container.
+1. Within the running container validate the NAT IP configuration and try to ping DC1.
 
    ````shell
-   hostname
+   ipconfig /all
+   ping DC1.smart.etc
    ````
 
 1. Exit the container without stopping it by pressing CTRL+P and CTRL+Q.
@@ -256,10 +285,10 @@ Perform these steps on DOCKER.
 
 ### Task 6: Validate the web server
 
-Perform these steps on DC1.
+Perform these steps on CL1.
 
 1. Logon as **smart\Administrator**.
-1. Open a web browser.
+1. Open **Google Chrome**.
 1. In the web browser, navigate to the IP address of the container you took note of in the previous task.
 
    > Do you see a valid web page?
@@ -271,12 +300,12 @@ Perform these steps on DOCKER.
 1. In the running container, create a new default HTML page.
 
    ````shell
-   echo "Test Homepage" > C:\inetpub\wwwroot\default.htm
+   echo Test Homepage > C:\inetpub\wwwroot\default.htm
    ````
 
 ### Task 8: Validate the web site deployment
 
-Perform these steps on DC1.
+Perform these steps on CL1.
 
 1. In the open web browser, refresh the web site.
 
@@ -314,15 +343,73 @@ Perform these steps on DOCKER.
 
 ### Task 10: Run a container in Hyper-V isolation mode
 
-1. Start the container **iisdemo** in Hyper-V isolation mode.
+1. Open a separate PowerShell windows.
+
+   ````shell
+   start powershell
+   ````
+
+1. In **Windows PowerShell**, capture the processes currently running.
+
+   ````powershell
+   $processes = Get-Process
+   ````
+
+1. In the command prompt window, start the container **iisdemo** as process isolated container.
 
    ````shell
    docker run --rm --isolation=hyperv -it iisdemo cmd
    ````
 
-1. Press SHIFT+CTRL+ESC to open **Task Manager**.
-1. Search for the **vmwp.exe** process of the container. Compare the memory usage with process isolated containers.
-1. Press CTRL+P, CTRL+Q to exit the container.
+1. In **Windows PowerShell**, list the processes, the container launched.
+
+   ````powershell
+   Get-Process | 
+   Where-Object { $PSItem.Id -notin $processes.id }
+   ````
+
+1. Calculate the memory usage of the processes in the container. Take a note of the sum.
+
+   ````powershell
+   Get-Process | 
+   Where-Object { $PSItem.Id -notin $processes.id } | 
+   Measure-Object -Property WorkingSet -Sum
+   ````
+
+1. In the command prompt window, exit the container and stop it.
+
+   ````shell
+   exit
+   ````
+
+1. In the command prompt window, start the container **iisdemo** in Hyper-V isolation mode.
+
+   ````shell
+   docker run --rm --isolation=hyperv -it iisdemo cmd
+   ````
+
+1. In **Windows PowerShell**, list the processes, the container launched. Notice the process **vmmem**.
+
+   ````powershell
+   Get-Process | 
+   Where-Object { $PSItem.Id -notin $processes.id }
+   ````
+
+1. Calculate the memory usage of the processes in the container. Compare the sum to the sum you took note earlier in the task.
+
+   ````powershell
+   Get-Process | 
+   Where-Object { $PSItem.Id -notin $processes.id } | 
+   Measure-Object -Property WorkingSet -Sum
+   ````
+
+   > Which isolation mode takes up more memory? How much is the difference?
+
+1. In the command prompt window, exit the container and stop it.
+
+   ````shell
+   exit
+   ````
 
 ## Exercise 2: Working with dockerfile
 
@@ -352,19 +439,13 @@ Perform these steps on DOCKER.
    notepad
    ````
 
-1. Create a Docker file based on the server core image. Save the file as **dockerfile** in **C:\Build**.
+1. Create a Docker file based on the server core image. Save the file as **dockerfile.** in **C:\Build**. (include the dot at the end of the filename) selecting **All Files** in **Save as type**. The dot at the end makes sure, the file does not automatically get a file extension  attached.
 
    ````dockerfile
    FROM mcr.microsoft.com/windows/servercore:ltsc2019
    RUN dism /online /enable-feature /all /featurename:iis-webserver /NoRestart
    RUN echo "Hello World - Dockerfile" > C:\Inetpub\wwwroot\index.html
    CMD ["ping", "localhost", "-t" ]
-   ````
-
-1. In **Command Prompt**, remove the file extension from the file.
-
-   ````shell
-   ren c:\build\dockerfile.txt dockerfile
    ````
 
 1. Create a new docker image using dockerfile.
@@ -395,7 +476,7 @@ Perform these steps on DOCKER.
 
 ### Task 2: Validate the new image
 
-Perform these steps on DC1.
+Perform these steps on CL1.
 
 1. Open a web browser.
 1. Navigate to the IP address of Docker, you took note of in the previous task.
