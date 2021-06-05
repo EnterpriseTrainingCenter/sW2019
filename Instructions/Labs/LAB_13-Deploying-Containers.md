@@ -415,7 +415,7 @@ Perform these steps on DOCKER.
 
 ### Introduction
 
-In this exercise, you will deploy a container using Dockerfile.
+In this exercise, you will build a dockerfile, which create a new image from Windows Server 2019 Core LTSC, installs IIS, creates a custom index.html in wwwroot and sends a permanent ping to localhost. Then you create a new image from the dockerfile, run and test it.
 
 #### Tasks
 
@@ -503,7 +503,7 @@ Perform these steps on DOCKER.
 
 ### Introduction
 
-In this exercise, you will deploy a Linux Container.
+In this exercise, you will activate support for Linux Container, pull and run the hello-world image, and disable the support again. Next, you will use LinuxKit to run a Windows container (the container from the previous exercise) and a Linux container (nginx) in parallel.
 
 #### Tasks
 
