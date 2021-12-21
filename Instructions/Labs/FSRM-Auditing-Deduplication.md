@@ -353,11 +353,11 @@ Perform these steps on FS.
    Get-DedupVolume
    ````
 
-[figure 1]: images/Lab07/figure01.png
-[figure 2]: images/Lab07/figure02.png
-[figure 3]: images/Lab07/figure03.png
-[figure 4]: images/Lab07/figure04.png
-[figure 5]: images/Lab07/figure05.png
-[figure 6]: images/Lab07/figure06.png
-[figure 7]: images/Lab07/figure07.png
-[figure 8]: images/Lab07/figure08.png
+[figure 1]: images/FSRM-create-quota.png
+[figure 2]: images/Explorer-easy-access.png
+[figure 3]: images/Explorer-volume-properties-presentations.png
+[figure 4]: images/Explorer-copy-item-error-space.png
+[figure 5]: images/Explorer-file-access-denied.png
+[figure 6]: images/GPO-audit-object-access.png
+[figure 7]: images/Explorer-auditing-training.png
+[figure 8]: images/Auditing-event.png
