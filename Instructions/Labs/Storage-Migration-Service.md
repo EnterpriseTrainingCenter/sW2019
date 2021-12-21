@@ -131,14 +131,14 @@ Perform these steps on FS (now SRV2008R2).
    | **PERM_HR_M**  | Modify           |
    | **PERM_HR_R**  | Read and Execute |
 
-[figure 1]: images/Lab12/figure01.png
-[figure 2]: images/Lab12/figure02.png
-[figure 3]: images/Lab12/figure03.png
-[figure 4]: images/Lab12/figure04.png
-[figure 5]: images/Lab12/figure05.png
-[figure 6]: images/Lab12/figure06.png
-[figure 7]: images/Lab12/figure07.png
-[figure 8]: images/Lab12/figure08.png
-[figure 9]: images/Lab12/figure09.png
-[figure 10]: images/Lab12/figure10.png
-[figure 11]: images/Lab12/figure11.png
+[figure 1]: images/SMS-add-and-scan-devices.png
+[figure 2]: images/SMS-add-and-scan-devices-succeeded.png
+[figure 3]: images/SMS-succeeded.png
+[figure 4]: images/SMS-add-and-scan-devices-details.png
+[figure 5]: images/SMS-add-destination-device-destination-volume.png
+[figure 6]: images/SMS-adjust-transfer-settings.png
+[figure 7]: images/SMS-validation-pass.png
+[figure 8]: images/SMS-migration-test-results.png
+[figure 9]: images/SMS-configure-cutover.png
+[figure 10]: images/SMS-pass.png
+[figure 11]: images/SMS-restarting-source-computer.png
