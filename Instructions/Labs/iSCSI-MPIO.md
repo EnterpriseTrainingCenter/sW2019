@@ -395,7 +395,7 @@ Perform these steps on WS2019.
 
    > How is the network traffic distributed?
 
-[figure 1]: images/Lab08/figure01.png
-[figure 2]: images/Lab08/figure02.png
-[figure 3]: images/Lab08/figure03.png
-[figure 4]: images/Lab08/figure04.png
+[figure 1]: images/iSCSI-new-iscsi-virtual-disk.png
+[figure 2]: images/iSCSI-initiator-properties-connect-disconnect.png
+[figure 3]: images/iSCSI-advanced-settings.png
+[figure 4]: images/MPIO-task-manager-ethernet.png
