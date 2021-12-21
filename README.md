@@ -1,10 +1,10 @@
-# smart Windows Server 2019 Compute & Storage Lab Guide
+# smart Windows Server 2019 Lab Guides
 
 This repository contains labs for various courses. For each course, there is a page containing a numbered and hyperlinked list of labs.
 
 Currently, this repository contains labs for these courses:
 
-* [smart Windows Server 2019 Compute & Storage (sw2019-1)](Instructions\sW2019-1.md)
+* [smart Windows Server 2019 Compute & Storage (sw2019-1)](Instructions/sW2019-1.md)
 
 See also Issues not only containing current known issues with possible solutions, but also allows to raise new issues.
 
