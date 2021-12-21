@@ -1,4 +1,4 @@
-# Lab 9: Storage Spaces & Storage Tiering
+# Lab: Storage Spaces & Storage Tiering
 
 ## Required VMs
 
@@ -419,12 +419,12 @@ Set-FileStorageTier `
     -DesiredStorageTierFriendlyName 'Tiered Disk 1_Microsoft_SSD_Template'
 ````
 
-[figure 1]: images/Lab09/figure01.png
-[figure 2]: images/Lab09/figure02.png
-[figure 3]: images/Lab09/figure03.png
-[figure 4]: images/Lab09/figure04.png
-[figure 5]: images/Lab09/figure05.png
-[figure 6]: images/Lab09/figure06.png
-[figure 7]: images/Lab09/figure07.png
-[figure 8]: images/Lab09/figure08.png
-[figure 9]: images/Lab09/figure09.png
+[figure 1]: images/S2-tasks-new-storage-pool.png
+[figure 2]: images/S2-physical-disks-sortby-chassis.png
+[figure 3]: images/S2-problem.png
+[figure 4]: images/S2-add-physical-disk.png
+[figure 5]: images/S2-add-physical-disk-hot-spare.png
+[figure 6]: images/S2-repair-virtual-disk.png
+[figure 7]: images/S2-remove-disk.png
+[figure 8]: images/Storage-tiers-physical-disks-media-type.png
+[figure 9]: images/Storage-tiers-scheduled-tasks.png

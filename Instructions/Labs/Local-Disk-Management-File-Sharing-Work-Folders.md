@@ -1,4 +1,4 @@
-# Lab 6: Local Disk Management, File Sharing & Work Folders
+# Lab: Local Disk Management, File Sharing & Work Folders
 
 ## Required VMs
 
@@ -605,22 +605,22 @@ Perform these steps on CL1.
 4. Commit the default Work Folder location inside your user profile, and accept the security policies you have configured before ([figure 17]).
 5. Work Folder Sync is now configured. Copy some files from the Labfiles Share **Sample Documents** folder into the Sync Share and check that the upload to server FS starts immediately ([figure 18], [figure 19]).
 
-[figure 1]: images/Lab06/figure01.png
-[figure 2]: images/Lab06/figure02.png
-[figure 3]: images/Lab06/figure03.png
-[figure 4]: images/Lab06/figure04.png
-[figure 5]: images/Lab06/figure05.png
-[figure 6]: images/Lab06/figure06.png
-[figure 7]: images/Lab06/figure07.png
-[figure 8]: images/Lab06/figure08.png
-[figure 9]: images/Lab06/figure09.png
-[figure 10]: images/Lab06/figure10.png
-[figure 11]: images/Lab06/figure11.png
-[figure 12]: images/Lab06/figure12.png
-[figure 13]: images/Lab06/figure13.png
-[figure 14]: images/Lab06/figure14.png
-[figure 15]: images/Lab06/figure15.png
-[figure 16]: images/Lab06/figure16.png
-[figure 17]: images/Lab06/figure17.png
-[figure 18]: images/Lab06/figure18.png
-[figure 19]: images/Lab06/figure19.png
+[figure 1]: images/disk-management-disk2.png
+[figure 2]: images/Explorer-mounted-volume.png
+[figure 3]: images/AD-create-group-DL_TrainingData.png
+[figure 4]: images/AD-group-members-DL_TrainingData.png
+[figure 5]: images/Server-Manager-Add-Role-File-Server.png
+[figure 6]: images/Server-Manager-Shares.png
+[figure 7]: images/Explorer-Disable-Inheritance.png
+[figure 8]: images/Explorer-block-inheritance-alert.png
+[figure 9]: images/Explorer-permissions-TrainingData.png
+[figure 10]: images/Explorer-content-presentations.png
+[figure 11]: images/PKI-certificate-template-properties-permissions-fs.png
+[figure 12]: images/PKI-request-certificate-web-server-2016.png
+[figure 13]: images/PKI-request-certificate-properties-workfolders.png
+[figure 14]: images/Workfolders-SSL-certificate-bindings.png
+[figure 15]: images/Workfolders-new-sync-share.png
+[figure 16]: images/Server-Manager-Workfolders.png
+[figure 17]: images/Workfolders-security-policies.png
+[figure 18]: images/Workfolders-explorer-status.png
+[figure 19]: images/Workfolders-clients-status.png

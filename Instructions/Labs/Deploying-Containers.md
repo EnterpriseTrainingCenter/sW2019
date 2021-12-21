@@ -1,4 +1,4 @@
-# Lab 13: Deploying Containers
+# Lab: Deploying Containers
 
 ## Required VMs
 
@@ -756,8 +756,8 @@ Perform these steps on K8SMaster.
    kubectl delete deployment smartiis
    ````
 
-[figure 1]: images/Lab13/figure01.png
-[figure 2]: images/Lab13/figure02.png
-[figure 3]: images/Lab13/figure03.png
-[figure 4]: images/Lab13/figure04.png
-[figure 5]: images/Lab13/figure05.png
+[figure 1]: images/docker-images-id.png
+[figure 2]: images/docker-images-tagged.png
+[figure 3]: images/docker-network.png
+[figure 4]: images/docker-ps-container-id.png
+[figure 5]: images/docker-run-hello-world.png

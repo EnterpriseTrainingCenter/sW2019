@@ -1,4 +1,4 @@
-# Lab 15: WDS Deployment
+# Lab: WDS Deployment
 
 ## Required VMs
 
@@ -433,12 +433,12 @@ Perform these steps on Server1 or Server2.
    bcdedit /v
    ````
 
-[figure 1]: images/Lab15/figure01.png
-[figure 2]: images/Lab15/figure02.png
-[figure 3]: images/Lab15/figure03.png
-[figure 4]: images/Lab15/figure04.png
-[figure 5]: images/Lab15/figure05.png
-[figure 6]: images/Lab15/figure06.png
-[figure 7]: images/Lab15/figure07.png
-[figure 8]: images/Lab15/figure08.png
-[figure 9]: images/Lab15/figure09.png
+[figure 1]: images/WDS-image-add.png
+[figure 2]: images/WSIM-components.png
+[figure 3]: images/WSIM-amd64_Microsoft-Windows-Setup_neutral.png
+[figure 4]: images/WSIM-CreatePartitions.png
+[figure 5]: images/WSIM-installimage-master-vhdx.png
+[figure 6]: images/WDS-properties-client.png
+[figure 7]: images/WDS-multicast-status.png
+[figure 8]: images/WDS-multicast-bypass.png
+[figure 9]: images/BCD-store-boot-from-vhdx.png

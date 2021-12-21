@@ -1,4 +1,4 @@
-# Lab 3: Windows Server Environment Basics
+# Lab: Windows Server Environment Basics
 
 ## Required VMs
 
@@ -322,4 +322,4 @@ Perform these steps on HV1.
    Get-ADUser "$firstname.$lastname" -Properties DisplayName 
    ````
 
-[figure 1]: images/Lab03/figure01.png
+[figure 1]: images/AD-ou-new.png

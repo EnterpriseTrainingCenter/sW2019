@@ -1,8 +1,12 @@
 # smart Windows Server 2019 Compute & Storage Lab Guide
 
-The course and the lab guide are roughly based on official Microsoft course *20740 Installation, Storage, and Compute with Windows Server 2016*. For information about the course see <https://www.etc.at/seminare/sw2019-1/>.
+This repository contains labs for various courses. For each course, there is a page containing a numbered and hyperlinked list of labs.
 
-The lab instructions can be found in [**instructions/labs**](https://github.com/EnterpriseTrainingCenter/sW2019-1/tree/main/Instructions/Labs). They are to be used in conjunction with the original presentation slides and virtual machine images only. The slides and virtual machine images are not contained in this repository. Licensing is possible, please contact us.
+Currently, this repository contains labs for these courses:
+
+* [smart Windows Server 2019 Compute & Storage (sw2019-1)](Instructions\sW2019-1.md)
+
+See also Issues not only containing current known issues with possible solutions, but also allows to raise new issues.
 
 If you are a trainer or participant of the course, you may fork this repository. Pull requests are accepted after review. Please follow our [Guidelines](https://github.com/EnterpriseTrainingCenter/Guidelines).
 

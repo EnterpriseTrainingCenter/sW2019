@@ -1,4 +1,4 @@
-# Lab 16: WSUS
+# Lab: WSUS
 
 ## Required VMs
 
@@ -410,17 +410,16 @@ Perform these steps on NET1.
    Get-WsusComputer
    ````
 
-
-[figure 1]: images/Lab16/figure01.png
-[figure 2]: images/Lab16/figure02.png
-[figure 3]: images/Lab16/figure03.png
-[figure 4]: images/Lab16/figure04.png
-[figure 5]: images/Lab16/figure05.png
-[figure 6]: images/Lab16/figure06.png
-[figure 7]: images/Lab16/figure07.png
-[figure 8]: images/Lab16/figure08.png
-[figure 9]: images/Lab16/figure09.png
-[figure 10]: images/Lab16/figure10.png
-[figure 11]: images/Lab16/figure11.png
-[figure 12]: images/Lab16/figure12.png
-[figure 13]: images/Lab16/figure13.png
+[figure 1]: images/WSUS-installation-progress.png
+[figure 2]: images/WSUS-overview.png
+[figure 3]: images/WSUS-group-add.png
+[figure 4]: images/WSUS-filter-status-any.png
+[figure 5]: images/WSUS-columns-select-release-date.png
+[figure 6]: images/WSUS-approve-updates.png
+[figure 7]: images/WSUS-approve-updates-group-clients.png
+[figure 8]: images/GPO-create-and-link-domain.png
+[figure 9]: images/WSUS-linked-gpo-objects.png
+[figure 10]: images/WU-updates-available.png
+[figure 11]: images/WSUS-get-windowsupdatelog-response.png
+[figure 12]: images/WSUS-log.png
+[figure 13]: images/WSUS-group-clients.png

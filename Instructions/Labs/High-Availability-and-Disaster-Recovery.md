@@ -1,4 +1,4 @@
-# Lab 14: High Availability and Disaster Recovery
+# Lab: High Availability and Disaster Recovery
 
 ## Required VMs
 
@@ -380,10 +380,10 @@ Perform these steps on RDCB1.
 1. On page **New Cluster: Cluster IP Addresses**, add the clustered IP **10.1.1.64/24**, and click on **Next**.
 1. On page **New Cluster: Cluster Parameters**, in **Full Internet name**, enter the FQDN **www.smart.etc**, set the cluster operations mode to **Multicast**, and click on **Next**.
 1. On page **New Cluster: Port Rules**, select the default port rule, and click on **Edit**.
-1. In **#Add/Edit Port Rule**, in **From** and **To**, enter **80**. Under Protocols, select TCP and click on **OK** ([figure 10]).
+1. In **#Add/Edit Port Rule**, in **From** and **To**, enter **80**. Under Protocols, select TCP and click on **OK** ([figure 9]).
 1. Back on page **New Cluster: Port Rules**, click on **Finish** to create the NLB cluster.
 1. Open a **Command Prompt**.
-1. Validate the IP configuration ([figure 11]).
+1. Validate the IP configuration ([figure 10]).
 
    ````shell
    ipconfig
@@ -458,14 +458,13 @@ Perform these steps on DC1.
 
 If time permits, you can repeat tasks 6 - 9 simulating a failure on RDCB2.
 
-[figure 1]: images/Lab14/figure01.png
-[figure 2]: images/Lab14/figure02.png
-[figure 3]: images/Lab14/figure03.png
-[figure 4]: images/Lab14/figure04.png
-[figure 5]: images/Lab14/figure05.png
-[figure 6]: images/Lab14/figure06.png
-[figure 7]: images/Lab14/figure07.png
-[figure 8]: images/Lab14/figure08.png
-[figure 9]: images/Lab14/figure09.png
-[figure 10]: images/Lab14/figure10.png
-[figure 11]: images/Lab14/figure11.png
+[figure 1]: images/hyperv-manager-vm-checkpoint.png
+[figure 2]: images/cluster-evict.png
+[figure 3]: images/Ethernet-properties-configure.png
+[figure 4]: images/hyperv-network-adapter-name.png
+[figure 5]: images/Ethernet-properties-ipv4-only.png
+[figure 6]: images/iscsi-quick-connect.png
+[figure 7]: images/certificates-cliusr.png
+[figure 8]: images/cluster-add-node.png
+[figure 9]: images/wlb-defined-port-rules.png
+[figure 10]: images/wlb-ipconfig-result.png
