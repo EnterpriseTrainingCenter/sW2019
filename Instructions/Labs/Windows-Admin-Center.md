@@ -385,12 +385,12 @@ Perform these steps on CL1.
 
 1. Logoff from CL1
 
-[figure 1]: images/Lab04/figure01.png
-[figure 2]: images/Lab04/figure02.png
-[figure 3]: images/Lab04/figure03.png
-[figure 4]: images/Lab04/figure04.png
-[figure 5]: images/Lab04/figure05.png
-[figure 6]: images/Lab04/figure06.png
-[figure 7]: images/Lab04/figure07.png
-[figure 8]: images/Lab04/figure08.png
-[figure 9]: images/Lab04/figure09.png
+[figure 1]: images/WAC-icon-settings.png
+[figure 2]: images/WAC-add-server-connection-dc1.png
+[figure 3]: images/WAC-add-server-connection-dhcp.png
+[figure 4]: images/WAC-icon-powershell.png
+[figure 5]: images/WAC-view-powershell-scripts-for-home.png
+[figure 6]: images/WAC-add-allowed-group.png
+[figure 7]: images/WAC-RBAC-applied.png
+[figure 8]: images/WAC-groups.png
+[figure 9]: images/WAC-limited-access-srv2.png
