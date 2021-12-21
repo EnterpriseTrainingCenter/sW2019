@@ -470,8 +470,8 @@ Perform these steps on CL1.
    Stop-VM -ComputerName 'S2D' -VMName $vMName
    ````
 
-[figure 1]: images/Lab10/figure01.png
-[figure 2]: images/Lab10/figure02.png
-[figure 3]: images/Lab10/figure03.png
-[figure 4]: images/Lab10/figure04.png
-[figure 5]: images/Lab10/figure05.png
+[figure 1]: images/S2D-get-storagepool-response.png
+[figure 2]: images/WAC-hyper-converged-cluster-connection-add.png
+[figure 3]: images/WAC-create-volume.png
+[figure 4]: images/WAC-volume-details.png
+[figure 5]: images/WAC-inventory-refresh.png
