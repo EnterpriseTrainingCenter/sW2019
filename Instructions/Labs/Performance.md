@@ -87,10 +87,10 @@ Perform these steps on WS2019.
 1. Navigate to the logfile **Microsoft**, **Windows**, **Diagnosis-PLA**, **Operational**.
 1. You’ll find messages regarding exceeding the set CPU performance limit of 80% ([figure 7]).
 
-[figure 1]: images/Lab17/figure01.png
-[figure 2]: images/Lab17/figure02.png
-[figure 3]: images/Lab17/figure03.png
-[figure 4]: images/Lab17/figure04.png
-[figure 5]: images/Lab17/figure05.png
-[figure 6]: images/Lab17/figure06.png
-[figure 7]: images/Lab17/figure07.png
+[figure 1]: images/Performance-counters-available-selected.png
+[figure 2]: images/Performance-counters-available.png
+[figure 3]: images/Performance-counter-add.png
+[figure 4]: images/Performance-counter-alert.png
+[figure 5]: images/Performance-DataCollector-properties.png
+[figure 6]: images/Performance-graph.png
+[figure 7]: images/Performance-event-treshold.png
