@@ -1,4 +1,4 @@
-# Lab 13: Deploying Containers
+# Lab: Deploying Containers
 
 ## Required VMs
 

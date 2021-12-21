@@ -1,4 +1,4 @@
-# Lab 9: Storage Spaces & Storage Tiering
+# Lab: Storage Spaces & Storage Tiering
 
 ## Required VMs
 

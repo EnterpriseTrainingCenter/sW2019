@@ -1,4 +1,4 @@
-# Lab 8: SCSI & MPIO
+# Lab: iSCSI & MPIO
 
 ## Required VMs
 

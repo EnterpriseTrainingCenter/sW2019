@@ -1,4 +1,4 @@
-# Lab 5: Installing and Configuring Hyper-V
+# Lab: Installing and Configuring Hyper-V
 
 ## Required VMs
 

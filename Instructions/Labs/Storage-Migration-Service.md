@@ -1,4 +1,4 @@
-# Lab 12: Storage Migration Service
+# Lab: Storage Migration Service
 
 ## Required VMs
 

@@ -1,4 +1,4 @@
-# Lab 16: WSUS
+# Lab: WSUS
 
 ## Required VMs
 

@@ -1,4 +1,4 @@
-# Lab 3: Windows Server Environment Basics
+# Lab: Windows Server Environment Basics
 
 ## Required VMs
 

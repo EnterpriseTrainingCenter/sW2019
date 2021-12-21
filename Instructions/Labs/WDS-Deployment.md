@@ -1,4 +1,4 @@
-# Lab 15: WDS Deployment
+# Lab: WDS Deployment
 
 ## Required VMs
 

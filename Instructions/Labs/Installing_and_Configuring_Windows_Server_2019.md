@@ -1,4 +1,4 @@
-# Lab 1: Installing and Configuring Windows Server 2019
+# Lab: Installing and Configuring Windows Server 2019
 
 ## Required VMs
 

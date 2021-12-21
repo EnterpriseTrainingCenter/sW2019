@@ -1,4 +1,4 @@
-# Lab 17: Performance
+# Lab: Performance
 
 ## Required VMs
 

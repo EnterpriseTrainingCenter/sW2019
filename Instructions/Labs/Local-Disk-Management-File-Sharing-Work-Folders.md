@@ -1,4 +1,4 @@
-# Lab 6: Local Disk Management, File Sharing & Work Folders
+# Lab: Local Disk Management, File Sharing & Work Folders
 
 ## Required VMs
 

@@ -1,4 +1,4 @@
-# Lab 11: Storage Replica
+# Lab: Storage Replica
 
 ## Required VMs
 

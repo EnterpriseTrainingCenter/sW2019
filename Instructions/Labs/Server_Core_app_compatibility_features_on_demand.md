@@ -1,4 +1,4 @@
-# Lab 2: Server Core app compatibility features on demand
+# Lab: Server Core app compatibility features on demand
 
 ## Required VMs
 

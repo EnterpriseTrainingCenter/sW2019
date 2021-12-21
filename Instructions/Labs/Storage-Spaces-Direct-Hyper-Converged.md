@@ -1,4 +1,4 @@
-# Lab 10: Storage Spaces Direct Hyper-Converged
+# Lab: Storage Spaces Direct Hyper-Converged
 
 ## Required VMs
 

@@ -1,4 +1,4 @@
-# Lab 4: Windows Admin Center
+# Lab: Windows Admin Center
 
 ## Required VMs
 

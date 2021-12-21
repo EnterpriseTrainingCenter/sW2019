@@ -1,4 +1,4 @@
-# Lab 14: High Availability and Disaster Recovery
+# Lab: High Availability and Disaster Recovery
 
 ## Required VMs
 
