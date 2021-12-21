@@ -897,16 +897,16 @@ Perform these steps on SR2.
    Dismount-SRDestination -ComputerName $computerName -Name $name -Force
    ````
 
-[figure 1]: images/Lab11/figure01.png
-[figure 2]: images/Lab11/figure02.png
-[figure 3]: images/Lab11/figure03.png
-[figure 4]: images/Lab11/figure04.png
-[figure 5]: images/Lab11/figure05.png
-[figure 6]: images/Lab11/figure06.png
-[figure 7]: images/Lab11/figure07.png
-[figure 8]: images/Lab11/figure08.png
-[figure 9]: images/Lab11/figure09.png
-[figure 10]: images/Lab11/figure10.png
-[figure 11]: images/Lab11/figure11.png
-[figure 12]: images/Lab11/figure12.png
-[figure 13]: images/Lab11/figure13.png
+[figure 1]: images/WAC-initialize-disk.png
+[figure 2]: images/WAC-create-volume-data.png
+[figure 3]: images/WAC-create-volume-log.png
+[figure 4]: images/Cluster-add-to-csv.png
+[figure 5]: images/Cluster-disk-replication-enable.png
+[figure 6]: images/Cluster-disk-disk3.png
+[figure 7]: images/Cluster-disk-replication.png
+[figure 8]: images/Cluster-disk-volume3.png
+[figure 9]: images/WAC-inventory-host-server.png
+[figure 10]: images/WAC-SR-status.png
+[figure 11]: images/WAC-VM-move.png
+[figure 12]: images/WAC-SR-switch-direction.png
+[figure 13]: images/WAC-SR-partner-group-name.png
