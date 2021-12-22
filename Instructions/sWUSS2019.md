@@ -14,7 +14,7 @@ The lab instructions are to be used in conjunction with the original presentatio
 
 1. [Active Directory upgrade](Labs/Active-Directory-upgrade.md)
 1. [LAPS](Labs/LAPS.md) (optional)
-1. Time limited group membership (optional)
+1. [Time limited group membership](Labs/Time-limited-group-membership.md) (optional)
 1. [Cluster Rolling Upgrade](Labs/Cluster-Rolling-Upgrade.md)
 1. PowerShell 5
 1. Always On VPN
