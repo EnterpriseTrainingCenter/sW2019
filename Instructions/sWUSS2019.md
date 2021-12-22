@@ -7,7 +7,11 @@ The lab instructions are to be used in conjunction with the original presentatio
 ## Labs
 
 1. [Server Core app compatibility features on demand](Labs/Server_Core_app_compatibility_features_on_demand.md)
-1. [Windows Admin Center](Labs/Windows-Admin-Center.md)
+1. Windows Admin Center
+
+    * [Installing and configuring Windows Admin Center](Labs/Installing-and-configuring-Windows-Admin-Center.md)
+    * [Using and securing Windows Admin Center](Labs/Using-and-securing-Windows-Admin-Center.md)
+
 1. Active Directory Upgrade
 1. LAPS (optional)
 1. Time limited group membership (optional)
