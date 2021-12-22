@@ -1,4 +1,4 @@
-# Lab: Windows Admin Center
+# Lab: Using and securing Windows Admin Center
 
 ## Required VMs
 
@@ -11,192 +11,24 @@
 
 ## Exercises
 
-1. [Installing and configuring Windows Admin Center](#exercise-1-installing-and-configuring-windows-admin-center)
-1. [Using Windows Admin Center](#exercise-2-using-windows-admin-center)
-1. [Securing Windows Admin Center](#exercise-3-securing-windows-admin-center)
+1. [Using Windows Admin Center](#exercise-1-using-windows-admin-center)
+1. [Securing Windows Admin Center](#exercise-2-securing-windows-admin-center)
 
-## Exercise 1: Installing and configuring Windows Admin Center
-
-### Introduction
-
-In this exercise, you will install Windows Admin Center on Windows Server 2019 Core Edition using a trusted certificate on SRV2. After that you will configure Kerberos Constrained Delegation to be able to use Single Sign On (SSO) for the servers dc1, fs, HV1, HV2, sr1, sr2, S2D, S2D1, S2D2, S2D3, S2D4, SRV1903, Docker, Node1, Node2, PKI, SR1, SR2, and WS2019
-
-#### Tasks
-
-1. [Request a certificate](#task-1-request-a-certificate)
-1. [Install Windows Admin Center binaries](#task-2-install-windows-admin-center-binaries)
-1. [Configure Kerberos Constrained Delegation and DNS](#task-3-configure-kerberos-constrained-delegation-and-dns)
-
-### Task 1: Request a certificate
-
-Perform these steps on SRV2.
-
-1. Logon as **smart\Administrator**
-1. Start Windows PowerShell by excuting the following command.
-
-   ````shell
-   powershell
-   ````
-
-1. Request a certificate and store the result in a variable.
-
-   ````powershell
-   # This is an array of strings, separated by commas
-   $dnsName = 'admincenter.smart.etc', 'admincenter'
-   
-   # Expressions in double-quoted strings are indicated by $()
-   # [0] is the first element of the string array
-   $subjectName = "CN=$($dnsName[0])"
-   
-   # WebServer10Years is a custom template, we created for you
-   $template = 'WebServer10Years'
-   
-   # The back tick ` can be used to split long command lines and make them more readable
-   $result = Get-Certificate `
-       -Template $template `
-       -SubjectName $subjectName `
-       -DnsName $dnsName `
-       -CertStoreLocation Cert:\LocalMachine\My   
-   ````
-
-1. Leave PowerShell open for the next task
-
-### Task 2: Install Windows Admin Center binaries
-
-Perform these steps on SRV2.
-
-1. Store the certificate thumbprint in a variable.
-
-   ````powershell
-   $thumbprint = $result.Certificate.Thumbprint
-   ````
-
-1. Download the current version of Windows Admin Center using BITS.
-
-   ````powershell
-   $path = 'C:\WindowsAdminCenter.msi'
-   Start-BitsTransfer -Source 'https://aka.ms/WACDownload' -Destination $path
-   ````
-
-1. Execute the following commands to install Windows Admin Center binaries
-
-   ````powershell
-   # PowerShell variables can be used when executing external commands
-   # They are expanded automatically
-   msiexec /i $path /qb+ /L*v 'C:\WAC-install.log' CHK_REDIRECT_PORT_80=1 SME_PORT=443 SSL_CERTIFICATE_OPTION=installed SME_THUMBPRINT=$thumbprint
-   ````
-
-### Task 3: Configure Kerberos Constrained Delegation and DNS
-
-#### Desktop Experience
-
-Perform these steps on DC1.
-
-1. Logon as **smart\Administrator**.
-1. Open **Windows PowerShell ISE**.
-1. In **Windows PowerShell ISE**, open the file **L:\WindowsAdminCenter\KCD.ps1**.
-1. Review the script, add the following server names to the first line.
-
-   * Docker
-   * Node1
-   * Node2
-   * WS2019
-
-   The first line should look like this:
-
-   ````powershell
-   $nodes=("dc1","fs","HV1","HV2","sr1","sr2","S2D","S2D1","S2D2","S2D3","S2D4","SRV1903", "Docker", "Node1", "Node2", "PKI", "SR1", "SR2", "WS2019")
-   ````
-
-1. Save the file to the folder Documents\WindowsPowerShell\Scripts. You might have to create that folder.
-1. Run the script by pressing F5. The script configures Kerberos Contrained Delegation by granting SRV2 the permission to request tickets for various servers.
-1. Open the DNS Management Console.
-1. Create the following record in zone **smart.etc**.
-
-   * Record type: A
-   * Record data: admincenter
-   * Record IP: 10.1.1.73
-
-#### PowerShell
-
-Perform these steps on DC1.
-
-1. Logon as **smart\Administrator**.
-1. Open **Windows PowerShell**.
-1. Define the target servers for KCD.
-
-   ````powershell
-   <#
-   @() indicates an array of string, which we can loop through later
-   If you place each element of the array on its own line, you can ommit the
-   commas separating its elements normally.
-   #>
-   $nodes = @(
-      'dc1'
-      'fs'
-      'HV1'
-      'HV2'
-      'sr1'
-      'sr2'
-      'S2D'
-      'S2D1'
-      'S2D2'
-      'S2D3'
-      'S2D4'
-      'SRV1903'
-      'Docker'
-      'Node1'
-      'Node2'
-      'PKI'
-      'SR1'
-      'SR2'
-      'WS2019'
-   )
-   ````
-
-1. Configure KCD for each target computer.
-
-   ````powershell
-   $gw = Get-ADComputer -Identity "srv2"
-
-   <#
-   ForEach-Object loops through the pipeline, where we put the elements of
-   $nodes first. On each iteration, $PSItem contains the next element in the
-   array. $PSItem could  be written as $_ also.
-   #>
-   $nodes | ForEach-Object  {
-      $Object = Get-ADComputer -Identity $PSItem
-      Set-ADComputer $Object -PrincipalsAllowedToDelegateToAccount $gw 
-   }
-
-   ````
-
-1. Create the following record in zone **smart.etc**.
-
-   * Record type: A
-   * Record data: admincenter
-   * Record IP: 10.1.1.73
-
-   ````powershell
-   Add-DnsServerResourceRecordA `
-      -ZoneName 'smart.etc' -Name admincenter -IPv4Address 10.1.1.73
-   ````
-
-## Exercise 2: Using Windows Admin Center
+## Exercise 1: Using Windows Admin Center
 
 ### Introduction
 
-In this exercise, you will set the default language of Windows Admin Center to English, install the Active Directory extension, add manually add connections to DC1 and DHCP, import a connections for HV1 and HV2, test some basic administrative functionality, and examine the PowerShell functions, that make up Windows Admin Center.
+In this exercise, you will set the default language of Windows Admin Center to English and install the Active Directory extension.  Then, you manually add connections to DC1 and DHCP. Next, you will import connections for HV1 and HV2. Moreover, you will examine how to administer DC1 using Windows Admin Center. Especially, you will try to restart the DNS Server service, retrieve network adapters and their IP settings, filter the application event log for errors and warning, examine storage, and the Windows Update settings.
 
 #### Tasks
 
-1. [Configure Windows Admin Center](#task-1-configure-windows-admin-center)
+1. [Configure settings in Windows Admin Center](#task-1-configure-settings-in-windows-admin-center)
 1. [Connect to Computers](#task-2-connect-to-computers)
 1. [Import Windows Admin Center Connections](#task-3-import-windows-admin-center-connections)
 1. [Use Windows Admin Center Tools](#task-4-use-windows-admin-center-tools)
 1. [Examine PowerShell functions used by Windows Admin Center](#task-5-examine-powershell-functions-used-by-windows-admin-center)
 
-### Task 1: Configure Windows Admin Center
+### Task 1: Configure settings in Windows Admin Center
 
 Perform these steps on CL1.
 
@@ -253,8 +85,8 @@ Perform these steps on CL1.
 1. On the **Windows Admin Center** page, click on **DC1** to open the connection to the server.
 1. Navigate through the different tools on the left – notice that all the necessary tools you need to administer a machine are in one place. You can even open a remote PowerShell. or RDP session from within Windows Admin Center.
 1. Use **Windows Admin Center** to fulfill the following tasks on **DC1**:
-   * Restart the DNS Server Service
-   * Retrieve Network Adapters and their IP Settings
+   * Restart the DNS Server service
+   * Retrieve Network Adapters and their IP settings
    * Filter the application event log for errors and warnings
    * Examine Storage
    * Examine Windows Update settings
@@ -267,11 +99,11 @@ Perform these steps on CL1.
 
 2. Examine the functions that Windows Admin Center uses to complete its tasks. You can even copy those scripts to reuse it in your own scripts. ([figure 5])
 
-## Exercise 3: Securing Windows Admin Center
+## Exercise 2: Securing Windows Admin Center
 
 ### Introduction
 
-In this exercise you will create the domain-local groups DL_WAC-Admins, and DL_WAC-Users in the domain, and give them the Gateway Users and Gateway Administrators role in Windows Admin Center to configure access permissions. Finally, you will activate and test role-based-access control for SRV2.
+In this exercise you will create the domain-local groups DL_WAC-Admins, and DL_WAC-Users in the domain, and give them the Gateway Users and Gateway Administrators role in Windows Admin Center to configure access permissions. Moreover, you will test the permissions. Finally, you will activate and test role-based-access control for SRV2, by adding *smart\user1* to *Windows Admin Center Administrators*, and *smart\user2* to *Windows Admin Center Readers*.
 
 #### Tasks
 
@@ -282,6 +114,8 @@ In this exercise you will create the domain-local groups DL_WAC-Admins, and DL_W
 1. [Test role-based access control for Windows Admin Center](#task-5-test-role-based-access-control-for-windows-admin-center)
 
 ### Task 1: Create groups to secure Windows Admin Center
+
+#### Desktop Experience
 
 Perform these steps on DC1.
 
@@ -294,6 +128,55 @@ Perform these steps on DC1.
 
 1. Add **smart\user1** as a member of the **DL_WAC-Admins** group.
 1. Add **smart\user2** as a member of the **DL_WAC-Users** group.
+
+#### Windows Admin Center
+
+1. On CL1 switch to the browser window with **Windows Admin Center**.
+1. On the **Windows Admin Center** page, click on **DC1** to open the connection to the server.
+1. On the left-hand side, under **Tools**, click **Active Directory**
+1. Click **Create**, **Group**.
+1. In the **Add Group** pane, in **Name**, enter DL_WAC-Admins. In **Group Scope**, ensure **Domain Local** is selected. Beside **Create in: DC=smart,DC=etc**, click **Change...**, select **Users**, and click **Select**.
+1. Back in the **Add Group** pane, click **Create**.
+1. Click **Create**, **Group**.
+1. In the **Add Group** pane, in **Name**, enter DL_WAC-Users. In **Group Scope**, ensure **Domain Local** is selected, and click **Create**.
+1. Back in **Active Directory Domain Services**, select **DL_WAC-Admins**, and click **Properties**.
+1. On the left-hand side, click **Membership**.
+1. Click **Add**.
+1. In the **Add Group Membership** pane, in **User SamAccountName**, enter **user1**, and click **Add**.
+1. Click **Save**.
+1. Click **Close**.
+1. To add **user2** to **DL_WAC-Users**, repeat step 9 - 14 accordingly. You may have to search for **DL_WAC-Users** first.
+
+#### PowerShell
+
+1. Logon as **smart\administrator**.
+1. Run **Windows PowerShell** as Administrator.
+1. Create two domain-local groups in the **Users** container.
+
+   ````powershell
+   # The -PassThru paramater return the created group, so that we can store it
+   # in a variable for easier processing in the next step.
+   $aDGroupWacAdmins = New-ADGroup `
+      -Name DL_WAC-Admins `
+      -GroupScope DomainLocal `
+      -PassThru
+   $aDGroupWacUsers = New-ADGroup `
+      -Name DL_WAC-Users `
+      -GroupScope DomainLocal `
+      -PassThru
+   ````
+
+1. Add **smart\user1** as a member of the **DL_WAC-Admins** group.
+
+   ````powershell
+   $aDGroupWacAdmins | Add-ADGroupMember -Members user1
+   ````
+
+1. Add **smart\user2** as a member of the **DL_WAC-Users** group.
+
+   ````powershell
+   $aDGroupWacUsers | Add-ADGroupMember -Members user2
+   ````
 
 ### Task 2: Configure allowed groups in Windows Admin Center
 
