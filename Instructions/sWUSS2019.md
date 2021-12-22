@@ -12,7 +12,7 @@ The lab instructions are to be used in conjunction with the original presentatio
     * [Installing and configuring Windows Admin Center](Labs/Installing-and-configuring-Windows-Admin-Center.md)
     * [Using and securing Windows Admin Center](Labs/Using-and-securing-Windows-Admin-Center.md)
 
-1. Active Directory Upgrade
+1. [Active Directory upgrade](Labs/Active-Directory-upgrade.md)
 1. LAPS (optional)
 1. Time limited group membership (optional)
 1. [Cluster Rolling Upgrade](Labs/Cluster-Rolling-Upgrade.md)
