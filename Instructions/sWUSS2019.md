@@ -1,6 +1,6 @@
 # smart smart Upgrading Skills from Windows Server 2012 (R2) to Windows Server 2016/2019
 
-For information about the course see <https://www.etc.at/seminare/sw2019-1/>.
+For information about the course see <https://www.etc.at/seminare/swuss/>.
 
 The lab instructions are to be used in conjunction with the original presentation slides and virtual machine images only. The slides and virtual machine images are not contained in this repository. Licensing is possible, please contact us.
 
@@ -13,7 +13,7 @@ The lab instructions are to be used in conjunction with the original presentatio
     * [Using and securing Windows Admin Center](Labs/Using-and-securing-Windows-Admin-Center.md)
 
 1. [Active Directory upgrade](Labs/Active-Directory-upgrade.md)
-1. LAPS (optional)
+1. [LAPS](Labs/LAPS.md) (optional)
 1. Time limited group membership (optional)
 1. [Cluster Rolling Upgrade](Labs/Cluster-Rolling-Upgrade.md)
 1. PowerShell 5
