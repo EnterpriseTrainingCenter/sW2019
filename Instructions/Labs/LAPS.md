@@ -9,21 +9,23 @@
 
 ## Exercises
 
-1. Installing and configuring LAPS
+1. [Installing and configuring LAPS](#exercise-1-installing-and-configuring-laps)
 
 ## Exercise 1: Installing and configuring LAPS
 
 ### Introduction
 
-In this exercise, you will install Local Administrator Password Solution (LAPS). You need to configure the required attributes and GPO Settings.
+In this exercise, you will install Local Administrator Password Solution (LAPS) Management Tools on DC1. Then, you will verify that only Domain Admin have the permission to read the local administrative password. You will set the write permissions for the local administrative password to the SELF built-in-account. You build a central store for policy definitions from the policy definitions installed on DC1. In the computer base policy, you enable the local password management using LAPS and set the password length to 20 characters.
+
+On SRV2, you will install the LAPS client. After a GP refresh, the local admin password should be changed. You will retrieve the new password on DC1 using LAPS UI.
 
 #### Tasks
 
-1. Install and configure LAPS on DC1
-1. Install the LAPS Client on SRV2
-1. Test LAPS
+1. [Install LAPS management tools and configure the solution](#task-1-install-laps-management-tools-and-configure-the-solution)
+1. [Install the LAPS client](#task-2-install-the-laps-client)
+1. [Test LAPS](#task-3-test-laps)
 
-### Task 1: Install and configure LAPS on DC1
+### Task 1: Install LAPS management tools and configure the solution
 
 Perform these steps on DC1.
 
@@ -64,7 +66,7 @@ Perform these steps on DC1.
 1. Double-click **Enable local admin password management** and set it to **Enabled**
 1. Double-click **Password Settings**, set it to **Enabled**, and set **Password Length** to **20**. Accept the remaining defaults.
 
-### Task 2:  Install the LAPS Client
+### Task 2: Install the LAPS client
 
 Perform these steps on SRV2.
 
