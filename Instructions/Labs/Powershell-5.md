@@ -12,6 +12,13 @@
 
 ## Exercises
 
+1. [Using PowerShell Direct](#exercise-1-using-powershell-direct)
+1. [PowerShell transcripts](#exercise-2-powerShell-transcripts)
+1. [Deep script logging](#exercise-3-deep-script-logging)
+1. [Protected event log](#exercise-4-protected-event-log)
+1. [Just Enough Administration (JEA)](#exercise-5-just-enough-administration-jea)
+1. [Package management](#exercise-6-package-management)
+
 ## Exercise 1: Using PowerShell Direct
 
 ### Introduction
@@ -181,7 +188,7 @@ Perform these steps on HV1.
         -SwitchName Datacenter1
     ````
 
-## Exercise 2: PowerShell Transcripts
+## Exercise 2: PowerShell transcripts
 
 ### Introduction
 
@@ -530,7 +537,7 @@ Perform these steps on DC1.
 
     Examine the PowerShell transcript of server DHCP. The transcript should include the Get-Service cmdlet as well as the Get-ChildItem command.
 
-## Exercise 3: Deep Script Logging
+## Exercise 3: Deep script logging
 
 ### Introduction
 
@@ -622,7 +629,7 @@ Perform these steps on DC1.
     Format-List
     ````
 
-## Exercise 4: Protected Event Log
+## Exercise 4: Protected event log
 
 ### Introduction
 
@@ -1336,15 +1343,15 @@ Perform these steps on CL1.
 
 ### Introduction
 
-In this exercise, you will discover the possibilities of PowerShell package management. Finally, you will install the “Autoruns” package from Sysinternals.
+In this exercise, you will first discover package sources and set the PSGallery package source as trusted. Then, you will list the installed packages and install the nuget package provider. You will find, install and try the AutoRuns package. Finally you will download find the Azure Actve Directory Module by Microsoft in version 1. You will save the module for later install. Then you will install the module by copying it to the correct destination.
 
 #### Tasks
 
-1. Discover Packages and install NuGet.
-1. Find packages and install the Autoruns package.
-1. Save packages for later use
+1. [Discover packages and install NuGet](#task-1-discover-packages-and-install-nuget)
+1. [Find packages and install a package](#task-2-find-modules-and-install-a-package)
+1. [Save a package for later use](#task-3-save-a-package-for-later-use)
 
-### Task 1: Discover Packages and install NuGet
+### Task 1: Discover packages and install NuGet
 
 Perform these steps on CL1.
 
@@ -1386,7 +1393,7 @@ Perform these steps on CL1.
     Install-PackageProvider -Name nuget
     ````
 
-### Task 2: Find modules and install a module
+### Task 2: Find modules and install a package
 
 Perform these steps on CL1.
 
@@ -1449,7 +1456,7 @@ Perform these steps on CL1.
     Get-PSAutorun -BootExecute
     ````
 
-### Task 3: Save packages for later use
+### Task 3: Save a package for later use
 
 Perform these steps on CL1.
 
