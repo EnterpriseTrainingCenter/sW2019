@@ -1507,16 +1507,16 @@ Perform these steps on CL1.
 
     Now, MSOnline should be returned.
 
-[figure 1](images/hyperv-vm-settings-networkadapter.png)
-[figure 2](images/Permission-Entry-PS-Transcripts.png)
-[figure 3](images/GPO-create-and-link-domain.png)
-[figure 4](images/GPO-turn-on-powershell-transcription.png)
-[figure 5](images/GPO-turn-on-powershell-script-block-logging.png)
-[figure 6](images/WAC-events-filter-icon.png)
-[figure 7](images/GPO-enable-protected-event-logging.png)
-[figure 8](images/Eventvwr-event-encrypted.png)
-[figure 9](images/JEA-helper-tool-create-or-edit-role-capability.png)
-[figure 10](images/JEA-helper-tool-role-capabilities-design.png)
-[figure 11](images/JEA-helper-tool-role-capabilities-design-script.png)
-[figure 12](images/JEA-helper-tool-create-or-edit-role-capability-script.png)
-[figure 13](images/JEA-helper-tool-configurations-listings-mapping-and-testing.png)
+[figure 1]: images/hyperv-vm-settings-networkadapter.png
+[figure 2]: images/Permission-Entry-PS-Transcripts.png
+[figure 3]: images/GPO-create-and-link-domain.png
+[figure 4]: images/GPO-turn-on-powershell-transcription.png
+[figure 5]: images/GPO-turn-on-powershell-script-block-logging.png
+[figure 6]: images/WAC-events-filter-icon.png
+[figure 7]: images/GPO-enable-protected-event-logging.png
+[figure 8]: images/Eventvwr-event-encrypted.png
+[figure 9]: images/JEA-helper-tool-create-or-edit-role-capability.png
+[figure 10]: images/JEA-helper-tool-role-capabilities-design.png
+[figure 11]: images/JEA-helper-tool-role-capabilities-design-script.png
+[figure 12]: images/JEA-helper-tool-create-or-edit-role-capability-script.png
+[figure 13]: images/JEA-helper-tool-configurations-listings-mapping-and-testing.png
