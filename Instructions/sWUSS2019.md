@@ -4,6 +4,10 @@ For information about the course see <https://www.etc.at/seminare/swuss/>.
 
 The lab instructions are to be used in conjunction with the original presentation slides and virtual machine images only. The slides and virtual machine images are not contained in this repository. Licensing is possible, please contact us.
 
+## Trainer preparation
+
+1. [HA RDSH farm with Azure DB](TrainerPreparation/HA-RDSH-farm-with-Azure-DB-trainer-preparation.md)
+
 ## Labs
 
 1. [Server Core app compatibility features on demand](Labs/Server_Core_app_compatibility_features_on_demand.md)
