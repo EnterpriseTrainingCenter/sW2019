@@ -17,7 +17,7 @@ The lab instructions are to be used in conjunction with the original presentatio
 1. [Time limited group membership](Labs/Time-limited-group-membership.md) (optional)
 1. [Cluster Rolling Upgrade](Labs/Cluster-Rolling-Upgrade.md)
 1. [PowerShell 5](Labs/Powershell-5.md)
-1. Always On VPN
+1. [AlwaysOn VPN](Labs/AlwaysOn-VPN.md)
 1. HA RDSH Farm with Azure DB
 1. Hyper-V
 1. [Deploying Containers](Labs/Deploying-Containers.md)
