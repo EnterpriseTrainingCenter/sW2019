@@ -1,14 +1,20 @@
-# Parameters
+[CmdletBinding()]
+param (
+    [String]
+    $Password = 'Pa$$w0rd', # Define you own default password
+    [String]
+    $CompanyName = 'ETC2022', # This should be unique. Used to remove users later.
+    [String]
+    $ResourceGroupNamePrefix = 'HARDSH-', # This is the prefix for resource groups
+    [String]
+    $Location = 'northeurope' # This is the default location for azure resources
+)
 
-$password = 'Pa$$w0rd' # Define you own default password
-$companyName = 'ETC2022' # This should be unique. Used to remove users later.
-$resourceGroupNamePrefix = 'HARDSH-' # This is the prefix for resource groups
-$location = 'northeurope' # This is the default location for azure resources
-$azPackage = @{ Name = 'Az'; RequiredVersion = '6.6.0' }
+#region Global variables
 
-# Global variables
+$azPackage = @{ Name = 'Az'; MinimumVersion='3.7.0'; MaximumVersion = '6.6.0' }
 
-$users = @()
+#endregion Global variables
 
 class User {
     [string]$Username
@@ -28,24 +34,31 @@ function New-InstallPackageJob {
         [string]
         $Name,
         [string]
+        $MinimumVersion,
+        [string]
+        $MaximumVersion,
+        [string]
         $RequiredVersion
     )
 
-    if ($null -eq (Get-Package -Name $Name)) {
+    $package = Get-Package @PSBoundParameters -ErrorAction SilentlyContinue
+    if (
+        $null -eq $package
+    ) {
         $jobName = "InstallPackageJob-$Name"
-        $job = Get-Job -Name $jobName
+        $job = Get-Job -Name $jobName -ErrorAction SilentlyContinue
         if ($null -eq $job) {
-            Write-Host "Installing $Name in the background..."
-            Start-Job `
+            Write-Verbose "Installing $Name in the background..."
+            $job = Start-Job `
                 -Name $jobName `
                 -ScriptBlock { 
-                    Install-Package @PSBoundParameters -Scope CurrentUser -Force
+                    Install-Package @using:PSBoundParameters -Scope CurrentUser -Force
                 }            
         }
     
         if ($null -ne $job -and $job.State -ne 'Running') {
-            Write-Host "Job $jobName ended. Removing job"
-            Remove-Job -Job $job
+            Write-Verbose "Job $jobName ended. Removing job"
+            Remove-Job -Job $job -Force
         }
     
         return $job            
@@ -60,6 +73,10 @@ function Wait-Package {
         [string]
         $Name,
         [string]
+        $MinimumVersion,
+        [string]
+        $MaximumVersion,
+        [string]
         $RequiredVersion
     )
 
@@ -69,22 +86,20 @@ function Wait-Package {
 
     if ($null -ne $job) {
         while ($job.State -eq 'Running') {
-            Write-Host "Waiting for $($job.Name) to end."
+            Write-Verbose "Waiting for $($job.Name) to end."
             Start-Sleep -Seconds 3
         }
-        Write-Host "$($job.Name) ended. Removing job."
+        Write-Verbose "$($job.Name) ended. Removing job."
         Remove-Job -Job $job
     }
 }
 
-function New-AzureADUsers {
-    # Install Az package in the background
-
-    $null = New-InstallPackageJob @azPackage
-
+function Read-UsersFromHost {
+    [OutputType([User[]])]
     # Ask for users
 
     [User[]]$users = @()
+
     do {
         # Prompt for username
 
@@ -106,8 +121,11 @@ function New-AzureADUsers {
 
             # Prompt user, if user is correct
             do {
-                Write-Host "Username: $username"
-                Write-Host "Displayname: $displayName"
+                Write-Host
+                Write-Host "Username: " -ForegroundColor Green -NoNewline
+                Write-Host $username -NoNewline
+                Write-Host " Displayname: " -ForegroundColor Green -NoNewline
+                Write-Host $displayName
                 $correctUser = Read-Host `
                     -Prompt "Is this user correct (y/n)"
             } until ($correctUser -eq 'y' -or $correctUser -eq 'n')
@@ -120,133 +138,216 @@ function New-AzureADUsers {
         }
     } until ([string]::IsNullOrWhiteSpace($username))
 
+    return $users
+}
+
+function New-AzureADUsers {
+    [CmdletBinding()]
+    [OutputType([Microsoft.Open.AzureAD.Model.User])]
+    param (
+        [Parameter()]
+        [User[]]
+        $Users
+    )
+    # Install Az package in the background
+
+    $null = New-InstallPackageJob @azPackage
+
+    if ($null -eq $Users) {
+        $Users = Read-UsersFromHost
+    }
+
+
     # Wait for Az to be installed
 
     Wait-Package @azPackage
-
-    # Sign in to Azure AD
-
-    Write-Host 'Connecting to Azure AD'
-    $null = Connect-AzureAd
 
     # Select user domain
 
     $domain = Select-AzureADDomain
 
+
     # Creating users
-    $passwordProfile = New-Object `
+    $PasswordProfile = New-Object `
         -TypeName Microsoft.Open.AzureAD.Model.PasswordProfile
-    $passwordProfile.Password = $password
+    $PasswordProfile.Password = $Password
+    $PasswordProfile.ForceChangePasswordNextLogin = $false
 
     foreach ($user in $users) {
         $user.UserPrincipalName = "$($user.Username)@$($domain.Name)"
-        Write-Host "Creating user $($user.DisplayName)"
-        $null = New-AzureADUser `
-            -UserPrincipalName $user.UserPrincipalName `
-            -DisplayName $user.DisplayName `
-            -MailNickName $user.Username `
-            -PasswordProfile $passwordProfile `
-            -AccountEnabled $true `
-            -CompanyName $companyName
+        Write-Verbose "Search for user $($user.UserPrincipalName)"
+        $azureADUser = Get-AzureADUser `
+            -Filter "UserPrincipalName eq '$($user.UserPrincipalName)'"
+        if ($null -eq $azureADUser) {
+            Write-Verbose "Creating user $($user.DisplayName)"
+            $azureADUser =  New-AzureADUser `
+                -UserPrincipalName $user.UserPrincipalName `
+                -DisplayName $user.DisplayName `
+                -MailNickName $user.Username `
+                -PasswordProfile $PasswordProfile `
+                -AccountEnabled $true `
+                -CompanyName $CompanyName
+        }
+        $azureADUser
     }
-
-    return $users
 }
 
 function Remove-AzureAdUsers {
     Wait-Package @azPackage
 
-    # Sign in to Azure AD
+    do {
 
-    Write-Host 'Connecting to Azure AD'
-    $null = Connect-AzureAd
+        try {
+            [Microsoft.Open.AzureAD.Model.User[]] $users = Get-AzureADUser -All $true
+        }
+        catch [Microsoft.Open.Azure.AD.CommonLibrary.AadNeedAuthenticationException] {
+            Connect-AzContextAzureAd
+        }
+        catch {
+            throw        
+        }
+    } until ($null -ne $users)
 
-    [Microsoft.Open.AzureAD.Model.User[]] $users = Get-AzureADUser -All $true |
-    Where-Object { $PSItem.CompanyName -eq $companyName }
+    $users = $users | Where-Object { $PSItem.CompanyName -eq $CompanyName }
 
     foreach ($user in $users) {
-        Write-Host "Removing user $($user.Displayname)"
+        Write-Verbose "Removing user $($user.Displayname)"
         $user | Remove-AzureADUser
     }
 }
 
 function Select-AzureADDomain {
-    Wait-Package @azPackage
-    $domains = Get-AzureADDomain | Where-Object { $PSItem.IsVerified }
+    [OutputType([Microsoft.Open.AzureAD.Model.Domain])]
 
-    Write-Host 'Please select the domain for the users'
-    for ($i = 0; $i -lt $domains.Count; $i++) {
-        $domain = $domains[$i]
-        Write-Host "[$i] $($domain.Name)"
+    $azureAdModule = Get-Module -Name AzureAD -ListAvailable
+
+    if ($null -eq $azureAdModule) {
+        Wait-Package @azPackage
     }
 
     do {
-        $domainIndex = Read-Host -Prompt 'Please enter the domain''s index'
-    } until ($domainIndex -ge 0 -and $domainIndex -lt $domains.Count)
-    $domain = $domains[$domainIndex]
+        try {
+            $domains = Get-AzureADDomain | Where-Object { $PSItem.IsVerified }
+            Write-Host 'Please select the domain for the users'
+            for ($i = 0; $i -lt $domains.Count; $i++) {
+                $domain = $domains[$i]
+                Write-Host "[$i] $($domain.Name)"
+            }
+        
+            do {
+                $domainIndex = Read-Host `
+                    -Prompt 'Please enter the domain''s index'
+            } until ($domainIndex -ge 0 -and $domainIndex -lt $domains.Count)
+            $domain = $domains[$domainIndex]
+        }
+        catch [Microsoft.Open.Azure.AD.CommonLibrary.AadNeedAuthenticationException] {
+            Connect-AzContextAzureAd
+        }
+        catch {
+            throw            
+        }        
+    } until ($null -ne $domain)
+
     return $domain
 }
 
-function New-AzUserRG {
+function New-UserAzResourceGroup {
     [CmdletBinding()]
     param (
         [Parameter()]
-        [User]
+        [Microsoft.Open.AzureAD.Model.User]
         $User
     )
 
-    $roleDefinitionNames = 'SQL DB Contributor', 'SQL Server Contributor'
-    $resourceGroupName = $resourceGroupNamePrefix + $User.Username
-    Write-Host "Creating resource group $resourceGroupName"
+    # If there is no context, select a subscription first
 
-    $null = New-AzResourceGroup `
-        -Location $location `
+    if ($null -eq (Get-AzContext)) {
+        Select-Subscription
+    }
+
+    $roleDefinitionNames = 'SQL DB Contributor', 'SQL Server Contributor'
+    $resourceGroupName = $ResourceGroupNamePrefix + $User.MailNickName
+    Write-Verbose "Creating resource group $resourceGroupName"
+
+    New-AzResourceGroup `
+        -Location $Location `
         -Name $resourceGroupName `
-        -Tag @{ CompanyName = $companyName }
+        -Tag @{ CompanyName = $CompanyName }
 
     foreach ($roleDefinitionName in $roleDefinitionNames) {
-        Write-Host `
+        Write-Verbose `
             "Assigning role $roleDefinitionName to $($User.UserPrincipalName) for resource group $resourceGroupName"
-        $null = New-AzRoleAssignment `
+        New-AzRoleAssignment `
             -SignInName $User.UserPrincipalName `
             -ResourceGroupName $resourceGroupName `
             -RoleDefinitionName $roleDefinitionName
     }
 }
 function Select-Subscription {
-    # Get subscriptions
+    do {
+        try {
+            # Get subscriptions
 
-    $subscriptions = Get-AzSubscription  | 
-    Where-Object { $PSItem.State -eq 'Enabled' }
+            $subscriptions = Get-AzSubscription  | 
+            Where-Object { $PSItem.State -eq 'Enabled' }
 
-    # Select subscription
+            # Select subscription
 
-    Write-Host 'Please select a subscription'
+            Write-Host 'Please select a subscription'
 
-    for ($i = 0; $i -lt $subscriptions.Length; $i++) {
-    $subscription = $subscriptions[$i]
-    Write-Host "[$i] $($subscription.Name)"
+            for ($i = 0; $i -lt $subscriptions.Length; $i++) {
+                $subscription = $subscriptions[$i]
+                Write-Host "[$i] $($subscription.Name)"
+            }
+
+            do {
+                $subscriptionIndex = Read-Host `
+                    -Prompt 'Enter the subscription number and press ENTER'    
+            } until (
+                $subscriptionIndex -ge 0 `
+                -and $subscriptionIndex -lt $subscriptions.Length
+            )
+
+            $subscription = $subscriptions[$subscriptionIndex]
+
+            Set-AzContext -SubscriptionObject $subscription
+            
+        }
+        # If we are not connected, sign in first
+        catch [System.Management.Automation.PSInvalidOperationException] {
+            switch ($PSItem.Exception.Message) {
+                'Run Connect-AzAccount to login.' {
+                    Write-Verbose `
+                        'Not signed in to Azure. Connecting to Azure Account.'
+                    $null = Connect-AzAccount 
+                }
+                Default {}
+            }
+        }
+        catch {
+            throw
+        }
+
+    } until ($null -ne $subscription)
+}
+
+function Connect-AzContextAzureAd {
+    # If there is no context, select a subscription first
+
+    $context = Get-AzContext
+
+    while ($null -eq $context) {
+        $context = Select-Subscription
     }
 
-    do {
-    $subscriptionIndex = Read-Host -Prompt 'Enter the subscription number and press ENTER'    
-    } until ($subscriptionIndex -ge 0 -and $subscriptionIndex -lt $subscriptions.Length)
-
-    $subscription = $subscriptions[$subscriptionIndex]
-
-    Set-AzContext -SubscriptionObject $subscription
-    return $subscription
+    Connect-AzureAD -TenantId $Context.Tenant.Id -AccountId $Context.Account.Id
 }
 
 function Install-Lab {
     $users = New-AzureADUsers
-    Wait-Package @azPackage
-
-    Write-Host 'Connecting to Azure'
-    $null = Connect-AzAccount
-    $null = Select-Subscription
+    $users
     foreach ($user in $users) {
-        New-AzUserRG -User $user
+        New-UserAzResourceGroup -User $user
     }
     
 }
@@ -255,21 +356,15 @@ function Uninstall-lab {
     # Remove users
     Remove-AzureADUsers
 
-    # Select Azure subscription
-    
-    $null = Connect-AzAccount
-    $null = Select-Subscription
-
     # Find resource groups and delete them
 
-    $resourceGroups = Get-AzResourceGroup -Tag @{ CompanyName = $companyName }
+    $resourceGroups = Get-AzResourceGroup -Tag @{ CompanyName = $CompanyName }
 
     foreach ($resourceGroup in $resourceGroups) {
-        Write-Host "Removing resource group $($resourceGroup.ResourceGroupName)"
+        Write-Verbose "Removing resource group $($resourceGroup.ResourceGroupName)"
         $null = $resourceGroup | Remove-AzResourceGroup -Force
     }
 }
-
 
 New-InstallPackageJob @azPackage
 
