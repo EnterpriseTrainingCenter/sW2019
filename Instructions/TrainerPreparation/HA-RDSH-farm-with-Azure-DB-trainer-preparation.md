@@ -4,6 +4,11 @@ In the Lab **HA RDSH farm with Azure DB**, students must create an Azure SQL dat
 
 The steps here are intended to be performed by the trainer in preparation of the lab. The steps can be done as a demo during or prior to the course.
 
+## Exercises
+
+1. [Provisioning](#exercise-1-provisioning)
+1. [Cleanup](#exercise-2-cleanup)
+
 ## Exercise 1: Provisioning
 
 ### Introduction
@@ -12,7 +17,13 @@ This exercise is intended to be performed by the trainer in preparation of the l
 
 You first create users for the students. Then, you create a separate resource group for each user and grant the user permissions to create SQL servers and databases.
 
-#### Task 1: Prepare the script to provision Azure for the HA-RDSH lab
+#### Tasks
+
+1. [Prepare the script](#task-1-prepare-the-script)
+2. [Run script](#task-2-run-script)
+3. [Manually prepare the lab](#task-3-manually-prepare-the-lab)
+
+### Task 1: Prepare the script
 
 1. Download the script [HARDSHLab.ps1](/TrainerFiles/HARDSHLab.ps1).
 1. Check some parameters at the top of the script
@@ -41,7 +52,7 @@ You first create users for the students. Then, you create a separate resource gr
     $location is the location where resources are created by default. Valid locations can be retrieved using ````Get-AzLocation````.
 
 
-#### Task 2: Run script to provision Azure for the HA-RDSH lab
+### Task 2: Run script
 
 1. It is recommended to disconnect from AzureAD and Azure before starting the script.
 
@@ -53,6 +64,8 @@ You first create users for the students. Then, you create a separate resource gr
     *Note:* If you receive an error message telling you, that the Cmdlet was not recognized, ignore it and continue.
 
 1. Run PowerShell-script [HARDSHLab.ps1](/TrainerFiles/HARDSHLab.ps1).
+
+    *Note:* The script supports the ````-Verbose```` parameter for more informative output.
 
 1. At question ````Do you want to [p]rovision or [u]nprovision the HA RDSH lab in Azure:````, enter **p**.
 1. At question ````Username (UPN) without domain. Leave empty to finish the user list:```` enter a valid user name, e.g. **Susi.Sorglos** or **MMustermann**.
@@ -174,7 +187,7 @@ You first create users for the students. Then, you create a separate resource gr
 
 Congratulations: You have provisioned the lab sucessfully!
 
-#### Task 3: Manually prepare the lab
+### Task 3: Manually prepare the lab
 
 In case you are unable to use the script, use these steps to prepare the lab.
 
@@ -190,9 +203,17 @@ This exercise is intended to be performed by the trainer after the lab was compl
 
 You will remove the resource groups and the users.
 
-#### Task 2: Run script to unprovision Azure for the HA-RDSH lab
+#### Tasks
+
+1. [Run the script](#task-1-run-the-script)
+2. [Manually unprovision the lab](#task-2-manually-unprovision-the-lab)
+
+### Task 1: Run the script
 
 1. Run PowerShell-script [HARDSHLab.ps1](/TrainerFiles/HARDSHLab.ps1).
+
+    *Note:* The script supports the ````-Verbose```` parameter for more informative output. Because the script has minimal output, especially while unprovisioning the lab, it is recommended to append it.
+
 1. At question ````Do you want to [p]rovision or [u]nprovision the HA RDSH lab in Azure:````, enter **u**.
 1. If you are not signed in to Azure yet (recommended), a Microsoft authentication windows will open. Enter the credentials for your Azure account.
 
@@ -208,7 +229,8 @@ You will remove the resource groups and the users.
 1. At question ````Enter the subscription number and press ENTER:```` enter the number of the subscription from the list you want to use.
 
 The script will automatically remove all users with the company name defined in the parameters. Moreover, it will remove all resource group with the tag companyname and the value of the company name defined in the parameters.
-#### Task 3: Manually unprovision the lab
+
+### Task 2: Manually unprovision the lab
 
 In case you are unable to use the script, use these steps to unprovision the lab.
 
