@@ -22,7 +22,7 @@ The lab instructions are to be used in conjunction with the original presentatio
 1. [Cluster Rolling Upgrade](Labs/Cluster-Rolling-Upgrade.md)
 1. [PowerShell 5](Labs/Powershell-5.md)
 1. [AlwaysOn VPN](Labs/AlwaysOn-VPN.md)
-1. HA RDSH Farm with Azure DB
+1. [High availability Remote Desktop Session Host farm with Azure DB](Labs/HA-RDSH-farm-with-Azure-DB.md)
 1. Hyper-V
 1. [Deploying Containers](Labs/Deploying-Containers.md)
 1. [Storage Migration Service](Labs/Storage-Migration-Service.md)
