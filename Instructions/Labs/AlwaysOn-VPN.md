@@ -325,7 +325,7 @@ Perform these steps on VPN.
 
 1. Sign in as **smart\Administrator**.
 1. On the start menu type **certlm.msc** and press Enter.
-1. In certlm, in the context-menu of  **Personal**, click **All Tasks**, **Request New Certificate**.
+1. In certlm, in the context-menu of  **Personal**, click **All Tasks**, **Request New Certificate...**.
 1. In the wizard **Certificate Enrollment**, on page **Before You Begin**, click **Next**.
 1. On page **Select Certificate Enrollment Policy**, click **Next**.
 1. On page **Request Certificates**, activate the check box **VPN Server Authentication**. Click the link **More information is required to enroll for this certificate. Click here to configure settings.**
@@ -346,7 +346,7 @@ Perform these steps on VPN.
 
 1. Sign in as **smart\Administrator**.
 1. Run **Windows PowerShell** as Administrator.
-1. Request a certificate for dnsname **vpn.myetc.at**, **vpn** and **131.107.0.1** using the template **VPNServerAuthentication**.
+1. Request a certificate for FQDN **vpn.myetc.at**, **vpn** and **131.107.0.1** using the template **VPNServerAuthentication**.
 
    ````powershell
    $dnsName = 'vpn.myetc.at', 'vpn', '131.107.0.1'
