@@ -28,7 +28,7 @@ The lab instructions are to be used in conjunction with the original presentatio
 1. [Storage Migration Service](Labs/Storage-Migration-Service.md)
 1. [Storage Replica](Labs/Storage-Replica.md)
 1. [Storage Spaces Direct Hyper-Converged](Labs/Storage-Spaces-Direct-Hyper-Converged.md)
-1. DNS Policies
+1. [DNS Policies](Labs/DNS-policies.md)
 1. Web Application Proxy
 1. Azure File Sync
 1. WAC Azure Integration
