@@ -6,6 +6,8 @@
 * DHCP
 * Router
 * HV1
+* CL1
+* SRV2
 * FS on HV1
 * NODE1 on HV1
 * NODE2 on HV1
