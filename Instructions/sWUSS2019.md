@@ -1,4 +1,4 @@
-# smart smart Upgrading Skills from Windows Server 2012 (R2) to Windows Server 2016/2019
+# smart Upgrading Skills from Windows Server 2012 (R2) to Windows Server 2016/2019
 
 For information about the course see <https://www.etc.at/seminare/swuss/>.
 
