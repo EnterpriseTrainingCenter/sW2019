@@ -478,6 +478,7 @@ Perform these steps on RDCB1.
     $filePath = Join-Path -Path $path -ChildPath 'smart.etc.pfx'
     $result.Certificate | 
     Export-PfxCertificate -FilePath $filePath -Password $password
+    ````
 
 ### Task 3: Assign a certificate
 
