@@ -103,8 +103,8 @@ In **Windows PowerShell**, in zone **mysmart.com**, create a new A record **test
 ````powershell
 Add-DnsServerResourceRecordA `
     -ZoneName $zoneName `
-    -Name test `
-    -IPv4Address 8.8.8.8
+    -Name sts `
+    -IPv4Address 10.1.1.72
 ````
 
 ### Task 4: Create a conditional forwarder
@@ -141,10 +141,10 @@ Perform these steps on NET1.
 1. Resolve **test.mysmart.com**.
 
     ````powershell
-    Resolve-DnsName test.mysmart.com
+    Resolve-DnsName sts.mysmart.com
     ````
 
-    As response, you should get the A record with the IPAddress 8.8.8.8.
+    As response, you should get the A record with the IPAddress 10.1.1.72.
 
 ## Exercise 2: Add DNS zone scopes and records
 
@@ -231,13 +231,13 @@ Perform this task on NET1.
 Add two client subnets for the subnets **10.1.1.0/24** and **10.1.2.0/24**.
 
 ````powershell
-$clientSubnetNameDatacenter1 = 'Internal'
-$clientSubnetNameDatacenter2 = 'External'
+$clientSubnetNameInternal = 'Internal'
+$clientSubnetNameExternal = 'External'
 Add-DnsServerClientSubnet `
-    -Name $clientSubnetNameDatacenter1 `
+    -Name $clientSubnetNameInternal `
     -IPv4Subnet 10.1.1.0/24
 Add-DnsServerClientSubnet `
-    -Name $clientSubnetNameDatacenter1 `
+    -Name $clientSubnetNameExternal `
     -IPv4Subnet 10.1.2.0/24
 ````
 
@@ -253,7 +253,7 @@ Perform these steps on NET1.
         -Action ALLOW `
         -ZoneName $zoneName `
         -ZoneScope $zoneScopeNameDatacenter1 `
-        -ClientSubnet "EQ,$clientSubnetNameDatacenter1"
+        -ClientSubnet "EQ,$clientSubnetNameInternal"
     ````
 
 1. Create a DNS query resolution policy allowing queries from the client subnet of Datacenter 2 to resolve records in the zone scope of Datacenter 2.
@@ -264,7 +264,7 @@ Perform these steps on NET1.
         -Action ALLOW `
         -ZoneName $zoneName `
         -ZoneScope $zoneScopeNameDatacenter2 `
-        -ClientSubnet "EQ,$clientSubnetNameDatacenter2"
+        -ClientSubnet "EQ,$clientSubnetNameExternal"
     ````
 
 1. Get the DNS query policies and their processing order:
