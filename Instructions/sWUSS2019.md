@@ -29,7 +29,7 @@ The lab instructions are to be used in conjunction with the original presentatio
 1. [Storage Replica](Labs/Storage-Replica.md)
 1. [Storage Spaces Direct Hyper-Converged](Labs/Storage-Spaces-Direct-Hyper-Converged.md)
 1. [DNS Policies](Labs/DNS-policies.md)
-1. Web Application Proxy
+1. [Web Application Proxy](Labs/Web-Application-Proxy.md)
 1. Azure File Sync
 1. WAC Azure Integration
 1. Azure Backup
