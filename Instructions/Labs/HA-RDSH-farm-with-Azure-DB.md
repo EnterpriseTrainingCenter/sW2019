@@ -3,15 +3,19 @@
 ## Required VMs
 
 * DC1
+* DHCP
+* Router
+* CL1
+* PKI
+* FS on HV
 * RDCB1
 * RDCB2
 * RDGW
 * RDSH1
 * RDSH2
-* PKI
-* DHCP
-* Router
-* CL1
+
+
+
 
 ## Exercises
 
@@ -36,13 +40,13 @@ In this exercise you  will first create a security group for the connection brok
 
 *Note:* This task is only required, if you plan to use PowerShell to administer Azure.
 
-Perform these steps on the host computer.
+Perform these steps on FS.
 
 1. Open **Windows PowerShell**.
 1. Install the latest version of the Azure PowerShell package in the scope of the current user.
 
     ````powershell
-    Install-Package -Name Az -Scope CurrentUser
+    Install-Package -Name Az
     ````
 
     Confirm all prompts.
@@ -164,9 +168,10 @@ Perform these steps on DC1.
 
 #### Desktop experience
 
-Perform these steps on the host computer.
+Perform these steps on FS.
 
-1. Open a web browser and navigate to **https://portal.azure.com**.
+1. Open **Google Chrome**
+1. In Google Chome, navigate to **https://portal.azure.com**.
 1. Logon with your Azure credentials.
 1. At the top-left, click the hamburger menu ([figure 1]) and click **Create a resource**.
 1. In **Search services and marketplace**, type **resource group**. When **Resource Group** appears below the input field, click on it.
@@ -179,7 +184,7 @@ Perform these steps on the host computer.
 
 #### PowerShell
 
-Perform these steps on the host computer.
+Perform these steps on FS.
 
 *Note:* To perform this task, the installation of task 1 must be completed.
 
@@ -222,9 +227,10 @@ Perform these steps on the host computer.
 
 #### Desktop experience
 
-Perform these steps on the host computer.
+Perform these steps on FS.
 
-1. Open a web browser and navigate to **https://portal.azure.com**.
+1. Open **Google Chrome**
+1. In Google Chrome, navigate to **https://portal.azure.com**.
 1. Logon with your Azure credentials.
 
     If you are asked to provide more information about your account, you can skip the steps for 14 days.
@@ -281,7 +287,7 @@ Perform these steps on the host computer.
 
 #### PowerShell
 
-Perform these steps on the host computer.
+Perform these steps on FS.
 
 1. Open **Windows PowerShell**.
 1. Connect to your Azure account.
