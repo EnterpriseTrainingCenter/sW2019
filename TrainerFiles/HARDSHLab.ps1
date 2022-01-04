@@ -14,6 +14,19 @@ param (
 
 $azPackage = @{ Name = 'Az'; MinimumVersion='3.7.0'; MaximumVersion = '6.6.0' }
 
+# Define the resource groups which should be create for each user.
+
+$userResourceGroups = @(
+    @{
+        NamePrefix = 'HARDSH-'
+        RoleDefinitionNames = 'SQL DB Contributor', 'SQL Server Contributor'
+    }
+    @{
+        NamePrefix = 'AzFS-'
+        RoleDefinitionNames = 'Contributor'
+    }
+)
+
 #endregion Global variables
 
 class User {
@@ -265,23 +278,31 @@ function New-UserAzResourceGroup {
         Select-Subscription
     }
 
-    $roleDefinitionNames = 'SQL DB Contributor', 'SQL Server Contributor'
-    $resourceGroupName = $ResourceGroupNamePrefix + $User.MailNickName
-    Write-Verbose "Creating resource group $resourceGroupName"
+    foreach ($userResourceGroup in $userResourceGroups) {
+        $resourceGroupName = $userResourceGroup.NamePrefix + $User.MailNickName            
+        $roleDefinitionNames = $userResourceGroup.RoleDefinitionNames
 
-    New-AzResourceGroup `
-        -Location $Location `
-        -Name $resourceGroupName `
-        -Tag @{ CompanyName = $CompanyName }
+        # Create the resource group
 
-    foreach ($roleDefinitionName in $roleDefinitionNames) {
-        Write-Verbose `
-            "Assigning role $roleDefinitionName to $($User.UserPrincipalName) for resource group $resourceGroupName"
-        New-AzRoleAssignment `
-            -SignInName $User.UserPrincipalName `
-            -ResourceGroupName $resourceGroupName `
-            -RoleDefinitionName $roleDefinitionName
+        Write-Verbose "Creating resource group $resourceGroupName"
+
+        New-AzResourceGroup `
+            -Location $Location `
+            -Name $resourceGroupName `
+            -Tag @{ CompanyName = $CompanyName }
+
+        # Assign roles to user
+
+        foreach ($roleDefinitionName in $roleDefinitionNames) {
+            Write-Verbose `
+                "Assigning role $roleDefinitionName to $($User.UserPrincipalName) for resource group $resourceGroupName"
+            New-AzRoleAssignment `
+                -SignInName $User.UserPrincipalName `
+                -ResourceGroupName $resourceGroupName `
+                -RoleDefinitionName $roleDefinitionName
+        }
     }
+
 }
 function Select-Subscription {
     do {

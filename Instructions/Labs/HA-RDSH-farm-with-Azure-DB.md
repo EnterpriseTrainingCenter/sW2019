@@ -166,7 +166,7 @@ Perform these steps on DC1.
 
 Perform these steps on the host computer.
 
-1. Open a web browser and navigate to http://portal.azure.com.
+1. Open a web browser and navigate to **https://portal.azure.com**.
 1. Logon with your Azure credentials.
 1. At the top-left, click the hamburger menu ([figure 1]) and click **Create a resource**.
 1. In **Search services and marketplace**, type **resource group**. When **Resource Group** appears below the input field, click on it.
@@ -224,7 +224,7 @@ Perform these steps on the host computer.
 
 Perform these steps on the host computer.
 
-1. Open a web browser and navigate to http://portal.azure.com.
+1. Open a web browser and navigate to **https://portal.azure.com**.
 1. Logon with your Azure credentials.
 
     If you are asked to provide more information about your account, you can skip the steps for 14 days.
@@ -328,12 +328,7 @@ Perform these steps on the host computer.
 1. Create a virtual SQL server.
 
     ````powershell
-    <# 
-        Because, you have permissions to one resource group only, you simply use
-        the name of that single resource group. In a real world scenario, you
-        would have to set the variable manually.
-    #>
-    $resourceGroup = Get-AzResourceGroup
+    $resourceGroup = Get-AzResourceGroup -Name 'HARDSH-Susi'
     $resourceGroupName = $resourceGroup.ResourceGroupName
     $location = $resourceGroup.Location
 
@@ -984,7 +979,7 @@ Perform these steps on CL1.
 1. Repeat steps 5 - 10.
 
     You should have been connected to **RDSH2**.
- 
+
 [figure 1]: images/Azure-hamburger-menu.png
 [figure 2]: images/Azure-sql-database-basics.png
 [figure 3]: images/Azure-sql-server.png

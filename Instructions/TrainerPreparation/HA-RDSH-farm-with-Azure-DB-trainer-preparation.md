@@ -112,7 +112,7 @@ You first create users for the students. Then, you create a separate resource gr
     0d6dbacb-44a1-49cb-b2c3-8ca0e39f1791 Max Mustermann Max.Mustermann@easyon.at Member
     ````
 
-    For each user, the script will create a resource group and assign the roles SQL DB Contributor and SQL Server Contributor to the user.
+    For each user, the script will create resource groups and assign the roles SQL DB Contributor and SQL Server Contributor to the user.
 
     ````
     ResourceGroupName : HARDSH-Susi.Sorglos
@@ -183,6 +183,31 @@ You first create users for the students. Then, you create a separate resource gr
     ObjectId           : 0d6dbacb-44a1-49cb-b2c3-8ca0e39f1791
     ObjectType         : User
     CanDelegate        : False
+
+
+    ResourceGroupName : AzFS-Susi
+    Location          : northeurope
+    ProvisioningState : Succeeded
+    Tags              : {CompanyName}
+    TagsTable         :
+                        Name         Value
+                        ===========  =======
+                        CompanyName  ETC2022
+
+    ResourceId        : /subscriptions/7022e6b1-cda5-4c07-a5f6-48c042625b6b/resourceGroups/AzFS-Susi
+    ManagedBy         :
+
+
+    RoleAssignmentId   : /subscriptions/7022e6b1-cda5-4c07-a5f6-48c042625b6b/resourceGroups/AzFS-Susi/providers/Microsoft.Authorization/roleAss 
+                        ignments/ab85290d-1119-4bb6-910d-d1a57b438abf
+    Scope              : /subscriptions/7022e6b1-cda5-4c07-a5f6-48c042625b6b/resourceGroups/AzFS-Susi
+    DisplayName        : Susi Sorglos
+    SignInName         : Susi@easyon.at
+    RoleDefinitionName : Contributor
+    RoleDefinitionId   : b24988ac-6180-42a0-ab88-20f7382dd24c
+    ObjectId           : c3aa45a9-2bbd-4432-94c9-71c22c0e0025
+    ObjectType         : User
+    CanDelegate        : False
     ````
 
 Congratulations: You have provisioned the lab sucessfully!
@@ -192,8 +217,11 @@ Congratulations: You have provisioned the lab sucessfully!
 In case you are unable to use the script, use these steps to prepare the lab.
 
 1. In Azure AD create a user account for every student.
-1. In the Azure subscription, create a resource group for every student, named HARDSH-Username.
-1. Assign the users the roles **SQL DB Contributor** and **SQL Server Contributor** to the corresponding resource groups.
+1. In the Azure subscription, create a resource groups for every student, named:
+    * HARDSH-Username
+    * AzFS-Username
+1. In resource groups **HARDSH-Username**, assign the corresponding users the roles **SQL DB Contributor** and **SQL Server Contributor**.
+1. In resource groups **AzFS-Username**, assign the corresponding users the role **Contributor**.
 
 ## Exercise 2: Cleanup
 
@@ -235,4 +263,4 @@ The script will automatically remove all users with the company name defined in 
 In case you are unable to use the script, use these steps to unprovision the lab.
 
 1. In Azure AD delelete the user account for every student.
-1. In the Azure subscription, delete the resource group for every student, named HARDSH-Username.
+1. In the Azure subscription, delete the resource groups for every student, named HARDSH-Username and AzFS-Username.
