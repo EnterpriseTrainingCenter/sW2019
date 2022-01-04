@@ -22,7 +22,7 @@ $userResourceGroups = @(
         RoleDefinitionNames = 'Contributor'
     }
     @{
-        NamePrefix = 'App1-'
+        NamePrefix = 'SRV1-'
         RoleDefinitionNames = 'Network Contributor', 'Virtual Machine Contributor'
     }
     @{
