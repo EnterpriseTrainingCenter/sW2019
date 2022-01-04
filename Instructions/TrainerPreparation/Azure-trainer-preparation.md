@@ -1,6 +1,6 @@
-# Trainer Preparation: HA RDSH farm with Azure DB
+# Trainer Preparation: Azure
 
-In the Lab **HA RDSH farm with Azure DB**, students must create an Azure SQL database. Because students most probably do not have an Azure account, it is recommended, that the trainer's Azure account (e. g. an Azure Pass subscription) is used.
+In the some labs, students must create and manage Azure resources. Because students most probably do not have an Azure account, it is recommended, that the trainer's Azure account (e. g. an Azure Pass subscription) is used.
 
 The steps here are intended to be performed by the trainer in preparation of the lab. The steps can be done as a demo during or prior to the course.
 
@@ -25,7 +25,7 @@ You first create users for the students. Then, you create a separate resource gr
 
 ### Task 1: Prepare the script
 
-1. Download the script [HARDSHLab.ps1](/TrainerFiles/HARDSHLab.ps1).
+1. Download the script [Deploy-Azure.ps1](/TrainerFiles/Deploy-Azure.ps1).
 1. Check some parameters at the top of the script
 
     ````powershell
@@ -35,9 +35,30 @@ You first create users for the students. Then, you create a separate resource gr
         [String]
         $CompanyName = 'ETC2022', # This should be unique. Used to remove users later.
         [String]
-        $ResourceGroupNamePrefix = 'HARDSH-', # This is the prefix for resource groups
-        [String]
         $Location = 'northeurope' # This is the default location for azure resources
+    )
+
+    #region Global variables
+
+    # Define the resource groups which should be create for each user.
+
+    $userResourceGroups = @(
+        @{
+            NamePrefix = 'HARDSH-'
+            RoleDefinitionNames = 'SQL DB Contributor', 'SQL Server Contributor'
+        }
+        @{
+            NamePrefix = 'AzFS-'
+            RoleDefinitionNames = 'Contributor'
+        }
+        @{
+            NamePrefix = 'SRV1-'
+            RoleDefinitionNames = 'Network Contributor', 'Virtual Machine Contributor'
+        }
+        @{
+            NamePrefix = 'Management-'
+            RoleDefinitionNames = 'Automation Contributor', 'Log Analytics Contributor'
+        }
     )
     ````
 
@@ -47,10 +68,9 @@ You first create users for the students. Then, you create a separate resource gr
 
     Make sure that $companyName is not in use for any user in your Azure AD tenant. Moreover, it must not be in use as a tag for any resource group. In doubt, change the value to some random string.
 
-    The resource groups will be create with the naming schema HARDSH-Username. The resource group names must be unique in the subscription. If you must change the prefix, you must advise students to use a different resource group name in the lab.
-
     $location is the location where resources are created by default. Valid locations can be retrieved using ````Get-AzLocation````.
 
+    $userResourceGroups define prefixes for various resource groups, the script will create for each user. Make sure, the prefixes are unique in your environment. If you change the prefixes, you will have to tell your users. Do not tamper with the RoleDefinitionNames. This will break the script and the labs.
 
 ### Task 2: Run script
 
@@ -63,7 +83,7 @@ You first create users for the students. Then, you create a separate resource gr
 
     *Note:* If you receive an error message telling you, that the Cmdlet was not recognized, ignore it and continue.
 
-1. Run PowerShell-script [HARDSHLab.ps1](/TrainerFiles/HARDSHLab.ps1).
+1. Run PowerShell-script [Deploy-Azure.ps1](/TrainerFiles/Deploy-Azure.ps1).
 
     *Note:* The script supports the ````-Verbose```` parameter for more informative output.
 
@@ -148,67 +168,9 @@ You first create users for the students. Then, you create a separate resource gr
     ObjectId           : dbc4a9e9-48b0-4fa6-b395-a429b3129d53
     ObjectType         : User
     CanDelegate        : False
-
-
-    ResourceGroupName : HARDSH-Max.Mustermann
-    Location          : northeurope
-    ProvisioningState : Succeeded
-    Tags              : {CompanyName}
-    TagsTable         :
-                        Name         Value
-                        ===========  =======
-                        CompanyName  ETC2022
-
-    ResourceId        : /subscriptions/7022e6b1-cda5-4c07-a5f6-48c042625b6b/resourceGroups/HARDSH-Max.Mustermann
-    ManagedBy         :
-
-
-    RoleAssignmentId   : /subscriptions/7022e6b1-cda5-4c07-a5f6-48c042625b6b/resourceGroups/HARDSH-Max.Mustermann/providers/Microsoft.Authorization/roleAssignments/3457e7a9-4a5f-4654-9c13-a1f96443283e
-    Scope              : /subscriptions/7022e6b1-cda5-4c07-a5f6-48c042625b6b/resourceGroups/HARDSH-Max.Mustermann
-    DisplayName        : Max Mustermann
-    SignInName         : Max.Mustermann@easyon.at
-    RoleDefinitionName : SQL DB Contributor
-    RoleDefinitionId   : 9b7fa17d-e63e-47b0-bb0a-15c516ac86ec
-    ObjectId           : 0d6dbacb-44a1-49cb-b2c3-8ca0e39f1791
-    ObjectType         : User
-    CanDelegate        : False
-
-
-    RoleAssignmentId   : /subscriptions/7022e6b1-cda5-4c07-a5f6-48c042625b6b/resourceGroups/HARDSH-Max.Mustermann/providers/Microsoft.Authorization/roleAssignments/eefc70f7-e280-48b3-82d6-d05b808c48c0
-    Scope              : /subscriptions/7022e6b1-cda5-4c07-a5f6-48c042625b6b/resourceGroups/HARDSH-Max.Mustermann
-    DisplayName        : Max Mustermann
-    SignInName         : Max.Mustermann@easyon.at
-    RoleDefinitionName : SQL Server Contributor
-    RoleDefinitionId   : 6d8ee4ec-f05a-4a1d-8b00-a9b17e38b437
-    ObjectId           : 0d6dbacb-44a1-49cb-b2c3-8ca0e39f1791
-    ObjectType         : User
-    CanDelegate        : False
-
-
-    ResourceGroupName : AzFS-Susi
-    Location          : northeurope
-    ProvisioningState : Succeeded
-    Tags              : {CompanyName}
-    TagsTable         :
-                        Name         Value
-                        ===========  =======
-                        CompanyName  ETC2022
-
-    ResourceId        : /subscriptions/7022e6b1-cda5-4c07-a5f6-48c042625b6b/resourceGroups/AzFS-Susi
-    ManagedBy         :
-
-
-    RoleAssignmentId   : /subscriptions/7022e6b1-cda5-4c07-a5f6-48c042625b6b/resourceGroups/AzFS-Susi/providers/Microsoft.Authorization/roleAss 
-                        ignments/ab85290d-1119-4bb6-910d-d1a57b438abf
-    Scope              : /subscriptions/7022e6b1-cda5-4c07-a5f6-48c042625b6b/resourceGroups/AzFS-Susi
-    DisplayName        : Susi Sorglos
-    SignInName         : Susi@easyon.at
-    RoleDefinitionName : Contributor
-    RoleDefinitionId   : b24988ac-6180-42a0-ab88-20f7382dd24c
-    ObjectId           : c3aa45a9-2bbd-4432-94c9-71c22c0e0025
-    ObjectType         : User
-    CanDelegate        : False
     ````
+
+    The rest of the output was trimmed for readability purposes.
 
 Congratulations: You have provisioned the lab sucessfully!
 
@@ -220,8 +182,12 @@ In case you are unable to use the script, use these steps to prepare the lab.
 1. In the Azure subscription, create a resource groups for every student, named:
     * HARDSH-Username
     * AzFS-Username
-1. In resource groups **HARDSH-Username**, assign the corresponding users the roles **SQL DB Contributor** and **SQL Server Contributor**.
-1. In resource groups **AzFS-Username**, assign the corresponding users the role **Contributor**.
+    * SRV1-Username
+    * Management-Username
+1. In resource group **HARDSH-Username**, assign the corresponding users the roles **SQL DB Contributor** and **SQL Server Contributor**.
+1. In resource group **AzFS-Username**, assign the corresponding users the role **Contributor**.
+1. In resource group **SRV1-Username**, assign the corresponding users the roles **Network Contributor** and **Virtual Machine Contributor**.
+1. In resource group **Management-Username**, assign the corresponding users the roles **Automation Contributor** and **Log Analytics Contributor**.
 
 ## Exercise 2: Cleanup
 
@@ -238,7 +204,7 @@ You will remove the resource groups and the users.
 
 ### Task 1: Run the script
 
-1. Run PowerShell-script [HARDSHLab.ps1](/TrainerFiles/HARDSHLab.ps1).
+1. Run PowerShell-script [Deploy-Azure.ps1](/TrainerFiles/Deploy-Azure.ps1).
 
     *Note:* The script supports the ````-Verbose```` parameter for more informative output. Because the script has minimal output, especially while unprovisioning the lab, it is recommended to append it.
 
@@ -263,4 +229,9 @@ The script will automatically remove all users with the company name defined in 
 In case you are unable to use the script, use these steps to unprovision the lab.
 
 1. In Azure AD delelete the user account for every student.
-1. In the Azure subscription, delete the resource groups for every student, named HARDSH-Username and AzFS-Username.
+1. In the Azure subscription, delete the resource groups for every student:
+
+    * HARDSH-Username
+    * AzFS-Username
+    * SRV1-Username
+    * Management-Username

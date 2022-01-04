@@ -6,7 +6,7 @@ The lab instructions are to be used in conjunction with the original presentatio
 
 ## Trainer preparation
 
-1. [HA RDSH farm with Azure DB](TrainerPreparation/HA-RDSH-farm-with-Azure-DB-trainer-preparation.md)
+1. [Azure](TrainerPreparation/Azure-trainer-preparation.md)
 
 ## Labs
 

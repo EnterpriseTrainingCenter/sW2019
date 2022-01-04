@@ -5,14 +5,10 @@ param (
     [String]
     $CompanyName = 'ETC2022', # This should be unique. Used to remove users later.
     [String]
-    $ResourceGroupNamePrefix = 'HARDSH-', # This is the prefix for resource groups
-    [String]
     $Location = 'northeurope' # This is the default location for azure resources
 )
 
 #region Global variables
-
-$azPackage = @{ Name = 'Az'; MinimumVersion='3.7.0'; MaximumVersion = '6.6.0' }
 
 # Define the resource groups which should be create for each user.
 
@@ -25,7 +21,20 @@ $userResourceGroups = @(
         NamePrefix = 'AzFS-'
         RoleDefinitionNames = 'Contributor'
     }
+    @{
+        NamePrefix = 'App1-'
+        RoleDefinitionNames = 'Network Contributor', 'Virtual Machine Contributor'
+    }
+    @{
+        NamePrefix = 'Management-'
+        RoleDefinitionNames = 'Automation Contributor', 'Log Analytics Contributor'
+    }
 )
+
+# Compatible versions of the Azure package
+
+$azPackage = @{ Name = 'Az'; MinimumVersion='3.7.0'; MaximumVersion = '6.6.0' }
+
 
 #endregion Global variables
 
