@@ -97,7 +97,7 @@ Perform these steps on FS.
     Select-AzSubscription -SubscriptionId 00000000-0000-0000-0000-000000000000
     ````
 
-1. Create a resource group with the name **HARDSH-** followed by your user name.
+1. Create a resource group with the name **AzFS-** followed by your user name.
 
     ````powershell
     $resourceGroupName = 'AzFS-' # append your user name
