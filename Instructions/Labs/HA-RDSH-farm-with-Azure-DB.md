@@ -27,10 +27,29 @@ In this exercise you  will first create a security group for the connection brok
 
 #### Tasks
 
-1. [Prepare the environment for RDS](#task-1-prepare-the-environment-for-rds)
-1. [Prepare the Azure SQL Database](#task-2-prepare-the-azure-sql-database)
+1. [Install PowerShell modules for Azure (Optional)](#task-1-install-powershell-modules-for-Azure-optional)
+1. [Prepare the environment for RDS](#task-2-prepare-the-environment-for-rds)
+1. [Create a resource group (Optional)](#task-3-create-a-resource-group-optional)
+1. [Prepare the Azure SQL Database](#task-4-prepare-the-azure-sql-database)
 
-### Task 1: Prepare the environment for RDS
+### Task 1: Install PowerShell modules for Azure (Optional)
+
+*Note:* This task is only required, if you plan to use PowerShell to administer Azure.
+
+Perform these steps on the host computer.
+
+1. Open **Windows PowerShell**.
+1. Install the latest version of the Azure PowerShell package in the scope of the current user.
+
+    ````powershell
+    Install-Package -Name Az -Scope CurrentUser
+    ````
+
+    Confirm all prompts.
+
+    This will take a few minutes. Do not wait for the installation to complete. Continue with the next task.
+
+### Task 2: Prepare the environment for RDS
 
 #### Desktop Experience
 
@@ -139,7 +158,67 @@ Perform these steps on DC1.
     New-SmbShare -Path $path -Name UserProfileDisks -FullAccess Everyone
     ````
 
-### Task 2: Prepare the Azure SQL Database
+### Task 3: Create a resource group (Optional)
+
+*Note:* Perform this task only, if you are using your own Azure account. With a shared Azure account, you will not have the permissions to perform this task.
+
+#### Desktop experience
+
+Perform these steps on the host computer.
+
+1. Open a web browser and navigate to http://portal.azure.com.
+1. Logon with your Azure credentials.
+1. At the top-left, click the hamburger menu ([figure 1]) and click **Create a resource**.
+1. In **Search services and marketplace**, type **resource group**. When **Resource Group** appears below the input field, click on it.
+1. On page **Resource Group**, click **Create**.
+1. On tab **Basics**, in **Subscription**, select the subscription, you want to use for this lab. In **Resource group**, enter **HARDSH-** followed by your user name, e. g. *HARDSH-Susi*. In **Region** select a region close to you, e. g. **North Europe**. Click **Review + create**.
+
+    Your instructor will advise you selecting an appropriate region.
+
+1. On tab **Review + create**, if validation passed, click **Create**.
+
+#### PowerShell
+
+Perform these steps on the host computer.
+
+*Note:* To perform this task, the installation of task 1 must be completed.
+
+1. In **Windows PowerShell**, connect to you Azure account.
+
+    ````powershell
+    Connect-AzAccount
+    ````
+
+1. Logon with your Azure credentials.
+1. List your Azure subscriptions.
+
+    ````powershell
+    Get-AzSubscription
+    ````
+
+    *Note:* If only one subscription gets listed, you can skip the next two steps.
+
+1. Copy the **Id** of the Azure subscription, you want to use for this lab, to the clipboard.
+1. Select the Azure subscription.
+
+    ````powershell
+    <# 
+        Replace the SubscriptionId parameter value with the Id you copied to the
+        clipboard.
+    #>
+    Select-AzSubscription -SubscriptionId 00000000-0000-0000-0000-000000000000
+    ````
+
+1. Create a resource group with the name **HARDSH-** followed by your user name.
+
+    ````powershell
+    $resourceGroupName = 'HARDSH-' # append your user name
+    $resourceGroup = New-AzResourceGroup `
+        -Name $resourceGroupName `
+        -Location northeurope # You can replace the location, if you want.
+    ````
+
+### Task 4: Prepare the Azure SQL Database
 
 #### Desktop experience
 
@@ -204,17 +283,7 @@ Perform these steps on the host computer.
 
 Perform these steps on the host computer.
 
-1. Open a **Windows PowerShell**.
-1. Install the latest version of the Azure PowerShell package in the scope of the current user.
-
-    ````powershell
-    Install-Package -Name Az -Scope CurrentUser
-    ````
-
-    Confirm all prompts.
-
-    This will take a few minutes.
-
+1. Open **Windows PowerShell**.
 1. Connect to your Azure account.
 
     ````powershell
@@ -224,6 +293,25 @@ Perform these steps on the host computer.
 1. Logon with your Azure credentials.
 
     If you are asked to provide more information about your account, you can skip the steps for 14 days.
+
+1. List your Azure subscriptions.
+
+    ````powershell
+    Get-AzSubscription
+    ````
+
+    *Note:* If only one subscription gets listed, you can skip the next two steps.
+
+1. Copy the **Id** of the Azure subscription, you want to use for this lab, to the clipboard.
+1. Select the Azure subscription.
+
+    ````powershell
+    <# 
+        Replace the SubscriptionId parameter value with the Id you copied to the
+        clipboard.
+    #>
+    Select-AzSubscription -SubscriptionId 00000000-0000-0000-0000-000000000000
+    ````
 
 1. Create credentials for an SQL admin user.
 
