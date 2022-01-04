@@ -28,7 +28,7 @@ In this exercise you will create a Storage Account and an Azure file share.
 
 ### Task 1: Install PowerShell modules for Azure (Optional)
 
-*Note:* This task is only required, if you plan to use PowerShell to administer Azure.
+*Note:* This task is only required, if you plan to use PowerShell to administer Azure and do not have installed the modules in an earlier lab.
 
 Perform these steps on FS.
 
