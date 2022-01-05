@@ -23,11 +23,9 @@ $userResourceGroups = @(
     }
     @{
         NamePrefix = 'SRV1-'
-        RoleDefinitionNames = 'Network Contributor', 'Virtual Machine Contributor'
-    }
-    @{
-        NamePrefix = 'Management-'
-        RoleDefinitionNames = 'Automation Contributor', 'Log Analytics Contributor'
+        RoleDefinitionNames = 
+            'Network Contributor', 
+            'Virtual Machine Contributor'
     }
 )
 

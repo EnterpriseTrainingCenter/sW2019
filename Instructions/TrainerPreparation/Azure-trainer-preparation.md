@@ -4,6 +4,8 @@ In the some labs, students must create and manage Azure resources. Because stude
 
 The steps here are intended to be performed by the trainer in preparation of the lab. The steps can be done as a demo during or prior to the course.
 
+However, lab [Windows Admin Center Azure Integration Exercise 4: Update Management](..\Labs\WAC-Azure-Integration.md#exercise-4-update-management) requires near full access to an Azure subscription. Consider performing this exercise as demo, if the students do not bring their own Azure subscription into the course.
+
 ## Exercises
 
 1. [Provisioning](#exercise-1-provisioning)
@@ -54,10 +56,6 @@ You first create users for the students. Then, you create a separate resource gr
         @{
             NamePrefix = 'SRV1-'
             RoleDefinitionNames = 'Network Contributor', 'Virtual Machine Contributor'
-        }
-        @{
-            NamePrefix = 'Management-'
-            RoleDefinitionNames = 'Automation Contributor', 'Log Analytics Contributor'
         }
     )
     ````
@@ -170,7 +168,7 @@ You first create users for the students. Then, you create a separate resource gr
     CanDelegate        : False
     ````
 
-    The rest of the output was trimmed for readability purposes.
+    The rest of the output was trimmed for brevity.
 
 Congratulations: You have provisioned the lab sucessfully!
 
@@ -183,11 +181,9 @@ In case you are unable to use the script, use these steps to prepare the lab.
     * HARDSH-Username
     * AzFS-Username
     * SRV1-Username
-    * Management-Username
 1. In resource group **HARDSH-Username**, assign the corresponding users the roles **SQL DB Contributor** and **SQL Server Contributor**.
 1. In resource group **AzFS-Username**, assign the corresponding users the role **Contributor**.
 1. In resource group **SRV1-Username**, assign the corresponding users the roles **Network Contributor** and **Virtual Machine Contributor**.
-1. In resource group **Management-Username**, assign the corresponding users the roles **Automation Contributor** and **Log Analytics Contributor**.
 
 ## Exercise 2: Cleanup
 
@@ -234,4 +230,3 @@ In case you are unable to use the script, use these steps to unprovision the lab
     * HARDSH-Username
     * AzFS-Username
     * SRV1-Username
-    * Management-Username
