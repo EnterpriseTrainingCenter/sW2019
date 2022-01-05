@@ -31,5 +31,5 @@ The lab instructions are to be used in conjunction with the original presentatio
 1. [DNS Policies](Labs/DNS-policies.md)
 1. [Web Application Proxy](Labs/Web-Application-Proxy.md)
 1. [Azure File Sync](Labs/Azure-File-Sync.md)
-1. WAC Azure Integration
+1. [Window Admin Center Azure Integration](Labs/WAC-Azure-Integration.md)
 1. Azure Backup

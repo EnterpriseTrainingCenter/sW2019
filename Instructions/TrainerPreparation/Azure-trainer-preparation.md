@@ -4,7 +4,7 @@ In the some labs, students must create and manage Azure resources. Because stude
 
 The steps here are intended to be performed by the trainer in preparation of the lab. The steps can be done as a demo during or prior to the course.
 
-However, lab [Windows Admin Center Azure Integration Exercise 4: Update Management](..\Labs\WAC-Azure-Integration.md#exercise-4-update-management) requires near full access to an Azure subscription. Consider performing this exercise as demo, if the students do not bring their own Azure subscription into the course.
+However, lab [Windows Admin Center Azure Integration Exercise 3: Update Management](..\Labs\WAC-Azure-Integration.md#exercise-3-update-management) requires near full access to an Azure subscription. Consider performing this exercise as demo, if the students do not bring their own Azure subscription into the course.
 
 ## Exercises
 
