@@ -181,9 +181,11 @@ In case you are unable to use the script, use these steps to prepare the lab.
     * HARDSH-Username
     * AzFS-Username
     * SRV1-Username
+    * Recovery-Username
 1. In resource group **HARDSH-Username**, assign the corresponding users the roles **SQL DB Contributor** and **SQL Server Contributor**.
 1. In resource group **AzFS-Username**, assign the corresponding users the role **Contributor**.
 1. In resource group **SRV1-Username**, assign the corresponding users the roles **Network Contributor** and **Virtual Machine Contributor**.
+1. In resource group **Recovery-Username**, assign the correspondig users the role **Contributor**.
 
 ## Exercise 2: Cleanup
 
@@ -230,3 +232,4 @@ In case you are unable to use the script, use these steps to unprovision the lab
     * HARDSH-Username
     * AzFS-Username
     * SRV1-Username
+    * Recovery-Username

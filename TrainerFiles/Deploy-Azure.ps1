@@ -27,6 +27,10 @@ $userResourceGroups = @(
             'Network Contributor', 
             'Virtual Machine Contributor'
     }
+    @{
+        NamePrefix = 'Recovery-'
+        RoleDefinitionNames = 'Contributor'
+    }
 )
 
 # Compatible versions of the Azure package

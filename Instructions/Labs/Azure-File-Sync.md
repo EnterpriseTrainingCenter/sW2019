@@ -320,7 +320,7 @@ Perform these steps on FS.
         complete. Note that the installer currently forces all PowerShell 
         sessions closed - this is a known issue.
     #>
-    Start-Process -FilePath $filePath -ArgumentList "/quiet" -Wait
+    Start-Process -FilePath $filePath -ArgumentList '/quiet' -Wait
     ````
 
 1. Register Windows Server with Storage Sync service.
