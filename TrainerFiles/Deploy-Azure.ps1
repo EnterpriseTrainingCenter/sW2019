@@ -19,7 +19,7 @@ $userResourceGroups = @(
     }
     @{
         NamePrefix = 'AzFS-'
-        RoleDefinitionNames = 'Contributor'
+        RoleDefinitionNames = 'Owner'
     }
     @{
         NamePrefix = 'SRV1-'
@@ -375,6 +375,212 @@ function Connect-AzContextAzureAd {
     Connect-AzureAD -TenantId $Context.Tenant.Id -AccountId $Context.Account.Id
 }
 
+function Remove-RecoveryServicesVault {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]
+        $ResourceGroupName,
+
+        [Parameter(Mandatory = $true)]
+        [string]
+        $Name
+    )
+    $subscriptionId = (Get-AzContext).Subscription
+    $recoveryServicesVault = Get-AzRecoveryServicesVault `
+        -Name $Name `
+        -ResourceGroupName $ResourceGroupName
+    Set-AzRecoveryServicesAsrVaultContext -Vault $recoveryServicesVault
+
+    # Disable soft delete
+    Set-AzRecoveryServicesVaultProperty `
+        -Vault $recoveryServicesVault.ID `
+        -SoftDeleteFeatureState Disable
+    
+    # fetch backup items in soft delete state
+    Write-Verbose "Soft delete disabled for the vault $Name"
+    $recoveryServicesBackupItems = Get-AzRecoveryServicesBackupItem `
+        -BackupManagementType AzureVM `
+        -WorkloadType AzureVM `
+        -VaultId $recoveryServicesVault.ID | 
+    Where-Object {$_.DeleteState -eq "ToBeDeleted"}
+    
+    # Undelete items in soft delete state
+    foreach ($recoveryServicesBackupItem in $recoveryServicesBackupItems)
+    {
+        Undo-AzRecoveryServicesBackupItemDeletion `
+            -Item $recoveryServicesBackupItem `
+            -VaultId $recoveryServicesVault.ID `
+            -Force 
+    }
+
+    # Invoking API to disable enhanced security
+
+    $accesstoken = Get-AzAccessToken
+    $token = $accesstoken.Token
+    $authHeader = @{
+        'Content-Type'='application/json'
+        'Authorization'='Bearer ' + $token
+    }
+    $body = @{properties=@{enhancedSecurityState= "Disabled"}}
+    $uri = 'https://management.azure.com/subscriptions/' `
+        + $subscriptionId+'/resourcegroups/' `
+        + $resourceGroupName +'/providers/Microsoft.RecoveryServices/vaults/' `
+        + $name +'/backupconfig/vaultconfig?api-version=2019-05-13'
+    $response = Invoke-RestMethod `
+        -Uri $uri `
+        -Headers $authHeader `
+        -Body ($body | ConvertTo-JSON -Depth 9) `
+        -Method PATCH
+
+    #Fetch all protected items and servers
+    $backupItemsVM = Get-AzRecoveryServicesBackupItem `
+        -BackupManagementType AzureVM `
+        -WorkloadType AzureVM `
+        -VaultId $recoveryServicesVault.ID
+    $backupItemsSQL = Get-AzRecoveryServicesBackupItem `
+        -BackupManagementType AzureWorkload `
+        -WorkloadType MSSQL `
+        -VaultId $recoveryServicesVault.ID
+    $backupItemsAFS = Get-AzRecoveryServicesBackupItem `
+        -BackupManagementType AzureStorage `
+        -WorkloadType AzureFiles `
+        -VaultId $recoveryServicesVault.ID
+    $backupContainersSQL = Get-AzRecoveryServicesBackupContainer `
+        -ContainerType AzureVMAppContainer `
+        -Status Registered `
+        -VaultId $recoveryServicesVault.ID | 
+        Where-Object {$_.ExtendedInfo.WorkloadType -eq "SQL"}
+    $StorageAccounts = Get-AzRecoveryServicesBackupContainer `
+        -ContainerType AzureStorage `
+        -Status Registered `
+        -VaultId $recoveryServicesVault.ID
+    $backupServersMARS = Get-AzRecoveryServicesBackupContainer `
+        -ContainerType "Windows" `
+        -BackupManagementType MAB `
+        -VaultId $recoveryServicesVault.ID
+    $backupServersMABS = Get-AzRecoveryServicesBackupManagementServer `
+        -VaultId $recoveryServicesVault.ID | 
+        Where-Object { $_.BackupManagementType -eq "AzureBackupServer" }
+    $backupServersDPM = Get-AzRecoveryServicesBackupManagementServer `
+        -VaultId $recoveryServicesVault.ID | 
+        Where-Object { $_.BackupManagementType-eq "SCDPM" }
+
+        # stop backup and delete Azure VM backup items
+    foreach($item in $backupItemsVM)
+    {
+        Disable-AzRecoveryServicesBackupProtection `
+            -Item $item `
+            -VaultId $recoveryServicesVault.ID `
+            -RemoveRecoveryPoints `
+            -Force
+    }
+    Write-Verbose "Disabled and deleted Azure VM backup items"
+
+    # stop backup and delete SQL Server in Azure VM backup items
+    foreach($item in $backupItemsSQL) 
+    {
+        Disable-AzRecoveryServicesBackupProtection `
+            -Item $item `
+            -VaultId $recoveryServicesVault.ID `
+            -RemoveRecoveryPoints -Force
+    }
+    Write-Verbose "Disabled and deleted SQL Server backup items"
+
+    # disable auto-protection for SQL
+    foreach($item in $protectableItems)
+    {
+        Disable-AzRecoveryServicesBackupAutoProtection `
+            -BackupManagementType AzureWorkload `
+            -WorkloadType MSSQL `
+            -InputItem $item `
+            -VaultId $recoveryServicesVault.ID
+    }
+    Write-Verbose "Disabled auto-protection and deleted SQL protectable items"
+
+    # unregister SQL Server in Azure VM protected server
+    foreach($item in $backupContainersSQL)
+    {
+        Unregister-AzRecoveryServicesBackupContainer `
+            -Container $item `
+            -VaultId $recoveryServicesVault.ID
+    }
+    Write-Verbose "Deleted SQL Servers in Azure VM containers" 
+
+    # stop backup and delete SAP HANA in Azure VM backup items
+    foreach($item in $backupItemsSAP) 
+    {
+        Disable-AzRecoveryServicesBackupProtection `
+            -Item $item `
+            -VaultId $recoveryServicesVault.ID `
+            -RemoveRecoveryPoints `
+            -Force
+    }
+    Write-Verbose "Disabled and deleted SAP HANA backup items"
+
+    #unregister SAP HANA in Azure VM protected server
+    foreach($item in $backupContainersSAP)
+    {
+        Unregister-AzRecoveryServicesBackupContainer `
+        -Container $item `
+        -Force `
+        -VaultId $recoveryServicesVault.ID 
+    }
+    Write-Verbose "Deleted SAP HANA in Azure VM containers"
+
+    #stop backup and delete Azure File Shares backup items
+    foreach($item in $backupItemsAFS)
+    {
+        Disable-AzRecoveryServicesBackupProtection `
+            -Item $item `
+            -VaultId $recoveryServicesVault.ID `
+            -RemoveRecoveryPoints `
+            -Force
+    }
+    Write-Verbose "Disabled and deleted Azure File Share backups"
+
+    # unregister storage accounts
+    foreach($item in $StorageAccounts)
+    {   
+        Unregister-AzRecoveryServicesBackupContainer `
+        -Container $item `
+        -VaultId $recoveryServicesVault.ID
+    }
+    Write-Verbose "Unregistered Storage Accounts"
+
+    # unregister MARS servers and delete corresponding backup items
+    foreach($item in $backupServersMARS) 
+    {
+        Unregister-AzRecoveryServicesBackupContainer `
+            -Container $item `
+            -VaultId $recoveryServicesVault.ID
+    }
+    Write-Verbose "Deleted MARS Servers"
+
+    # unregister MABS servers and delete corresponding backup items
+    foreach($item in $backupServersMABS)
+    { 
+        Unregister-AzRecoveryServicesBackupManagementServer `
+            -AzureRmBackupManagementServer $item `
+            -VaultId $recoveryServicesVault.ID
+    }
+    Write-Verbose "Deleted MAB Servers"
+
+    #unregister DPM servers and delete corresponding backup items
+    foreach($item in $backupServersDPM) 
+    {
+        Unregister-AzRecoveryServicesBackupManagementServer `
+            -AzureRmBackupManagementServer $item `
+            -VaultId $recoveryServicesVault.ID
+    }
+    Write-Verbose "Deleted DPM Servers"
+
+
+
+    Remove-AzRecoveryServicesVault -Vault $recoveryServicesVault
+    #Finish
+}
+
 function Install-Lab {
     $users = New-AzureADUsers
     $users
@@ -393,9 +599,74 @@ function Uninstall-lab {
     $resourceGroups = Get-AzResourceGroup -Tag @{ CompanyName = $CompanyName }
 
     foreach ($resourceGroup in $resourceGroups) {
+
+        # Some resource types need special treatment
+
+        $resources = Get-AzResource `
+            -ResourceGroupName $resourceGroup.ResourceGroupName
+        foreach ($resource in $resources) {
+            Write-Verbose "Removing resource $($resource.Name)"
+            switch ($resource.ResourceType) {
+                'Microsoft.StorageSync/storageSyncServices' {
+
+                    $storageSyncService = Get-AzStorageSyncService `
+                        -ResourceGroupName $resourceGroup.ResourceGroupName `
+                        -Name $resource.Name
+
+                    # Remove sync groups
+
+                    $storageSyncGroups = $storageSyncService |
+                        Get-AzStorageSyncGroup
+                    foreach ($storageSyncGroup in $storageSyncGroups) {
+
+                        # Remove server endpoints
+
+                        Write-Verbose "In storage sync group $($storageSyncGroup.SyncGroupName), removing server endpoints."
+
+                        $storageSyncGroup | 
+                        Get-AzStorageSyncServerEndpoint |
+                        Remove-AzStorageSyncServerEndpoint -Force
+
+                        # Remove cloud endpoints
+
+                        Write-Verbose "In storage sync group $($storageSyncGroup.SyncGroupName), removing cloud endpoints."
+                        $storageSyncGroup |
+                        Get-AzStorageSyncCloudEndpoint |
+                        Remove-AzStorageSyncCloudEndpoint -Force
+                    }
+                    Write-Verbose 'Removing storage sync groups'
+                    $storageSyncGroups | Remove-AzStorageSyncGroup -Force
+
+                    
+                    # Remove registered servers
+                    Write-Verbose 'Removing servers from Azure Storage Sync'
+                    $storageSyncService | 
+                    Get-AzStorageSyncServer | 
+                    Unregister-AzStorageSyncServer -Force
+
+                    # Remove storage sync service
+                    $storageSyncService | Remove-AzStorageSyncService -Force
+                }
+                'Microsoft.RecoveryServices/vaults' {
+                    Remove-RecoveryServicesVault `
+                        -ResourceGroupName `
+                            $resourceGroup.ResourceGroupName `
+                        -Name $resource.Name
+                }
+                Default {
+                }
+            }
+        }
+
         Write-Verbose "Removing resource group $($resourceGroup.ResourceGroupName)"
         $null = $resourceGroup | Remove-AzResourceGroup -Force
     }
+
+    # Remove Azure AD applications
+
+    Get-AzureADApplication `
+        -SearchString 'WindowsAdminCenter-https://admincenter.smart.etc' | 
+    Remove-AzureADApplication
 }
 
 New-InstallPackageJob @azPackage
@@ -403,7 +674,7 @@ New-InstallPackageJob @azPackage
 $command = ''
 while ($command -ne 'p' -and $command -ne 'u') {
     $command = Read-Host -Prompt `
-        "Do you want to [p]rovision or [u]nprovision the HA RDSH lab in Azure"
+        "Do you want to [p]rovision or [u]nprovision the Azure for the labs"
 }
 
 switch ($command) {
