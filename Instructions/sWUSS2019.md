@@ -1,8 +1,12 @@
-# smart smart Upgrading Skills from Windows Server 2012 (R2) to Windows Server 2016/2019
+# smart Upgrading Skills from Windows Server 2012 (R2) to Windows Server 2016/2019
 
-For information about the course see <https://www.etc.at/seminare/sw2019-1/>.
+For information about the course see <https://www.etc.at/seminare/swuss/>.
 
 The lab instructions are to be used in conjunction with the original presentation slides and virtual machine images only. The slides and virtual machine images are not contained in this repository. Licensing is possible, please contact us.
+
+## Trainer preparation
+
+1. [Azure](TrainerPreparation/Azure-trainer-preparation.md)
 
 ## Labs
 
@@ -12,20 +16,20 @@ The lab instructions are to be used in conjunction with the original presentatio
     * [Installing and configuring Windows Admin Center](Labs/Installing-and-configuring-Windows-Admin-Center.md)
     * [Using and securing Windows Admin Center](Labs/Using-and-securing-Windows-Admin-Center.md)
 
-1. Active Directory Upgrade
-1. LAPS (optional)
-1. Time limited group membership (optional)
+1. [Active Directory upgrade](Labs/Active-Directory-upgrade.md)
+1. [LAPS](Labs/LAPS.md) (optional)
+1. [Time limited group membership](Labs/Time-limited-group-membership.md) (optional)
 1. [Cluster Rolling Upgrade](Labs/Cluster-Rolling-Upgrade.md)
-1. PowerShell 5
-1. Always On VPN
-1. HA RDSH Farm with Azure DB
-1. Hyper-V
+1. [PowerShell 5](Labs/Powershell-5.md)
+1. [AlwaysOn VPN](Labs/AlwaysOn-VPN.md)
+1. [High availability Remote Desktop Session Host farm with Azure DB](Labs/HA-RDSH-farm-with-Azure-DB.md)
+1. [New features in Hyper-V](Labs/Hyper-V-New-Features.md)
 1. [Deploying Containers](Labs/Deploying-Containers.md)
 1. [Storage Migration Service](Labs/Storage-Migration-Service.md)
 1. [Storage Replica](Labs/Storage-Replica.md)
 1. [Storage Spaces Direct Hyper-Converged](Labs/Storage-Spaces-Direct-Hyper-Converged.md)
-1. DNS Policies
-1. Web Application Proxy
-1. Azure File Sync
-1. WAC Azure Integration
-1. Azure Backup
+1. [DNS Policies](Labs/DNS-policies.md)
+1. [Web Application Proxy](Labs/Web-Application-Proxy.md)
+1. [Azure File Sync](Labs/Azure-File-Sync.md)
+1. [Window Admin Center Azure Integration](Labs/WAC-Azure-Integration.md)
+1. [Azure Backup](Labs/Azure-backup.md)
