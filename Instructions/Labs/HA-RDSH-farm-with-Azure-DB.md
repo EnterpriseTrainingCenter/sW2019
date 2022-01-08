@@ -19,7 +19,7 @@
 
 ## Exercises
 
-1. [Install prerequisites & provision Azure SQL](#exercise-1-install-prerequisites-and-provision-azure-sql)
+1. [Install prerequisites and provision Azure SQL](#exercise-1-install-prerequisites-and-provision-azure-sql)
 1. [Configure Remote Desktop roles and implement High Availability](#exercise-2-configure-remote-desktop-roles-and-implement-high-availability)
 1. [Personal Session Desktops](#exercise-3-personal-session-desktops)
 
@@ -239,9 +239,9 @@ Perform these steps on FS.
 1. On page Create a resource, on the left, click **Databases**.
 1. Under **SQL Database**, click **Create**.
 1. In **Resource group**, select **HARDSH-** (followed by your user name) ([figure 2]).
-1. In **Database name**, enter **RDDB_** followed by your last name ([figure 2]).
+1. In **Database name**, enter **RDDB_** followed by your user name ([figure 2]).
 1. Below **Server**, click the link **Create new** ([figure 2]).
-1. On page **Create SQL Database Server**, in **Server name**, enter a worldwide unique name, e.g. yourlastname-sql ([figure 3]).
+1. On page **Create SQL Database Server**, in **Server name**, enter a worldwide unique name, e.g. sql-yourusername ([figure 3]).
 1. In **Location**, choose a location next to you, e.g. **(Europe) North Europe** ([figure 3]).
 
     Your instructor will help you choosing an appropriate location.
@@ -334,12 +334,12 @@ Perform these steps on FS.
 1. Create a virtual SQL server.
 
     ````powershell
-    $resourceGroup = Get-AzResourceGroup -Name 'HARDSH-Susi'
+    $resourceGroup = Get-AzResourceGroup -Name 'HARDSH-' # append your user name
     $resourceGroupName = $resourceGroup.ResourceGroupName
     $location = $resourceGroup.Location
 
     # choose a worldwide unique server name, e.g. yourlastname-sql
-    $serverName = '-sql'
+    $serverName = 'sql-' # append your user name
 
     $azSqlServer = New-AzSqlServer `
         -ResourceGroupName $resourceGroupName `
@@ -353,7 +353,7 @@ Perform these steps on FS.
 1. Create an Azure SQL database with the Edition **Basic** and a **Local** backup storage redundancy.
 
     ````powershell
-    $databaseName = 'RDDB_' # append your last name, e.g. RDDB_Sorglos
+    $databaseName = 'RDDB_' # append your user name, e.g. RDDB_Susi
 
     New-AzSqlDatabase `
         -ResourceGroupName $resourceGroupName `
