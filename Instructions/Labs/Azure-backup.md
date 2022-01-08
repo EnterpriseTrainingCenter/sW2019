@@ -139,13 +139,6 @@ Perform these steps on FS.
     Wait for the deployment to complete.
 
 1. On the deployment page, click **Go to resource**.
-1. On the page **backup-vault-** followed by your user name, under **Settings**, click **Properties**.
-1. In Properties, under **Backup**, **Security Settings**, click the link **Update**.1
-1. In pane **Security Settings**, under **Soft Delete**, click **Disable**. Under **Security Features**, click **Disable**. Near the top, click **Save**.
-
-    *Note:** In a real-world scenario, you would not disable these settings.
-
-1. Close the pane **Security Settings**.
 
 #### PowerShell
 
@@ -184,24 +177,13 @@ Perform these steps on FS.
     ````powershell
     $resourceGroupName = 'Recovery-' # append your user name
     $resourceGroup = Get-AzResourceGroup -Name $resourceGroupName
+    $recoveryServicesVaultName = 'backup-vault-' # append your user name
 
     $recoveryServicesVault = New-AzRecoveryServicesVault `
         -ResourceGroupName $resourceGroupName `
-        -Name 'backup-vault-' ` # append your user name
+        -Name $recoveryServicesVaultName `
         -Location $resourceGroup.Location
     ````
-
-1. Disable the soft delete feature in the Recovery Services vault.
-
-    ````powershell
-    Set-AzRecoveryServicesVaultProperty `
-        -VaultId $recoveryServicesVault.ID `
-        -SoftDeleteFeatureState Disable
-    ````
-
-    *Note:** In a real-world scenario, you would not disable these settings.
-
-    *Note:** Currently it is not possible to update the enhanced security state using PowerShell.
 
 ### Task 2: Register a server with the Backup Vault
 
@@ -287,6 +269,12 @@ Perform these steps on FS.
     Start-Process -FilePath $filePath -ArgumentList '/q /nu' -Wait
     ````
 
+    If you receive an unexpected error with the ID 116, start the Windows Update service and repeat the command above.
+
+    ````powershell
+    Set-Service wuauserv -StartupType Automatic | Start-Service
+    ````
+
 1. Download the Vault Settings file.
 
     ````powershell
@@ -335,7 +323,7 @@ Perform these steps on FS.
     $encryptionPassPhrase = Read-Host `
         -Prompt 'Type the encryption passphrase' `
         -AsSecureString
-    Set-OBMachineSetting -EncryptionPassphrase $encryptionPassPrase
+    Set-OBMachineSetting -EncryptionPassphrase $encryptionPassPhrase
     ````
 
     At the prompt, enter a secure string.
@@ -417,7 +405,6 @@ In this exercise you will create a backup schedule for C:\SampleDocuments on FS.
 2. [Start the initial Backup](#task-2-start-the-initial-backup)
 3. [Review backups in Azure Portal](#task-3-review-backups-in-azure-portal)
 
-
 ### Task 1: Schedule a Backup
 
 #### Desktop experience
@@ -474,7 +461,7 @@ Perform these steps on FS.
 1. The folder C:\SampleDocuments should be backed up. If the folder does not exist on FS, copy it from L:\.
 
     ````powershell
-    $fileSpec = New-OBFileSpec -FileSpec 'C:\'
+    $fileSpec = New-OBFileSpec -FileSpec 'C:\SampleDocuments'
     Add-OBFileSpec -Policy $policy -FileSpec $fileSpec
     ````
 
