@@ -128,7 +128,7 @@ Perform these steps on FS.
     |--------------------------|-------------------------------------------------------|
     | **Subscription**         | Select a subscription you want to use                 |
     | **Resource Group**       | Select **AzFS-** followed by your user name           |
-    | **Storage account name** | Your user name followed by **azfs** (lower-case only) |
+    | **Storage account name** | **azfs** followed by your user name (lower-case only) |
     | **Region**               | A region close to you, e.g. **(Europe) North Europe** |
     | **Performance**          | **Standard**                                          |
     | **Redundancy**           | **Locally-redundant storage (LRS)**                   |
@@ -174,10 +174,10 @@ Perform these steps on FS.
 1. Create a standard storage account with locally redundant storage in resource group **AZFS-** followed by your user name.
 
     ````powershell
-    $resourceGroup = Get-AzResourceGroup -Name 'AzFS-Susi'
+    $resourceGroup = Get-AzResourceGroup -Name 'AzFS-' # append your user name
     $resourceGroupName = $resourceGroup.ResourceGroupName
     $location = $resourceGroup.Location
-    $storageAccountName = 'azfs'  # prefix with your user name in lower case
+    $storageAccountName = 'azfs'  # append your user name in lower case
 
     $storageAccount = New-AzStorageAccount `
         -ResourceGroupName $resourceGroupName `
@@ -206,7 +206,7 @@ Perform these steps on FS.
 1. In **Windows PowerShell**, in the storage account created in the previous exercise, create a share with the name **azfs** and the access tier **Hot**.
 
     ````powershell
-    # $resourceGroup = Get-AzResourceGroup -Name 'AzFS-Susi'
+    # $resourceGroup = Get-AzResourceGroup -Name 'AzFS-' # append your user name
     # $resourceGroupName = $resourceGroup.ResourceGroupName
     # $storageAccountName = 'azfs'  # prefix with your user name in lower case
 
@@ -227,11 +227,11 @@ In this exercise, you will create an Azure File Sync service, register FS with t
 
 #### Tasks
 
-1. [Add Azure File Sync Service](#task-1-add-azure-file-sync-service)
+1. [Create Azure File Sync Service](#task-1-create-azure-file-sync-service)
 1. [Register the local server](#task-2-register-the-local-server)
 1. [Test Azure File Sync](#task-3-test-azure-file-sync)
 
-### Task 1: Add Azure File Sync Service
+### Task 1: Create Azure File Sync Service
 
 #### Desktop experience
 
@@ -382,7 +382,7 @@ Perform these steps on FS.
         -ServerLocalPath $serverLocalPath `
     ````
 
-    The directory C:\Sample Documents will be created automatically on the local server.
+    The directory C:\SampleDocuments will be created automatically on the local server.
 
 ### Task 3: Test Azure File Sync
 
