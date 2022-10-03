@@ -6,6 +6,7 @@ Currently, this repository contains labs for these courses:
 
 * [smart Windows Server 2019 Compute & Storage (sw2019-1)](Instructions/sW2019-1.md)
 * [smart Upgrading Skills from Windows Server 2012 (R2) to Windows Server 2016/2019 (sWUSS2019)](Instructions/sWUSS2019.md)
+* [Windows Server 2019 - What's New für IT-Pros](Instructions/s2019-WN.md)
 
 See also Issues not only containing current known issues with possible solutions, but also allows to raise new issues.
 
