@@ -309,7 +309,7 @@ Perform these steps on CL1.
 1. Install a new Failover Cluster. Ignore any warnings.
 
    ````powershell
-   $cluster = 'SR'
+   $clusterName = 'SR'
    # Variables can store comma-separated lists of values, i. e. arrays
    $node = 'SR1', 'SR2'
 
@@ -459,7 +459,7 @@ Perform these steps on SR1.
       -SourceRGName 'Replication 1' `
       -SourceVolumeName $sourceVolumeName `
       -SourceLogVolumeName E: `
-      -DestinationComputerName $node[1] $no `
+      -DestinationComputerName $node[1] `
       -DestinationRGName 'Replication 2' `
       -DestinationVolumeName D: `
       -DestinationLogVolumeName E: `
